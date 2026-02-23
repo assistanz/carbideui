@@ -32,14 +32,14 @@
   "carbideui"
 ],
   "module": "./fesm2022/carbideui.mjs",
-  "typings": "./index.d.ts",
+  "typings": "./types/carbideui.d.ts",
   "exports": {
     "./styles": "./styles/carbon.scss"
   },
   "files": [
     "fesm2022/",
     "styles/",
-    "index.d.ts",
+    "types/",
     "README.md",
     "LICENSE"
   ],
