@@ -1,0 +1,20 @@
+@use '@carbon/charts/scss' as *;
+
+.ngcc--charts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__loading,
+  &__empty,
+  &__container {
+    width: 100%;
+  }
+
+  &__empty {
+    text-align: center;
+    padding: 1rem 0;
+    color: var(--cds-text-secondary, #525252);
+  }
+}

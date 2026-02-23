@@ -1,0 +1,20 @@
+<div class="ngcc--charts" [attr.aria-label]="loading ? null : ariaLabel">
+  <!-- Loading -->
+  @if (loading) {
+    <div class="ngcc--charts__loading">
+      <ngcc-skeleton width="100%" [height]="chartHeight()" />
+    </div>
+  }
+
+  <!-- Empty -->
+  @if (!loading && !hasData()) {
+    <div class="ngcc--charts__empty" [style.height]="chartHeight()">
+      <p class="bx--label">{{ noDataMessage }}</p>
+    </div>
+  }
+
+  <!-- Chart -->
+  @if (hasData()) {
+    <div #chartContainer></div>
+  }
+</div>
