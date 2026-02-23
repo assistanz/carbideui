@@ -1,0 +1,68 @@
+@if (skeleton) {
+  <span class="cds--label cds--skeleton"></span>
+  <div class="cds--text-input cds--skeleton"></div>
+} @else {
+  @if (label) {
+    <label class="cds--label" [attr.for]="inputId">
+      {{ label }}
+      @if (required) {
+        <span class="cds--input-required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <div class="cds--text-input__field-outer-wrapper">
+    <div class="cds--text-input__field-wrapper">
+      <input
+        class="cds--text-input"
+        [class.cds--password-input]="type === 'password'"
+        [id]="inputId"
+        [type]="effectiveType()"
+        [value]="getValue()"
+        (input)="onInput($event)"
+        (blur)="onBlur()"
+        [attr.placeholder]="placeholder"
+        [readonly]="readonly"
+        [disabled]="isDisabled()"
+        [attr.aria-required]="required ? 'true' : 'false'"
+        [attr.aria-invalid]="invalid_value() ? 'true' : 'false'"
+        [attr.aria-describedby]="describedBy()"
+        [attr.aria-label]="computedAriaLabel()"
+        [attr.data-invalid]="invalid_value() ? 'true' : null"
+      />
+
+      @if (type === 'password') {
+        <ngcc-icon
+          class="cds--text-input--password__visibility__toggle ngcc--input-password__icon"
+          (click)="togglePasswordVisibility()"
+          [name]="showPassword() ? 'hide' : 'view'"
+          size="md"
+          tabindex="0"
+          aria-label="Toggle password visibility"
+        />
+      }
+
+      @if (invalid_value()) {
+        <ngcc-icon
+          class="cds--text-input__icon cds--text-input__icon--right"
+          [class.ngcc--input-field__icon]="type === 'password'"
+          [class.ngcc--input-field__icon_only]="type !== 'password'"
+          [name]="'error'"
+          color="#da1e28"
+          size="sm"
+        />
+      }
+    </div>
+
+    @if (invalid_value()) {
+      <div class="ngcc--form-requirement" [id]="inputId + '-error'">
+        {{ error_msg() }}
+      </div>
+    }
+    @if (helperText && !invalid_value()) {
+      <div class="cds--form__helper-text" [id]="inputId + '-helper'">
+        {{ helperText }}
+      </div>
+    }
+  </div>
+}

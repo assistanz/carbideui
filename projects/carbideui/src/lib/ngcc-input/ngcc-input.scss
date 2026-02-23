@@ -1,0 +1,42 @@
+.cds--form-item {
+  margin-bottom: 1rem;
+}
+
+.cds--text-input {
+  border-radius: var(--ngcc--input-corner-radius);
+  -webkit-border-radius: var(--ngcc--input-corner-radius);
+  -moz-border-radius: var(--ngcc--input-corner-radius);
+  -ms-border-radius: var(--ngcc--input-corner-radius);
+  -o-border-radius: var(--ngcc--input-corner-radius);
+}
+
+.ngcc--input-password__icon {
+  position: absolute;
+  right: 0.7rem;
+  top: 0.7rem;
+  cursor: pointer;
+}
+
+.ngcc--input-field__icon {
+  position: absolute;
+  right: 2.5rem;
+  top: 0.8rem;
+  cursor: pointer;
+}
+
+.ngcc--input-field__icon_only {
+  position: absolute;
+  right: 0.7rem;
+  top: 0.8rem;
+  cursor: pointer;
+}
+
+.ngcc--form-requirement {
+  display: block;
+  overflow: visible;
+  font-size: 12px;
+  font-weight: 400;
+  max-block-size: 12.5rem;
+  color: #da1e28;
+  margin-top: 0.3rem;
+}

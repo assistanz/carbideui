@@ -1,0 +1,11 @@
+/* Hide spinners if hideArrows = true */
+:host-context([hideArrows='true']) input[type='number']::-webkit-outer-spin-button,
+:host-context([hideArrows='true']) input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+:host-context([hideArrows='true']) input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,47 @@
+@if (getSkeleton()) {
+  <span class="cds--label cds--skeleton"></span>
+  <div class="cds--text-area cds--skeleton"></div>
+} @else {
+  @if (getLabel()) {
+    <div class="cds--text-area__label-wrapper">
+      <label class="cds--label" [attr.for]="inputId">
+        {{ getLabel() }}
+        @if (getRequired()) {
+          <span class="cds--input-required" aria-hidden="true">*</span>
+        }
+      </label>
+    </div>
+  }
+
+  <div class="cds--text-area__wrapper" [attr.data-invalid]="invalid_value() ? 'true' : 'false'">
+    <textarea
+      class="cds--text-area"
+      [class.cds--text-area--invalid]="invalid_value()"
+      [id]="inputId"
+      [rows]="getRows()"
+      [value]="value"
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+      [attr.placeholder]="getPlaceholder()"
+      [readonly]="getReadonly()"
+      [disabled]="getDisabled()"
+      [attr.maxlength]="getMaxLength() ?? null"
+      [attr.minlength]="getMinLength() ?? null"
+      [attr.aria-required]="getRequired() ? 'true' : 'false'"
+      [attr.aria-invalid]="invalid_value() ? 'true' : 'false'"
+      [attr.aria-describedby]="describedBy()"
+      [attr.aria-label]="computedAriaLabel()"
+    ></textarea>
+  </div>
+
+  @if (invalid_value()) {
+    <div class="ngcc--form-requirement" [id]="inputId + '-error'">
+      {{ error_msg() }}
+    </div>
+  }
+  @if (getHelperText() && !invalid_value()) {
+    <div class="cds--form__helper-text" [id]="inputId + '-helper'">
+      {{ getHelperText() }}
+    </div>
+  }
+}

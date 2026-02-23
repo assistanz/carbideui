@@ -1,0 +1,60 @@
+@if (getSkeleton()) {
+  <span class="cds--label cds--skeleton"></span>
+  <div class="cds--text-input cds--skeleton"></div>
+} @else {
+  @if (getLabel()) {
+    <div class="cds--text-area__label-wrapper">
+      <label class="cds--label" [attr.for]="inputId">
+        {{ getLabel() }}
+        @if (getRequired()) {
+          <span class="cds--input-required" aria-hidden="true">*</span>
+        }
+      </label>
+    </div>
+  }
+
+  <div class="cds--text-input__field-outer-wrapper">
+    <div class="cds--text-input__field-wrapper">
+      <input
+        class="cds--text-input"
+        [id]="inputId"
+        type="text"
+        [value]="value"
+        (input)="onInput($event)"
+        (blur)="onBlur()"
+        [attr.placeholder]="getPlaceholder()"
+        [readonly]="getReadonly()"
+        [disabled]="getDisabled()"
+        [attr.aria-required]="getRequired() ? true : false"
+        [attr.aria-invalid]="invalid_value() ? 'true' : 'false'"
+        [attr.aria-describedby]="describedBy()"
+        [attr.aria-label]="computedAriaLabel()"
+        [attr.data-invalid]="invalid_value() ? true : null"
+        [attr.inputmode]="getDecimalOnly() ? 'decimal' : 'numeric'"
+        [attr.pattern]="getDecimalOnly() ? '[0-9]*[.,]?[0-9]*' : '[0-9]*'"
+        [attr.min]="getMin() ?? null"
+        [attr.max]="getMax() ?? null"
+        [attr.step]="getStep() ?? null"
+      />
+      @if (invalid_value()) {
+        <ngcc-icon
+          class="cds--text-input__icon cds--text-input__icon--right ngcc--input-field__icon_only"
+          [name]="'error'"
+          color="#da1e28"
+          size="sm"
+        />
+      }
+    </div>
+
+    @if (invalid_value()) {
+      <div class="ngcc--form-requirement" [id]="inputId + '-error'">
+        {{ error_msg() }}
+      </div>
+    }
+    @if (getHelperText() && !invalid_value()) {
+      <div class="cds--form__helper-text" [id]="inputId + '-helper'">
+        {{ getHelperText() }}
+      </div>
+    }
+  </div>
+}
