@@ -1,0 +1,51 @@
+@if (isVisible()) {
+  <div
+    class="cds--toast-notification"
+    [class.cds--toast-notification--error]="cfg?.type === 'error'"
+    [class.cds--toast-notification--info]="cfg?.type === 'info'"
+    [class.cds--toast-notification--success]="cfg?.type === 'success'"
+    [class.cds--toast-notification--warning]="cfg?.type === 'warning'"
+    [class.cds--toast-notification--low-contrast]="cfg?.lowContrast"
+    [attr.role]="role()"
+    [attr.aria-live]="ariaLive()"
+  >
+    @if (!cfg?.hideIcon) {
+      <ngcc-icon
+        [name]="iconName()"
+        class="cds--toast-notification__icon"
+        color="cds--toast-notification__icon"
+      />
+    }
+
+    <div class="cds--toast-notification__details">
+      <h3 class="cds--toast-notification__title">{{ cfg?.title }}</h3>
+      @if (cfg?.subtitle) {
+        <p class="cds--toast-notification__subtitle">{{ cfg?.subtitle }}</p>
+      }
+      @if (cfg?.caption) {
+        <p class="cds--toast-notification__caption">{{ cfg?.caption }}</p>
+      }
+    </div>
+
+    @if (cfg?.showClose) {
+      <button
+        type="button"
+        class="cds--toast-notification__close-button"
+        aria-label="Close notification"
+        (click)="close()"
+      >
+        <svg
+          class="cds--toast-notification__close-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+          width="16"
+          height="16"
+        >
+          <path
+            d="M24 9.41 22.59 8 16 14.59 9.41 8 8 9.41 14.59 16 8 22.59 9.41 24 16 17.41 22.59 24 24 22.59 17.41 16 24 9.41z"
+          />
+        </svg>
+      </button>
+    }
+  </div>
+}
