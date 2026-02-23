@@ -10,14 +10,14 @@
     ],
     "@semantic-release/release-notes-generator",
     [
-      "@semantic-release/npm",
-      { "pkgRoot": "dist/carbideui" }
-    ],
-    [
       "@semantic-release/exec",
       {
-        "prepareCmd": "npm --prefix projects/carbideui version ${nextRelease.version} --no-git-tag-version && npm run build:lib"
+        "prepareCmd": "npm run build:lib && npm version ${nextRelease.version} --no-git-tag-version --prefix dist/carbideui && test -f dist/carbideui/index.d.ts"
       }
+    ],
+    [
+      "@semantic-release/npm",
+      { "pkgRoot": "dist/carbideui" }
     ],
     [
       "@semantic-release/github",

@@ -1,6 +1,6 @@
-# Contributing to Carbideui NGCC
+# Contributing to CarbideUi NGCC
 
-Thank you for your interest in contributing to **arbideui NGCC** (Angular Carbon Components)! This guide covers everything you need to know — from setting up your environment to submitting a polished pull request.
+Thank you for your interest in contributing to **CarbideUi NGCC** (Angular Carbide Components)! This guide covers everything you need to know — from setting up your environment to submitting a polished pull request.
 
 > **Inspired by:** The [Carbon Design System](https://github.com/carbon-design-system/carbon) contributing guidelines.
 
