@@ -49,7 +49,7 @@ Closes #
 
 ## Developer Certificate of Origin
 
-By submitting this pull request, I certify that my contribution is made under the terms of the [Developer Certificate of Origin](https://developercertificate.org/).
+By submitting this pull request, I certify that my contribution is made under the terms of the [Developer Certificate of Origin](https://github.com/assistanz/carbideui-dco/blob/main/dco.md).
 
 <!-- Every commit must be signed off with `git commit -s`. If commits are missing sign-off, run: git rebase --signoff HEAD~<n> && git push --force-with-lease -->
 

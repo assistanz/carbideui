@@ -340,7 +340,7 @@ Labels are automatically added based on files changed:
 
 ## Developer Certificate of Origin (DCO)
 
-This project requires all contributors to agree to the [Developer Certificate of Origin](https://developercertificate.org/) to certify that they have the right to submit their work under the project’s license.
+This project requires all contributors to agree to the [Developer Certificate of Origin](https://github.com/assistanz/carbideui-dco/blob/main/dco.md) to certify that they have the right to submit their work under the project’s license.
 
 ### Sign off each commit (required)
 
@@ -363,7 +363,7 @@ git rebase --signoff HEAD~<number-of-commits>
 git push --force-with-lease
 ```
 
-> **Important:** Every commit in the PR must include a `Signed-off-by` line. The DCO check is strictly commit-based — PR comments are not accepted as an alternative.
+> **Important:** Every commit in the PR must include a `Signed-off-by` line. The DCO check is commit-based — the CI bot validates each commit individually.
 
 ## Issue Guidelines
 

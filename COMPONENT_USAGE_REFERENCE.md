@@ -1,4 +1,4 @@
-# NGCC - Complete Usage Reference
+# CarbideUi NGCC - Complete Usage Reference
 
 Quick reference guide for all components with use cases, capabilities, and examples.
 
