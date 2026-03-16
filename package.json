@@ -43,8 +43,8 @@
     "@angular/platform-browser": "^20.0.0 || ^21.0.0",
     "@angular/platform-browser-dynamic": "^20.0.0 || ^21.0.0",
     "@angular/router": "^20.0.0 || ^21.0.0",
-    "@carbon/charts": "^1.27.2",
-    "@carbon/styles": "^1.98.0",
+    "@carbon/charts": "^1.27.3",
+    "@carbon/styles": "^1.102.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
