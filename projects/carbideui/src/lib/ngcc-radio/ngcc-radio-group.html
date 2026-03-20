@@ -1,0 +1,39 @@
+<fieldset
+  [class]="fieldsetClasses()"
+  [attr.aria-label]="ariaLabel() ?? null"
+  [attr.aria-labelledby]="ariaLabelledby() ?? null"
+  [attr.data-invalid]="invalid() ? true : null"
+>
+  @if (legend()) {
+    <legend class="cds--label">{{ legend() }}</legend>
+  }
+  <ng-content />
+</fieldset>
+
+<!-- Validation messages — invalid takes priority over warn -->
+<div class="cds--radio-button__validation-msg">
+  @if (invalid()) {
+    <ngcc-icon
+      name="error"
+      size="sm"
+      [decorative]="true"
+      svgClass="cds--radio-button__invalid-icon"
+    />
+    <div class="cds--form-requirement">{{ invalidText() }}</div>
+  } @else if (warn()) {
+    <ngcc-icon
+      name="warn"
+      size="sm"
+      [decorative]="true"
+      svgClass="cds--radio-button__invalid-icon cds--radio-button__invalid-icon--warning"
+    />
+    <div class="cds--form-requirement">{{ warnText() }}</div>
+  }
+</div>
+
+<!-- Helper text — hidden when invalid or warn is active -->
+@if (helperText() && !invalid() && !warn()) {
+  <div class="cds--form__helper-text" [class.cds--form__helper-text--disabled]="isDisabled()">
+    {{ helperText() }}
+  </div>
+}

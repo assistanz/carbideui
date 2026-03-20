@@ -23,7 +23,7 @@ import { IconSize } from './ngcc-icon.types';
         [attr.viewBox]="viewBox()"
         [style.width.rem]="sizeInRem()"
         [style.height.rem]="sizeInRem()"
-        [style.fill]="getColor()"
+        [style.fill]="fillStyle()"
         [innerHTML]="svg()"
         [attr.aria-label]="isDecorative() ? null : effectiveAriaLabel()"
         [attr.aria-hidden]="isDecorative() ? 'true' : null"
@@ -70,10 +70,11 @@ export class NgccIcon implements OnChanges {
     xl: 1.9,
   };
 
-  // Template accessor methods
-  getColor(): string {
+  // Returns null when svgClass is set and color is default, so CSS class fill takes effect.
+  fillStyle = computed<string | null>(() => {
+    if (this._svgClass() && this._color() === 'currentColor') return null;
     return this._color();
-  }
+  });
 
   // Computed size in rem
   sizeInRem = computed(() => {

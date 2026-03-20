@@ -11,6 +11,11 @@ export * from './lib/ngcc-icons/ngcc-icon';
 // Checkbox
 export * from './lib/ngcc-checkbox/ngcc-checkbox';
 
+// Radio
+export * from './lib/ngcc-radio/ngcc-radio';
+export * from './lib/ngcc-radio/ngcc-radio-group';
+export * from './lib/ngcc-radio/ngcc-radio.types';
+
 // Datepicker
 export * from './lib/ngcc-datepicker/ngcc-date-picker';
 export * from './lib/ngcc-datepicker/ngcc-date-picker-calendar';

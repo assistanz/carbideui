@@ -163,9 +163,97 @@ countries: NgccDropdownItem<string>[] = [
 
 ---
 
+### 6. NgccRadioGroup / NgccRadio
+
+**What it does**: A group of mutually exclusive radio buttons for single-option selection from a set.
+
+**When to use**:
+- Selecting one option from a small, visible set (2–5 choices)
+- Settings pages (choose a plan, pick a preference)
+- Forms requiring a required single choice
+- When choices should all be visible at once (prefer over dropdown for ≤5 options)
+
+**Key Features**:
+- **ControlValueAccessor**: Works with `[(ngModel)]`, `[formControl]`, and `formControlName`
+- **Orientation**: `horizontal` (default) or `vertical` layout
+- **Label placement**: `right` (default) or `left`
+- **Validation states**: `invalid` + `invalidText`, `warn` + `warnText`
+- **Helper text**: Guidance shown below the group
+- **Legend**: Accessible fieldset caption
+- **Read-only**: Prevents changes without disabling
+- **Disabled**: Entire group or individual radio buttons
+- **Skeleton**: Loading placeholder state
+
+**NgccRadioGroup inputs**:
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `legend` | `string` | — | Fieldset caption |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction |
+| `labelPlacement` | `'right' \| 'left'` | `'right'` | Label position relative to radio |
+| `helperText` | `string` | — | Guidance text below the group |
+| `invalid` | `boolean` | `false` | Marks group as invalid |
+| `invalidText` | `string` | — | Error message when `invalid=true` |
+| `warn` | `boolean` | `false` | Marks group with a warning |
+| `warnText` | `string` | — | Warning message when `warn=true` |
+| `disabled` | `boolean` | `false` | Disables all radios in the group |
+| `readOnly` | `boolean` | `false` | Prevents selection changes |
+| `skeleton` | `boolean` | `false` | Shows skeleton loading state |
+| `ariaLabel` | `string` | — | `aria-label` on the fieldset |
+| `ariaLabelledby` | `string` | — | `aria-labelledby` on the fieldset |
+
+**NgccRadio inputs**:
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `value` | `unknown` | `null` | Value emitted when this radio is selected |
+| `disabled` | `boolean` | `false` | Disables this individual radio |
+| `labelPlacement` | `'right' \| 'left'` | `'right'` | Overridden by group when inside a group |
+| `skeleton` | `boolean` | `false` | Skeleton state (overridden by group) |
+
+**Output** (`NgccRadioGroup`): `change` — emits `{ value, source: NgccRadio }` on selection.
+
+**Example — basic with ngModel**:
+```typescript
+<ngcc-radio-group
+  [(ngModel)]="selectedPlan"
+  legend="Select a plan"
+  helperText="You can change this later"
+>
+  <ngcc-radio value="starter">Starter</ngcc-radio>
+  <ngcc-radio value="pro">Pro</ngcc-radio>
+  <ngcc-radio value="enterprise">Enterprise</ngcc-radio>
+</ngcc-radio-group>
+```
+
+**Example — reactive form**:
+```typescript
+<ngcc-radio-group
+  formControlName="plan"
+  legend="Choose a plan"
+  [invalid]="form.get('plan')?.invalid && form.get('plan')?.touched"
+  invalidText="Please select an option to continue."
+>
+  <ngcc-radio value="starter">Starter</ngcc-radio>
+  <ngcc-radio value="pro">Pro</ngcc-radio>
+  <ngcc-radio value="enterprise">Enterprise</ngcc-radio>
+</ngcc-radio-group>
+```
+
+**Example — vertical layout with one disabled radio**:
+```typescript
+<ngcc-radio-group orientation="vertical" legend="Notification preference">
+  <ngcc-radio value="email">Email</ngcc-radio>
+  <ngcc-radio value="sms">SMS</ngcc-radio>
+  <ngcc-radio value="none" [disabled]="true">None (unavailable)</ngcc-radio>
+</ngcc-radio-group>
+```
+
+---
+
 ## ACTION COMPONENTS
 
-### 6. NgccButton
+### 7. NgccButton
 
 **What it does**: Clickable action trigger with multiple styles and sizes.
 
