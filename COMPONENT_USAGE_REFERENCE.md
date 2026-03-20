@@ -658,6 +658,107 @@ onDelete(): void {
 
 ---
 
+### 16. NgccBreadcrumb
+
+**What it does**: Shows the user's current location within a site hierarchy as a navigable trail of links.
+
+**When to use**:
+- Multi-level page hierarchies (e.g. Home › Products › Details)
+- Help users understand where they are and navigate back
+- Any page that is more than one level deep in the IA
+
+**Key Features**:
+- **Sizes**: `sm`, `md` (default)
+- **No trailing slash**: `noTrailingSlash` removes the `/` after the last item
+- **Disabled items**: Individual items can be non-navigable (`disabled: true`)
+- **External links**: `target="_blank"` and `rel` per item
+- **Router links**: `routerLink` per item for SPA navigation
+- **Skeleton loading**: `skeleton` + `skeletonCount` for loading state
+- **Auto-current**: Last item in `items` array is automatically marked as current (non-link span)
+- **Custom current**: Override auto-detection with `current: true` on any item
+
+**Inputs — NgccBreadcrumbComponent**:
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `items` | `NgccBreadcrumbItem[]` | `[]` | Breadcrumb trail items |
+| `size` | `'sm' \| 'md'` | `'md'` | Compact or standard size |
+| `noTrailingSlash` | `boolean` | `false` | Hide separator after last item |
+| `skeleton` | `boolean` | `false` | Show skeleton loading state |
+| `skeletonCount` | `number` | `3` | Number of skeleton placeholders |
+| `ariaLabel` | `string` | `'Breadcrumb'` | `aria-label` on the `<nav>` |
+
+**NgccBreadcrumbItem interface**:
+```typescript
+interface NgccBreadcrumbItem {
+  label: string;
+  href?: string;               // Standard anchor href
+  routerLink?: string | string[]; // Angular router navigation
+  current?: boolean;           // Mark as current page (auto-set for last item)
+  disabled?: boolean;          // Non-navigable, greyed out
+  target?: string;             // e.g. '_blank' for external links
+  rel?: string;                // e.g. 'noopener noreferrer'
+}
+```
+
+**Examples**:
+
+```html
+<!-- Default -->
+<ngcc-breadcrumb [items]="breadcrumbs" />
+
+<!-- No trailing slash on current page -->
+<ngcc-breadcrumb [items]="breadcrumbs" [noTrailingSlash]="true" />
+
+<!-- Small size -->
+<ngcc-breadcrumb size="sm" [items]="breadcrumbs" />
+
+<!-- Skeleton loading state -->
+<ngcc-breadcrumb [skeleton]="isLoading()" [skeletonCount]="3" />
+
+<!-- Custom aria-label -->
+<ngcc-breadcrumb [items]="breadcrumbs" ariaLabel="Page navigation" />
+```
+
+```typescript
+// Component
+breadcrumbs: NgccBreadcrumbItem[] = [
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'Details' },                    // Last item auto-marked as current
+];
+
+// With disabled item
+breadcrumbs: NgccBreadcrumbItem[] = [
+  { label: 'Home', href: '/' },
+  { label: 'Restricted', href: '/restricted', disabled: true },
+  { label: 'Details' },
+];
+
+// With router navigation
+breadcrumbs: NgccBreadcrumbItem[] = [
+  { label: 'Home', routerLink: '/' },
+  { label: 'Products', routerLink: ['/products'] },
+  { label: 'Details' },
+];
+
+// With external links
+breadcrumbs: NgccBreadcrumbItem[] = [
+  { label: 'Home', href: 'https://example.com', target: '_blank', rel: 'noopener noreferrer' },
+  { label: 'Docs', href: 'https://docs.example.com', target: '_blank', rel: 'noopener noreferrer' },
+  { label: 'API' },
+];
+```
+
+**Notes**:
+- Import `NgccBreadcrumbComponent` — the item component is used internally
+- Add `provideRouter([])` to the app providers (required even if not using `routerLink`)
+- The last item renders as a `<span>` (not a link) — Carbon's pattern for the current page
+- `disabled` removes the `href`/`routerLink` and applies `cds--link--disabled` styling
+- `skeleton` on the container replaces all items; per-item skeleton is not exposed
+
+---
+
 ## DATA VISUALIZATION COMPONENTS (Requires @carbon/charts)
 
 ### 17. NgccBaseChart
@@ -880,6 +981,7 @@ setBrandColor(color: string): void {
 | Confirm action | NgccModal | NgccNotification (less intrusive) |
 | Multiple sections | NgccTabs | NgccAccordion (if space-saving) |
 | Hide/Show content | NgccAccordion | NgccTabs (if tab-like) |
+| Show page location | NgccBreadcrumb | NgccTabs (if section-level nav) |
 | Compare values | NgccBarChart | NgccLineChart (if over time) |
 | Show trend | NgccLineChart | NgccBarChart (if discrete) |
 | Show composition | NgccDonutChart | NgccBarChart (if comparison) |

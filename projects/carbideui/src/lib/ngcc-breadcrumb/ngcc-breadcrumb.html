@@ -1,0 +1,25 @@
+<nav
+  class="cds--breadcrumb"
+  [class.cds--breadcrumb--sm]="size() === 'sm'"
+  [class.cds--skeleton]="skeleton()"
+  [class.cds--breadcrumb--no-trailing-slash]="noTrailingSlash()"
+  [attr.aria-label]="ariaLabel()"
+>
+  @if (skeleton()) {
+    @for (item of skeletonItems(); track $index) {
+      <ngcc-breadcrumb-item [skeleton]="true" />
+    }
+  } @else {
+    @for (item of resolvedItems(); track $index) {
+      <ngcc-breadcrumb-item
+        [label]="item.label"
+        [href]="item.href"
+        [routerLink]="item.routerLink"
+        [current]="item.current"
+        [disabled]="item.disabled || false"
+        [target]="item.target"
+        [rel]="item.rel"
+      />
+    }
+  }
+</nav>

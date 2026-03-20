@@ -104,3 +104,8 @@ export * from './lib/ngcc-header/header-global/ngcc-header-global';
 export * from './lib/ngcc-header/header-action/ngcc-header-action';
 export * from './lib/ngcc-header/header-panel/ngcc-header-panel';
 export * from './lib/ngcc-header/hamburger/ngcc-hamburger';
+
+// Breadcrumb
+export * from './lib/ngcc-breadcrumb/ngcc-breadcrumb';
+export * from './lib/ngcc-breadcrumb/ngcc-breadcrumb.types';
+export * from './lib/ngcc-breadcrumb/ngcc-breadcrumb-item';

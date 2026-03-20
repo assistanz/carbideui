@@ -1,0 +1,25 @@
+@if (skeleton()) {
+  <span class="cds--link"></span>
+} @else if (current()) {
+  <span aria-current="page">{{ label() }}<ng-content /></span>
+} @else if (routerLink()) {
+  <a
+    class="cds--link"
+    [class.cds--link--disabled]="disabled()"
+    [routerLink]="disabled() ? null : routerLink()"
+    [attr.target]="target() ?? null"
+    [attr.rel]="rel() ?? null"
+    [attr.aria-disabled]="disabled() ? true : null"
+    >{{ label() }}<ng-content
+  /></a>
+} @else {
+  <a
+    class="cds--link"
+    [class.cds--link--disabled]="disabled()"
+    [attr.href]="disabled() ? null : (href() ?? null)"
+    [attr.target]="target() ?? null"
+    [attr.rel]="rel() ?? null"
+    [attr.aria-disabled]="disabled() ? true : null"
+    >{{ label() }}<ng-content
+  /></a>
+}
