@@ -206,7 +206,7 @@ countries: NgccDropdownItem<string>[] = [
 
 | Input | Type | Default | Description |
 |---|---|---|---|
-| `value` | `unknown` | `null` | Value emitted when this radio is selected |
+| `value` | `T \| null` | `null` | Value emitted when this radio is selected |
 | `disabled` | `boolean` | `false` | Disables this individual radio |
 | `labelPlacement` | `'right' \| 'left'` | `'right'` | Overridden by group when inside a group |
 | `skeleton` | `boolean` | `false` | Skeleton state (overridden by group) |
@@ -306,7 +306,7 @@ countries: NgccDropdownItem<string>[] = [
 
 ## DATA COMPONENTS
 
-### 7. NgccTable
+### 8. NgccTable
 
 **What it does**: Displays tabular data with sorting, pagination, and search.
 
@@ -356,7 +356,7 @@ tableConfig: NgccTableConfig = {
 
 ---
 
-### 8. NgccPagination
+### 9. NgccPagination
 
 **What it does**: Navigate between pages of data.
 
@@ -386,7 +386,7 @@ tableConfig: NgccTableConfig = {
 
 ## FEEDBACK COMPONENTS
 
-### 9. NgccNotification
+### 10. NgccNotification
 
 **What it does**: Display persistent notifications in top-right corner (via service).
 
@@ -433,7 +433,7 @@ showError(): void {
 
 ---
 
-### 10. NgccToast
+### 11. NgccToast
 
 **What it does**: Transient toast messages (similar to notifications but more temporary).
 
@@ -466,7 +466,7 @@ copyToClipboard(): void {
 
 ---
 
-### 11. NgccModal
+### 12. NgccModal
 
 **What it does**: Modal dialog for confirmations, alerts, or multi-step forms.
 
@@ -521,7 +521,7 @@ onDelete(): void {
 
 ---
 
-### 12. NgccTooltip
+### 13. NgccTooltip
 
 **What it does**: Hover-triggered helper text over elements.
 
@@ -555,7 +555,7 @@ onDelete(): void {
 
 ---
 
-### 13. NgccSkeleton
+### 14. NgccSkeleton
 
 **What it does**: Placeholder while loading content.
 
@@ -583,7 +583,7 @@ onDelete(): void {
 
 ## NAVIGATION COMPONENTS
 
-### 14. NgccTabs
+### 15. NgccTabs
 
 **What it does**: Tabbed content interface with switchable panels.
 
@@ -622,7 +622,7 @@ onDelete(): void {
 
 ---
 
-### 15. NgccAccordion
+### 16. NgccAccordion
 
 **What it does**: Expandable/collapsible sections for content organization.
 
@@ -660,7 +660,7 @@ onDelete(): void {
 
 ## DATA VISUALIZATION COMPONENTS (Requires @carbon/charts)
 
-### 16. NgccBaseChart
+### 17. NgccBaseChart
 
 **What it does**: Base directive/class that normalizes chart inputs and lifecycle for concrete chart components (bar, line, donut, gauge).
 
@@ -685,7 +685,7 @@ export class NgccBarChart extends NgccBaseChart<BarChartOptions> {
 **Notes**: Chart components require `@carbon/charts` in the consumer app to render. Use `NgccBaseChart` behavior when creating custom chart wrappers.
 
 
-### 16. NgccBarChart
+### 18. NgccBarChart
 
 **What it does**: Display data as vertical bars for comparison.
 
@@ -714,7 +714,7 @@ barChartData = {
 
 ---
 
-### 17. NgccLineChart
+### 19. NgccLineChart
 
 **What it does**: Display trends over time with connected points.
 
@@ -742,7 +742,7 @@ lineChartData = {
 
 ---
 
-### 18. NgccDonutChart
+### 20. NgccDonutChart
 
 **What it does**: Display composition as circular segments (percentage distribution).
 
@@ -768,7 +768,7 @@ donutData = {
 
 ---
 
-### 19. NgccGaugeChart
+### 21. NgccGaugeChart
 
 **What it does**: Circular gauge for showing single metric/percentage.
 
@@ -791,7 +791,7 @@ donutData = {
 
 ## THEMING COMPONENTS
 
-### 20. NgccColorThemeService
+### 22. NgccColorThemeService
 
 **What it does**: Programmatic theme switching and brand color customization.
 
@@ -828,7 +828,7 @@ setBrandColor(color: string): void {
 
 ---
 
-### 21. NgccColorThemeSwitcher
+### 23. NgccColorThemeSwitcher
 
 **What it does**: Pre-built UI component for user theme selection.
 
@@ -846,7 +846,7 @@ setBrandColor(color: string): void {
 
 ## ICONS
 
-### 22. NgccIcon
+### 24. NgccIcon
 
 **What it does**: Render Carbon Design System icons.
 

@@ -52,7 +52,7 @@ let radioGroupIdCounter = 0;
   },
   templateUrl: './ngcc-radio-group.html',
 })
-export class NgccRadioGroup implements ControlValueAccessor, NgccRadioGroupContext {
+export class NgccRadioGroup<T = unknown> implements ControlValueAccessor, NgccRadioGroupContext {
   // Use constructor injection pattern to avoid NG0200 circular dep that occurs
   // when combining inject(NgControl) with an NG_VALUE_ACCESSOR provider.
   private readonly ngControl = inject(NgControl, { optional: true, self: true });
@@ -74,10 +74,10 @@ export class NgccRadioGroup implements ControlValueAccessor, NgccRadioGroupConte
   readonly readOnly = input<boolean>(false);
 
   // ── Output ────────────────────────────────────────────────────────────────
-  readonly change = output<NgccRadioChange & { source: NgccRadio }>();
+  readonly change = output<NgccRadioChange<T | null> & { source: NgccRadio<T> }>();
 
   // ── Internal mutable state ────────────────────────────────────────────────
-  private readonly _value = signal<unknown>(null);
+  private readonly _value = signal<T | null>(null);
   private readonly _disabledByForm = signal<boolean>(false);
 
   // ── NgccRadioGroupContext — consumed by child NgccRadio via injection ──────
@@ -98,7 +98,7 @@ export class NgccRadioGroup implements ControlValueAccessor, NgccRadioGroupConte
   );
 
   // ── contentChildren signal — replaces @ContentChildren + QueryList ────────
-  readonly radios = contentChildren<NgccRadio>(forwardRef(() => NgccRadio));
+  readonly radios = contentChildren<NgccRadio<T>>(forwardRef(() => NgccRadio));
 
   constructor() {
     if (this.ngControl) {
@@ -119,12 +119,12 @@ export class NgccRadioGroup implements ControlValueAccessor, NgccRadioGroupConte
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
-  private syncCheckedState(radios: readonly NgccRadio[]): void {
+  private syncCheckedState(radios: readonly NgccRadio<T>[]): void {
     const current = this._value();
     radios.forEach((radio) => radio.checked.set(radio.value() === current));
   }
 
-  private bindRadioHandlers(radios: readonly NgccRadio[]): void {
+  private bindRadioHandlers(radios: readonly NgccRadio<T>[]): void {
     radios.forEach((radio) => {
       radio.registerRadioChangeHandler((event) => {
         if (this._value() === event.value) return;
@@ -142,7 +142,7 @@ export class NgccRadioGroup implements ControlValueAccessor, NgccRadioGroupConte
 
   // ── ControlValueAccessor ──────────────────────────────────────────────────
 
-  writeValue(val: unknown): void {
+  writeValue(val: T | null): void {
     this._value.set(val);
     // If radios are already available sync immediately;
     // otherwise the syncCheckedState effect will handle it.
@@ -152,7 +152,7 @@ export class NgccRadioGroup implements ControlValueAccessor, NgccRadioGroupConte
     }
   }
 
-  registerOnChange(fn: (val: unknown) => void): void {
+  registerOnChange(fn: (val: T | null) => void): void {
     this.propagateChange = fn;
   }
 
@@ -173,6 +173,6 @@ export class NgccRadioGroup implements ControlValueAccessor, NgccRadioGroupConte
     }
   }
 
-  private propagateChange: (val: unknown) => void = () => {};
+  private propagateChange: (val: T | null) => void = () => {};
   private onTouched: () => void = () => {};
 }

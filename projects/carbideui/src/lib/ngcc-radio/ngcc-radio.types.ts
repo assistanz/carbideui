@@ -3,8 +3,8 @@ import { InjectionToken, Signal } from '@angular/core';
 export type NgccRadioLabelPlacement = 'left' | 'right';
 export type NgccRadioOrientation = 'horizontal' | 'vertical';
 
-export interface NgccRadioChange {
-  value: unknown;
+export interface NgccRadioChange<T = unknown> {
+  value: T;
 }
 
 /**

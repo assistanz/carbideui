@@ -34,11 +34,11 @@ let radioIdCounter = 0;
   host: { '[class]': 'hostClasses()' },
   templateUrl: './ngcc-radio.html',
 })
-export class NgccRadio {
+export class NgccRadio<T = unknown> {
   private readonly group = inject(NGCC_RADIO_GROUP_TOKEN, { optional: true });
 
   // ── Signal inputs ─────────────────────────────────────────────────────────
-  readonly value = input<unknown>(null);
+  readonly value = input<T | null>(null);
   readonly id = input<string>(`ngcc-radio-${radioIdCounter++}`);
   readonly name = input<string>('');
   readonly required = input<boolean>(false);
@@ -52,7 +52,7 @@ export class NgccRadio {
   readonly checked = model<boolean>(false);
 
   // ── Output ────────────────────────────────────────────────────────────────
-  readonly change = output<NgccRadioChange & { source: NgccRadio }>();
+  readonly change = output<NgccRadioChange<T | null> & { source: NgccRadio<T> }>();
 
   // ── Computed (group values take precedence when inside a group) ───────────
   readonly effectiveName = computed(() => this.group?.name() || this.name());
@@ -86,9 +86,13 @@ export class NgccRadio {
   }
 
   // ── Internal: registered by the parent group ──────────────────────────────
-  private radioChangeHandler: (event: NgccRadioChange & { source: NgccRadio }) => void = () => {};
+  private radioChangeHandler: (
+    event: NgccRadioChange<T | null> & { source: NgccRadio<T> },
+  ) => void = () => {};
 
-  registerRadioChangeHandler(fn: (event: NgccRadioChange & { source: NgccRadio }) => void): void {
+  registerRadioChangeHandler(
+    fn: (event: NgccRadioChange<T | null> & { source: NgccRadio<T> }) => void,
+  ): void {
     this.radioChangeHandler = fn;
   }
 
