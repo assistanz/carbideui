@@ -9,6 +9,10 @@ export * from './lib/ngcc-button/ngcc-button';
 export * from './lib/ngcc-link/ngcc-link';
 export * from './lib/ngcc-link/ngcc-link.types';
 
+// Toggle
+export * from './lib/ngcc-toggle/ngcc-toggle';
+export * from './lib/ngcc-toggle/ngcc-toggle.types';
+
 // Icons
 export * from './lib/ngcc-icons/ngcc-icon';
 

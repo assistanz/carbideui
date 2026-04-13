@@ -1246,6 +1246,94 @@ setBrandColor(color: string): void {
 
 ---
 
+### 26. NgccToggle
+
+**What it does**: Binary on/off switch that applies changes immediately without confirmation.
+
+**When to use**:
+- Enable/disable features or settings
+- Toggling modes (dark mode, notifications, auto-save)
+- Any immediate binary state change (no confirmation required)
+- When user should always see the current state
+
+**When NOT to use**:
+- When confirmation is required before applying → use Checkbox + submit button
+- Multiple related choices → use Radio buttons or Dropdown
+- Inside menus or modals where a checkbox is more appropriate
+
+**Toggle vs Checkbox**:
+| | Toggle | Checkbox |
+|---|---|---|
+| State change | Immediate | Often requires confirmation |
+| Use case | Settings, feature flags | Form selections, agreements |
+| Accessibility role | `switch` | `checkbox` |
+
+**Key Features**:
+- **Sizes**: `sm` (with checkmark when on), `md` (default)
+- **Controlled state**: `[toggled]` input + `(toggledChange)` output
+- **Disabled**: Fully inert, removed from tab order
+- **ReadOnly**: Focusable, screen-reader accessible, blocks interaction
+- **Skeleton**: Loading placeholder (circle + rectangle)
+- **Hide label**: Hides Off/On side labels; `labelText` acts as the only visible label
+- **Custom side labels**: `labelA` (Off state), `labelB` (On state)
+- **Keyboard**: Tab to focus, Space or Enter to toggle
+- **Mouse**: Click on switch OR label to toggle
+- **Screen reader**: `role="switch"` + `aria-checked` updated on every state change
+
+**Inputs**:
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `toggled` | `boolean` | `false` | Controlled on/off state |
+| `labelText` | `string` | `''` | Top label / screen reader label |
+| `labelA` | `string` | `'Off'` | Side label shown when off |
+| `labelB` | `string` | `'On'` | Side label shown when on |
+| `hideLabel` | `boolean` | `false` | Hides Off/On side labels |
+| `size` | `'sm' \| 'md'` | `'md'` | sm shows checkmark SVG when on |
+| `disabled` | `boolean` | `false` | Prevents all interaction |
+| `readOnly` | `boolean` | `false` | Focusable but not interactable |
+| `skeleton` | `boolean` | `false` | Loading placeholder state |
+| `ariaLabel` | `string` | `undefined` | Fallback when no `labelText` |
+| `ariaLabelledBy` | `string` | `undefined` | Points to external label element id |
+| `className` | `string` | `''` | Extra CSS classes on host |
+
+**Output**:
+
+| Output | Payload | Description |
+|---|---|---|
+| `toggledChange` | `boolean` | Emits new state after every toggle |
+
+**Example**:
+```html
+<!-- Basic controlled toggle -->
+<ngcc-toggle
+  labelText="Enable notifications"
+  [toggled]="notificationsEnabled"
+  (toggledChange)="notificationsEnabled = $event"
+></ngcc-toggle>
+
+<!-- Small size (shows checkmark when on) -->
+<ngcc-toggle labelText="Auto-save" size="sm" [toggled]="autoSave" (toggledChange)="autoSave = $event"></ngcc-toggle>
+
+<!-- Custom side labels -->
+<ngcc-toggle labelText="Status" labelA="Inactive" labelB="Active" [toggled]="isActive" (toggledChange)="isActive = $event"></ngcc-toggle>
+
+<!-- Disabled (both states) -->
+<ngcc-toggle labelText="Unavailable feature" [disabled]="true" [toggled]="false"></ngcc-toggle>
+<ngcc-toggle labelText="Unavailable (on)" [disabled]="true" [toggled]="true"></ngcc-toggle>
+
+<!-- ReadOnly — visible but not changeable -->
+<ngcc-toggle labelText="Locked setting" [readOnly]="true" [toggled]="true"></ngcc-toggle>
+
+<!-- Hide side labels -->
+<ngcc-toggle labelText="Dark mode" [hideLabel]="true" ariaLabel="Toggle dark mode"></ngcc-toggle>
+
+<!-- Skeleton loading state -->
+<ngcc-toggle [skeleton]="true" labelText="Loading"></ngcc-toggle>
+```
+
+---
+
 ## QUICK DECISION MATRIX
 
 | Need | Component | Alternative |
@@ -1258,6 +1346,7 @@ setBrandColor(color: string): void {
 | Pick a date | NgccDatepicker | NgccInput (if raw date string) |
 | Trigger action | NgccButton | NgccModal (if confirmation needed) |
 | Navigate to page | NgccLink | NgccButton (if action, not navigation) |
+| Immediate on/off | NgccToggle | NgccCheckbox (if confirmation needed) |
 | Display list | NgccTable | Card grid (custom) |
 | Show feedback | NgccNotification (persistent) | NgccToast (temporary) |
 | Confirm action | NgccModal | NgccNotification (less intrusive) |

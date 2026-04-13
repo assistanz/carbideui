@@ -1,0 +1,39 @@
+@if (!skeleton()) {
+  <button
+    class="cds--toggle__button"
+    [attr.id]="toggleId"
+    type="button"
+    role="switch"
+    [disabled]="disabled() || null"
+    [attr.tabindex]="resolvedTabIndex()"
+    [attr.aria-checked]="ariaChecked()"
+    [attr.aria-labelledby]="ariaLabelledBy() ?? resolvedAriaLabelledBy()"
+    [attr.aria-label]="ariaLabel() ?? null"
+    (click)="onToggle()"
+    (keydown)="onKeydown($event)"
+  ></button>
+  <label class="cds--toggle__label" [attr.id]="toggleId + '-label'" [attr.for]="toggleId">
+    <span class="cds--toggle__label-text" [class.cds--visually-hidden]="hideLabel()">{{
+      labelText()
+    }}</span>
+    <div [class]="appearanceClasses()">
+      <div [class]="switchClasses()">
+        @if (showCheckmark()) {
+          <svg
+            class="cds--toggle__check"
+            width="6px"
+            height="5px"
+            viewBox="0 0 6 5"
+            aria-hidden="true"
+          >
+            <path d="M2.2 2.7L5 0 6 1 2.2 5 0 2.7 1 1.5z" />
+          </svg>
+        }
+      </div>
+      <span class="cds--toggle__text" aria-hidden="true">{{ sideLabel() }}</span>
+    </div>
+  </label>
+} @else {
+  <div class="cds--toggle__skeleton-circle"></div>
+  <div class="cds--toggle__skeleton-rectangle"></div>
+}
