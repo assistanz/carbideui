@@ -1,0 +1,22 @@
+<a
+  [attr.href]="disabled() ? null : href() || null"
+  [attr.target]="target() !== '_self' ? target() : null"
+  [attr.rel]="resolvedRel()"
+  [class]="classes()"
+  [attr.tabindex]="resolvedTabIndex()"
+  [attr.aria-disabled]="disabled() ? true : null"
+  [attr.aria-label]="ariaLabel() ?? null"
+  [attr.aria-current]="ariaCurrent() ?? null"
+  (click)="onClick($event)"
+  (keydown)="onKeydown($event)"
+>
+  <ng-content />
+  @if (iconName()) {
+    <span
+      class="cds--link__icon"
+      style="vertical-align: middle; display: inline-flex; align-items: center"
+    >
+      <ngcc-icon [name]="iconName()!" [size]="size()" [decorative]="true" />
+    </span>
+  }
+</a>

@@ -1163,6 +1163,89 @@ setBrandColor(color: string): void {
 
 ---
 
+### 25. NgccLink
+
+**What it does**: Accessible hyperlink component for navigation with inline and standalone modes.
+
+**When to use**:
+- Navigation to other pages or sections
+- External website links (with `target="_blank"`)
+- Inline text links within paragraphs
+- Download links or anchor navigation
+- When you need Carbon Design System link styling with full accessibility
+
+**When NOT to use**:
+- Primary/secondary actions → use NgccButton instead
+- Form submissions → use NgccButton with `type="submit"`
+
+**Key Features**:
+- **Sizes**: `sm`, `md` (default), `lg`
+- **Inline mode**: Seamlessly embedded in running text (always underlined)
+- **Targets**: `_self`, `_blank`, `_parent`, `_top`
+- **Auto security**: Automatically adds `rel="noopener noreferrer"` when `target="_blank"`
+- **Visited state**: Style previously visited links via `[visited]`
+- **Disabled state**: Removes `href`, sets `aria-disabled`, removes from tab order
+- **Icon support**: Add any NgccIcon alongside link text (hidden when inline)
+- **ARIA support**: `ariaLabel`, `ariaCurrent` (`page`, `step`, `location`, `date`, `time`)
+- **Keyboard**: Enter activates link; Space intentionally not handled (native scroll)
+- **Output event**: `(linkClick)` emits `MouseEvent` on click
+
+**Inputs**:
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `href` | `string` | `''` | Navigation URL |
+| `target` | `'_self' \| '_blank' \| '_parent' \| '_top'` | `'_self'` | Link target |
+| `rel` | `string` | `''` | Custom rel — merged with auto noopener for `_blank` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Link size |
+| `disabled` | `boolean` | `false` | Removes href, adds aria-disabled |
+| `inline` | `boolean` | `false` | Inline text link mode |
+| `visited` | `boolean` | `false` | Apply visited state styling |
+| `iconName` | `NgccIconNameType` | `undefined` | Icon shown alongside text (standalone only) |
+| `ariaLabel` | `string` | `undefined` | Accessible label override |
+| `ariaCurrent` | `'page' \| 'step' \| 'location' \| 'date' \| 'time' \| 'true' \| 'false'` | `undefined` | Current page/item indicator |
+| `className` | `string` | `''` | Extra CSS classes |
+
+**Output**:
+
+| Output | Payload | Description |
+|---|---|---|
+| `linkClick` | `MouseEvent` | Emits on click (suppressed when disabled) |
+
+**Example**:
+```html
+<!-- Basic link -->
+<ngcc-link href="/about">About Us</ngcc-link>
+
+<!-- External link — rel auto-added -->
+<ngcc-link href="https://carbondesignsystem.com" target="_blank" iconName="arrow_up">
+  Carbon Design System
+</ngcc-link>
+
+<!-- Inline within paragraph -->
+<p>
+  Read our
+  <ngcc-link href="/privacy" [inline]="true">privacy policy</ngcc-link>
+  for more information.
+</p>
+
+<!-- Sizes -->
+<ngcc-link href="/sm" size="sm">Small</ngcc-link>
+<ngcc-link href="/md" size="md">Medium</ngcc-link>
+<ngcc-link href="/lg" size="lg">Large</ngcc-link>
+
+<!-- Disabled -->
+<ngcc-link href="/restricted" [disabled]="!hasAccess">Restricted Content</ngcc-link>
+
+<!-- Current page indicator -->
+<ngcc-link href="/dashboard" ariaCurrent="page">Dashboard</ngcc-link>
+
+<!-- With click handler -->
+<ngcc-link href="/download" (linkClick)="trackDownload($event)">Download PDF</ngcc-link>
+```
+
+---
+
 ## QUICK DECISION MATRIX
 
 | Need | Component | Alternative |
@@ -1174,6 +1257,7 @@ setBrandColor(color: string): void {
 | Select from list | NgccDropdown | NgccTabs (if navigation) |
 | Pick a date | NgccDatepicker | NgccInput (if raw date string) |
 | Trigger action | NgccButton | NgccModal (if confirmation needed) |
+| Navigate to page | NgccLink | NgccButton (if action, not navigation) |
 | Display list | NgccTable | Card grid (custom) |
 | Show feedback | NgccNotification (persistent) | NgccToast (temporary) |
 | Confirm action | NgccModal | NgccNotification (less intrusive) |
