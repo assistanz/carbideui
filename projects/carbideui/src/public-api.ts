@@ -117,3 +117,7 @@ export * from './lib/ngcc-side-nav/ngcc-side-nav-item';
 export * from './lib/ngcc-side-nav/ngcc-side-nav-menu';
 export * from './lib/ngcc-side-nav/ngcc-side-nav-menu-item';
 export * from './lib/ngcc-side-nav/ngcc-side-nav-divider';
+
+// Code Snippet
+export * from './lib/ngcc-code-snippet/ngcc-code-snippet';
+export * from './lib/ngcc-code-snippet/ngcc-code-snippet.types';

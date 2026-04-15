@@ -757,6 +757,110 @@ breadcrumbs: NgccBreadcrumbItem[] = [
 - `disabled` removes the `href`/`routerLink` and applies `cds--link--disabled` styling
 - `skeleton` on the container replaces all items; per-item skeleton is not exposed
 
+### 17. NgccCodeSnippet
+
+**What it does**: Displays formatted code with a one-click copy button, available in inline, single-line, and multi-line variants.
+
+**When to use**:
+- Show terminal commands or code samples in documentation
+- Embed short code references inline within prose (`inline`)
+- Display a single-line command with a copy button (`single`)
+- Display multi-line code blocks with expand/collapse (`multi`)
+
+**Key Features**:
+- **Variants**: `inline`, `single`, `multi`
+- **Copy to clipboard**: Clipboard API with `execCommand` fallback for non-secure contexts
+- **Expand/Collapse**: Multi-line blocks collapse to a configurable row limit with a Show more/Show less toggle
+- **Wrap text**: Optional word-wrap in multi-line variant
+- **Hide copy button**: `hideCopyButton` for read-only display
+- **Disabled state**: Prevents copy and expand interactions
+- **Custom feedback**: Configurable "Copied!" text and display duration
+- **Skeleton loading**: Per-variant loading placeholders
+- **Light theme**: `light` input for light-background contexts
+
+**Inputs**:
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `type` | `'inline' \| 'single' \| 'multi'` | `'single'` | Display variant |
+| `code` | `string` | `''` | Code string to display and copy |
+| `disabled` | `boolean` | `false` | Disables copy and expand |
+| `hideCopyButton` | `boolean` | `false` | Hides the copy button |
+| `wrapText` | `boolean` | `false` | Enables text wrapping (multi only) |
+| `light` | `boolean` | `false` | Light background variant |
+| `skeleton` | `boolean` | `false` | Show skeleton loading state |
+| `feedback` | `string` | `'Copied!'` | Text shown in copy tooltip |
+| `feedbackTimeout` | `number` | `2000` | Duration (ms) before tooltip hides |
+| `showMoreText` | `string` | `'Show more'` | Expand button label (multi only) |
+| `showLessText` | `string` | `'Show less'` | Collapse button label (multi only) |
+| `copyButtonDescription` | `string` | `'Copy to clipboard'` | Aria-label for the copy button |
+| `ariaLabel` | `string` | `''` | Aria-label for the code container |
+| `maxCollapsedNumberOfRows` | `number` | `15` | Max rows when collapsed (multi only, `0` = unlimited) |
+| `maxExpandedNumberOfRows` | `number` | `0` | Max rows when expanded (multi only, `0` = unlimited) |
+
+**Examples**:
+
+```html
+<!-- Single-line (default) -->
+<ngcc-code-snippet code="npm install @carbideui/ngcc" />
+
+<!-- Single — no copy button -->
+<ngcc-code-snippet code="npm install @carbideui/ngcc" [hideCopyButton]="true" />
+
+<!-- Inline within prose -->
+<p>
+  Run <ngcc-code-snippet type="inline" code="node --version" /> to check your Node.js version.
+</p>
+
+<!-- Multi-line with collapse -->
+<ngcc-code-snippet
+  type="multi"
+  [code]="codeBlock"
+  [maxCollapsedNumberOfRows]="8"
+/>
+
+<!-- Multi-line with wrap text -->
+<ngcc-code-snippet
+  type="multi"
+  [code]="codeBlock"
+  [wrapText]="true"
+/>
+
+<!-- Disabled -->
+<ngcc-code-snippet
+  [code]="codeBlock"
+  [disabled]="true"
+/>
+
+<!-- Custom copy feedback -->
+<ngcc-code-snippet
+  [code]="codeBlock"
+  feedback="Done!"
+  [feedbackTimeout]="3000"
+/>
+
+<!-- Skeleton loading -->
+<ngcc-code-snippet type="single" [skeleton]="isLoading()" />
+<ngcc-code-snippet type="multi" [skeleton]="isLoading()" />
+```
+
+```typescript
+// Component
+codeBlock = `import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: '<h1>Hello World</h1>',
+})
+export class AppComponent {}`;
+```
+
+**Notes**:
+- `inline` renders as a `<button>` — clicking anywhere on the snippet copies the code
+- `single` and `multi` render a separate icon-only copy button; the code area is read-only scrollable
+- The expand/collapse button is hidden automatically when the line count is within `maxCollapsedNumberOfRows`
+- Setting `maxCollapsedNumberOfRows` to `0` disables the row limit and hides the expand button entirely
+
 ---
 
 ## UI SHELL COMPONENTS
@@ -1076,6 +1180,8 @@ setBrandColor(color: string): void {
 | Multiple sections | NgccTabs | NgccAccordion (if space-saving) |
 | Hide/Show content | NgccAccordion | NgccTabs (if tab-like) |
 | Show page location | NgccBreadcrumb | NgccTabs (if section-level nav) |
+| Display code/commands | NgccCodeSnippet (single) | NgccCodeSnippet inline (if within prose) |
+| Multi-line code block | NgccCodeSnippet (multi) | NgccCodeSnippet (single) if one line |
 | Compare values | NgccBarChart | NgccLineChart (if over time) |
 | Show trend | NgccLineChart | NgccBarChart (if discrete) |
 | Show composition | NgccDonutChart | NgccBarChart (if comparison) |

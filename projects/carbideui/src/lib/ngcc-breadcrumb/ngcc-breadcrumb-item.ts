@@ -15,11 +15,11 @@ import { RouterLink } from '@angular/router';
 })
 export class NgccBreadcrumbItemComponent {
   readonly label = input('');
-  readonly href = input<string | undefined>(undefined);
-  readonly routerLink = input<string | string[] | undefined>(undefined);
+  readonly href = input<string>();
+  readonly routerLink = input<string | string[]>();
   readonly current = input(false);
   readonly disabled = input(false);
   readonly skeleton = input(false);
-  readonly target = input<string | undefined>(undefined);
-  readonly rel = input<string | undefined>(undefined);
+  readonly target = input<string>();
+  readonly rel = input<string>();
 }

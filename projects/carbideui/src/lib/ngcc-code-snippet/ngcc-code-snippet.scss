@@ -1,0 +1,9 @@
+// Border-radius on skeleton placeholder spans, as requested.
+// Carbon's skeleton mixin does not add border-radius by default.
+.cds--snippet.cds--skeleton {
+  border-radius: 4px;
+
+  span {
+    border-radius: 4px;
+  }
+}

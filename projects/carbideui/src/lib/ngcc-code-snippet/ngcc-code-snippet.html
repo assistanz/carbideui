@@ -1,0 +1,158 @@
+<!-- ─── Skeleton ───────────────────────────────────────────────────────── -->
+@if (skeleton()) {
+  @if (type() === 'inline') {
+    <span class="cds--snippet cds--snippet--inline cds--skeleton">
+      <span></span>
+    </span>
+  } @else if (type() === 'multi') {
+    <div class="cds--snippet cds--snippet--multi cds--skeleton">
+      <div class="cds--snippet-container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  } @else {
+    <div class="cds--snippet cds--snippet--single cds--skeleton">
+      <div class="cds--snippet-container">
+        <span></span>
+      </div>
+    </div>
+  }
+
+  <!-- ─── Inline variant ─────────────────────────────────────────────────── -->
+} @else if (type() === 'inline') {
+  <span
+    class="cds--popover-container cds--tooltip cds--popover--caret cds--popover--high-contrast cds--popover--top"
+    [class.cds--popover--open]="isCopying()"
+  >
+    <button
+      type="button"
+      class="cds--snippet cds--snippet--inline"
+      [class.cds--snippet--disabled]="disabled()"
+      [class.cds--snippet--light]="light()"
+      [attr.aria-label]="copyButtonDescription()"
+      [attr.disabled]="disabled() ? true : null"
+      aria-live="polite"
+      (click)="copyCode()"
+    >
+      <code>{{ code() }}</code>
+    </button>
+    <span aria-hidden="true" class="cds--popover">
+      <span class="cds--popover-content cds--tooltip-content">{{ feedback() }}</span>
+      <span class="cds--popover-caret"></span>
+    </span>
+  </span>
+
+  <!-- ─── Single-line variant ───────────────────────────────────────────── -->
+} @else if (type() === 'single') {
+  <div
+    class="cds--snippet cds--snippet--single"
+    [class.cds--snippet--no-copy]="hideCopyButton()"
+    [class.cds--snippet--light]="light()"
+    [class.cds--snippet--disabled]="disabled()"
+  >
+    <!-- Code container — role="textarea" matches Carbon Angular's rendered DOM -->
+    <div
+      class="cds--snippet-container"
+      role="textarea"
+      tabindex="0"
+      [attr.aria-label]="ariaLabel() || code()"
+    >
+      <pre><code>{{ code() }}</code></pre>
+    </div>
+
+    <!-- Copy button: popover-triggered tooltip shows "Copied!" on click -->
+    @if (!hideCopyButton()) {
+      <span
+        class="cds--popover-container cds--tooltip cds--icon-tooltip cds--popover--caret cds--popover--high-contrast cds--popover--bottom"
+        [class.cds--popover--open]="isCopying()"
+      >
+        <button
+          type="button"
+          class="cds--btn cds--btn--icon-only cds--btn--ghost cds--btn--md cds--layout--size-md cds--copy-btn cds--snippet cds--copy"
+          [attr.aria-label]="copyButtonDescription()"
+          [attr.disabled]="disabled() ? true : null"
+          aria-live="polite"
+          (click)="copyCode()"
+        >
+          <ngcc-icon name="copy" size="sm" svgClass="cds--snippet__icon" [decorative]="true" />
+        </button>
+        <span aria-hidden="true" class="cds--popover">
+          <span class="cds--popover-content cds--tooltip-content">
+            {{ isCopying() ? feedback() : copyButtonDescription() }}
+          </span>
+          <span class="cds--popover-caret"></span>
+        </span>
+      </span>
+    }
+  </div>
+
+  <!-- ─── Multi-line variant ────────────────────────────────────────────── -->
+} @else {
+  <div
+    class="cds--snippet cds--snippet--multi"
+    [class.cds--snippet--expand]="isExpanded()"
+    [class.cds--snippet--wraptext]="wrapText()"
+    [class.cds--snippet--light]="light()"
+    [class.cds--snippet--disabled]="disabled()"
+    [class.cds--snippet--no-copy]="hideCopyButton()"
+  >
+    <!-- Code container -->
+    <div
+      class="cds--snippet-container"
+      role="textarea"
+      tabindex="0"
+      [attr.aria-label]="ariaLabel() || code()"
+      [style.max-height]="containerMaxHeight()"
+    >
+      <pre><code>{{ code() }}</code></pre>
+    </div>
+
+    <!-- Copy button: popover-triggered tooltip shows "Copied!" on click -->
+    @if (!hideCopyButton()) {
+      <span
+        class="cds--popover-container cds--tooltip cds--icon-tooltip cds--popover--caret cds--popover--high-contrast cds--popover--bottom"
+        [class.cds--popover--open]="isCopying()"
+      >
+        <button
+          type="button"
+          class="cds--btn cds--btn--icon-only cds--btn--ghost cds--btn--md cds--layout--size-md cds--copy-btn cds--snippet cds--copy"
+          [attr.aria-label]="copyButtonDescription()"
+          [attr.disabled]="disabled() ? true : null"
+          aria-live="polite"
+          (click)="copyCode()"
+        >
+          <ngcc-icon name="copy" size="sm" svgClass="cds--snippet__icon" [decorative]="true" />
+        </button>
+        <span aria-hidden="true" class="cds--popover">
+          <span class="cds--popover-content cds--tooltip-content">
+            {{ isCopying() ? feedback() : copyButtonDescription() }}
+          </span>
+          <span class="cds--popover-caret"></span>
+        </span>
+      </span>
+    }
+
+    <!-- Expand / collapse — always rendered, hidden via class when not needed -->
+    <button
+      type="button"
+      class="cds--btn cds--snippet-btn--expand cds--btn--ghost"
+      [class.cds--snippet-btn--expand--hide]="!needsExpansion()"
+      [class.cds--btn--disabled]="disabled()"
+      [attr.disabled]="disabled() ? true : null"
+      [attr.aria-expanded]="isExpanded()"
+      (click)="toggleExpand()"
+    >
+      <span class="cds--snippet-btn--text">
+        {{ isExpanded() ? showLessText() : showMoreText() }}
+      </span>
+      <ngcc-icon
+        class="cds--icon-chevron--down"
+        name="chevron_down"
+        size="sm"
+        [decorative]="true"
+      />
+    </button>
+  </div>
+}
