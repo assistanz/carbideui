@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { NgccLink } from './ngcc-link';
 import { NgccIcon } from '../ngcc-icons/ngcc-icon';
-import { axe } from 'vitest-axe';
+import { runAxe } from '../../test-utils/a11y';
 import { NgccLinkSize, NgccLinkTarget, NgccLinkAriaCurrent } from './ngcc-link.types';
 import { NgccIconNameType } from '../ngcc-icons/icons';
 
@@ -328,7 +328,7 @@ describe('NgccLink', () => {
   });
 
   // ---------------------------------------------------------------------------
-  // Accessibility (ARIA + axe)
+  // Accessibility (ARIA + runAxe)
   // ---------------------------------------------------------------------------
   describe('Accessibility', () => {
     it('sets aria-label when provided', () => {
@@ -367,58 +367,58 @@ describe('NgccLink', () => {
       expect(getAnchor().getAttribute('aria-current')).toBeNull();
     });
 
-    it('has no axe violations — default state', async () => {
+    it('has no runAxe violations — default state', async () => {
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — inline variant', async () => {
+    it('has no runAxe violations — inline variant', async () => {
       host.inline = true;
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — disabled state', async () => {
+    it('has no runAxe violations — disabled state', async () => {
       host.disabled = true;
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — with aria-label', async () => {
+    it('has no runAxe violations — with aria-label', async () => {
       host.ariaLabel = 'External link to Carbon docs';
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — with aria-current="page"', async () => {
+    it('has no runAxe violations — with aria-current="page"', async () => {
       host.ariaCurrent = 'page';
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — with icon', async () => {
+    it('has no runAxe violations — with icon', async () => {
       host.iconName = 'arrow_up';
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — visited state', async () => {
+    it('has no runAxe violations — visited state', async () => {
       host.visited = true;
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — external link (target _blank)', async () => {
+    it('has no runAxe violations — external link (target _blank)', async () => {
       host.target = '_blank';
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
   });

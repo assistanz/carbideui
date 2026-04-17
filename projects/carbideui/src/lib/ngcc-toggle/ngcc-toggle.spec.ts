@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { NgccToggle } from './ngcc-toggle';
-import { axe } from 'vitest-axe';
+import { runAxe } from '../../test-utils/a11y';
 import { NgccToggleSize } from './ngcc-toggle.types';
 
 @Component({
@@ -429,7 +429,7 @@ describe('NgccToggle', () => {
   });
 
   // ---------------------------------------------------------------------------
-  // Accessibility (ARIA + axe)
+  // Accessibility (ARIA + runAxe)
   // ---------------------------------------------------------------------------
   describe('Accessibility', () => {
     it('button has role="switch"', () => {
@@ -455,53 +455,53 @@ describe('NgccToggle', () => {
       expect(getButton().getAttribute('aria-label')).toBeNull();
     });
 
-    it('has no axe violations — default state', async () => {
+    it('has no runAxe violations — default state', async () => {
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — toggled=true', async () => {
+    it('has no runAxe violations — toggled=true', async () => {
       host.toggled = true;
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — disabled', async () => {
+    it('has no runAxe violations — disabled', async () => {
       host.disabled = true;
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — readOnly', async () => {
+    it('has no runAxe violations — readOnly', async () => {
       host.readOnly = true;
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — size="sm" toggled=true', async () => {
+    it('has no runAxe violations — size="sm" toggled=true', async () => {
       host.size = 'sm';
       host.toggled = true;
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — hideLabel=true', async () => {
+    it('has no runAxe violations — hideLabel=true', async () => {
       host.hideLabel = true;
       host.ariaLabel = 'Enable feature';
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
 
-    it('has no axe violations — with ariaLabel', async () => {
+    it('has no runAxe violations — with ariaLabel', async () => {
       host.ariaLabel = 'Enable notifications';
       detectChanges();
-      const results = await axe(fixture.nativeElement);
+      const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
     });
   });
