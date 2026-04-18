@@ -1,0 +1,12 @@
+@if (label()) {
+  <div class="cds--contained-list__header">
+    <div [id]="labelId" class="cds--contained-list__label">{{ label() }}</div>
+    <div class="cds--contained-list__action">
+      <ng-content select="[ngccContainedListAction]" />
+    </div>
+  </div>
+}
+
+<ul role="list" [attr.aria-labelledby]="label() ? labelId : null">
+  <ng-content />
+</ul>

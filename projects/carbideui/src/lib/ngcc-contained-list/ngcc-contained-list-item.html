@@ -1,0 +1,20 @@
+<div
+  class="cds--contained-list-item__content"
+  [attr.role]="clickable() ? 'button' : null"
+  [attr.tabindex]="clickable() && !disabled() ? '0' : null"
+  [attr.aria-disabled]="clickable() && disabled() ? 'true' : null"
+  (click)="onContentClick()"
+  (keydown.enter)="onKeydown($event)"
+  (keydown.space)="onKeydown($event)"
+>
+  @if (iconName()) {
+    <div class="cds--contained-list-item__icon">
+      <ngcc-icon [name]="iconName()!" size="sm" [decorative]="true" />
+    </div>
+  }
+  <div><ng-content /></div>
+</div>
+
+<div class="cds--contained-list-item__action">
+  <ng-content select="[ngccContainedListItemAction]" />
+</div>

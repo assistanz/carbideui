@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { NgccCodeSnippetComponent } from './ngcc-code-snippet';
 import { NgccCodeSnippetType } from './ngcc-code-snippet.types';
+import { runAxe } from '../../test-utils/a11y';
 
 @Component({
   template: `
@@ -431,6 +432,330 @@ describe('NgccCodeSnippetComponent', () => {
       host.maxCollapsedNumberOfRows = 10;
       detectChanges();
       expect(getSnippetComponent().containerMaxHeight()).toBe('15rem');
+    });
+  });
+
+  // ─── Accessibility ───────────────────────────────────────────────────────
+
+  describe('Accessibility', () => {
+    // ── axe — no violations ─────────────────────────────────────────────────
+
+    describe('axe — no violations', () => {
+      it('single variant has no axe violations', async () => {
+        host.type = 'single';
+        host.code = 'npm install';
+        host.ariaLabel = 'Install command';
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('single variant without copy button has no axe violations', async () => {
+        host.type = 'single';
+        host.code = 'npm install';
+        host.ariaLabel = 'Install command';
+        host.hideCopyButton = true;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('single disabled variant has no axe violations', async () => {
+        host.type = 'single';
+        host.code = 'npm install';
+        host.ariaLabel = 'Install command';
+        host.disabled = true;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('inline variant has no axe violations', async () => {
+        host.type = 'inline';
+        host.code = 'npm install';
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('inline disabled variant has no axe violations', async () => {
+        host.type = 'inline';
+        host.code = 'npm install';
+        host.disabled = true;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('multi variant (collapsed) has no axe violations', async () => {
+        host.type = 'multi';
+        host.code = MULTI_CODE;
+        host.ariaLabel = 'Sample code';
+        host.maxCollapsedNumberOfRows = 2;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('multi variant (expanded) has no axe violations', async () => {
+        host.type = 'multi';
+        host.code = MULTI_CODE;
+        host.ariaLabel = 'Sample code';
+        host.maxCollapsedNumberOfRows = 2;
+        detectChanges();
+        getExpandButton()?.click();
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('multi variant with wrapText has no axe violations', async () => {
+        host.type = 'multi';
+        host.code = MULTI_CODE;
+        host.ariaLabel = 'Sample code';
+        host.wrapText = true;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('single skeleton state has no axe violations', async () => {
+        host.type = 'single';
+        host.skeleton = true;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('multi skeleton state has no axe violations', async () => {
+        host.type = 'multi';
+        host.skeleton = true;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+
+      it('inline skeleton state has no axe violations', async () => {
+        host.type = 'inline';
+        host.skeleton = true;
+        detectChanges();
+        const results = await runAxe(fixture.nativeElement);
+        expect(results).toHaveNoViolations();
+      });
+    });
+
+    // ── Copy button ARIA attributes ─────────────────────────────────────────
+
+    describe('Copy button ARIA attributes', () => {
+      it('copy button has aria-label from copyButtonDescription', () => {
+        host.copyButtonDescription = 'Copy to clipboard';
+        detectChanges();
+        expect(getCopyButton()?.getAttribute('aria-label')).toBe('Copy to clipboard');
+      });
+
+      it('copy button has aria-live="polite" for live region announcements', () => {
+        detectChanges();
+        expect(getCopyButton()?.getAttribute('aria-live')).toBe('polite');
+      });
+
+      it('copy button has type="button" to prevent accidental form submission', () => {
+        detectChanges();
+        expect(getCopyButton()?.getAttribute('type')).toBe('button');
+      });
+
+      it('copy button has disabled attribute when disabled', () => {
+        host.disabled = true;
+        detectChanges();
+        expect(getCopyButton()?.hasAttribute('disabled')).toBe(true);
+      });
+
+      it('copy button does not have disabled attribute when enabled', () => {
+        detectChanges();
+        expect(getCopyButton()?.hasAttribute('disabled')).toBe(false);
+      });
+
+      it('feedback popover has aria-hidden="true" so screen readers skip the tooltip shell', () => {
+        detectChanges();
+        const popover = fixture.nativeElement.querySelector('.cds--popover');
+        expect(popover?.getAttribute('aria-hidden')).toBe('true');
+      });
+    });
+
+    // ── Inline variant ARIA attributes ──────────────────────────────────────
+
+    describe('Inline variant ARIA attributes', () => {
+      beforeEach(() => {
+        host.type = 'inline';
+      });
+
+      it('inline button has aria-label from copyButtonDescription', () => {
+        host.copyButtonDescription = 'Copy command';
+        detectChanges();
+        const btn = fixture.nativeElement.querySelector('button.cds--snippet--inline');
+        expect(btn?.getAttribute('aria-label')).toBe('Copy command');
+      });
+
+      it('inline button has aria-live="polite"', () => {
+        detectChanges();
+        const btn = fixture.nativeElement.querySelector('button.cds--snippet--inline');
+        expect(btn?.getAttribute('aria-live')).toBe('polite');
+      });
+
+      it('inline button has type="button"', () => {
+        detectChanges();
+        const btn = fixture.nativeElement.querySelector('button.cds--snippet--inline');
+        expect(btn?.getAttribute('type')).toBe('button');
+      });
+
+      it('inline button has disabled attribute when disabled', () => {
+        host.disabled = true;
+        detectChanges();
+        const btn = fixture.nativeElement.querySelector('button.cds--snippet--inline');
+        expect(btn?.hasAttribute('disabled')).toBe(true);
+      });
+    });
+
+    // ── Code container ARIA attributes ──────────────────────────────────────
+
+    describe('Code container ARIA attributes', () => {
+      it('single container has role="textbox"', () => {
+        detectChanges();
+        expect(getContainer()?.getAttribute('role')).toBe('textbox');
+      });
+
+      it('single container has aria-readonly="true"', () => {
+        detectChanges();
+        expect(getContainer()?.getAttribute('aria-readonly')).toBe('true');
+      });
+
+      it('single container has tabindex="0" for keyboard focus', () => {
+        detectChanges();
+        expect(getContainer()?.getAttribute('tabindex')).toBe('0');
+      });
+
+      it('single container aria-label uses ariaLabel input when provided', () => {
+        host.ariaLabel = 'Install command';
+        detectChanges();
+        expect(getContainer()?.getAttribute('aria-label')).toBe('Install command');
+      });
+
+      it('single container aria-label falls back to code string when ariaLabel is empty', () => {
+        host.ariaLabel = '';
+        host.code = 'npm ci';
+        detectChanges();
+        expect(getContainer()?.getAttribute('aria-label')).toBe('npm ci');
+      });
+
+      it('multi container has role="textbox"', () => {
+        host.type = 'multi';
+        detectChanges();
+        expect(getContainer()?.getAttribute('role')).toBe('textbox');
+      });
+
+      it('multi container has aria-multiline="true"', () => {
+        host.type = 'multi';
+        detectChanges();
+        expect(getContainer()?.getAttribute('aria-multiline')).toBe('true');
+      });
+
+      it('multi container has aria-readonly="true"', () => {
+        host.type = 'multi';
+        detectChanges();
+        expect(getContainer()?.getAttribute('aria-readonly')).toBe('true');
+      });
+
+      it('multi container has tabindex="0"', () => {
+        host.type = 'multi';
+        detectChanges();
+        expect(getContainer()?.getAttribute('tabindex')).toBe('0');
+      });
+
+      it('multi container aria-label uses ariaLabel input when provided', () => {
+        host.type = 'multi';
+        host.ariaLabel = 'Sample code block';
+        detectChanges();
+        expect(getContainer()?.getAttribute('aria-label')).toBe('Sample code block');
+      });
+
+      it('multi container aria-label falls back to code string when ariaLabel is empty', () => {
+        host.type = 'multi';
+        host.ariaLabel = '';
+        host.code = MULTI_CODE;
+        detectChanges();
+        expect(getContainer()?.getAttribute('aria-label')).toBe(MULTI_CODE);
+      });
+    });
+
+    // ── Expand button ARIA attributes ───────────────────────────────────────
+
+    describe('Expand button ARIA attributes', () => {
+      beforeEach(() => {
+        host.type = 'multi';
+        host.code = MULTI_CODE;
+        host.maxCollapsedNumberOfRows = 2;
+      });
+
+      it('expand button has type="button"', () => {
+        detectChanges();
+        expect(getExpandButton()?.getAttribute('type')).toBe('button');
+      });
+
+      it('expand button has aria-expanded="false" when collapsed', () => {
+        detectChanges();
+        expect(getExpandButton()?.getAttribute('aria-expanded')).toBe('false');
+      });
+
+      it('expand button has aria-expanded="true" after expanding', () => {
+        detectChanges();
+        getExpandButton()?.click();
+        detectChanges();
+        expect(getExpandButton()?.getAttribute('aria-expanded')).toBe('true');
+      });
+
+      it('expand button has aria-expanded="false" after collapsing again', () => {
+        detectChanges();
+        getExpandButton()?.click();
+        detectChanges();
+        getExpandButton()?.click();
+        detectChanges();
+        expect(getExpandButton()?.getAttribute('aria-expanded')).toBe('false');
+      });
+
+      it('expand button has disabled attribute when disabled', () => {
+        host.disabled = true;
+        detectChanges();
+        expect(getExpandButton()?.hasAttribute('disabled')).toBe(true);
+      });
+
+      it('expand button does not have disabled attribute when enabled', () => {
+        detectChanges();
+        expect(getExpandButton()?.hasAttribute('disabled')).toBe(false);
+      });
+    });
+
+    // ── Skeleton — no interactive elements ─────────────────────────────────
+
+    describe('Skeleton — no interactive elements', () => {
+      it('renders no buttons in single skeleton state', () => {
+        host.skeleton = true;
+        host.type = 'single';
+        detectChanges();
+        expect(fixture.nativeElement.querySelectorAll('button').length).toBe(0);
+      });
+
+      it('renders no buttons in multi skeleton state', () => {
+        host.skeleton = true;
+        host.type = 'multi';
+        detectChanges();
+        expect(fixture.nativeElement.querySelectorAll('button').length).toBe(0);
+      });
+
+      it('renders no buttons in inline skeleton state', () => {
+        host.skeleton = true;
+        host.type = 'inline';
+        detectChanges();
+        expect(fixture.nativeElement.querySelectorAll('button').length).toBe(0);
+      });
     });
   });
 });

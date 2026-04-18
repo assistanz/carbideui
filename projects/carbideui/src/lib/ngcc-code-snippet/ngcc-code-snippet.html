@@ -52,10 +52,10 @@
     [class.cds--snippet--light]="light()"
     [class.cds--snippet--disabled]="disabled()"
   >
-    <!-- Code container — role="textarea" matches Carbon Angular's rendered DOM -->
     <div
       class="cds--snippet-container"
-      role="textarea"
+      role="textbox"
+      aria-readonly="true"
       tabindex="0"
       [attr.aria-label]="ariaLabel() || code()"
     >
@@ -101,7 +101,9 @@
     <!-- Code container -->
     <div
       class="cds--snippet-container"
-      role="textarea"
+      role="textbox"
+      aria-multiline="true"
+      aria-readonly="true"
       tabindex="0"
       [attr.aria-label]="ariaLabel() || code()"
       [style.max-height]="containerMaxHeight()"

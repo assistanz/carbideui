@@ -13,6 +13,9 @@ export * from './lib/ngcc-link/ngcc-link.types';
 export * from './lib/ngcc-toggle/ngcc-toggle';
 export * from './lib/ngcc-toggle/ngcc-toggle.types';
 
+// Contained List
+export * from './lib/ngcc-contained-list/public-api';
+
 // Icons
 export * from './lib/ngcc-icons/ngcc-icon';
 

@@ -176,6 +176,11 @@ export const ICONS = {
     svg: `<path d="M4 6H8V10H4zM12 6H16V10H12zM20 6H24V10H20zM4 14H8V18H4zM12 14H16V18H12zM20 14H24V18H20zM4 22H8V26H4zM12 22H16V26H12zM20 22H24V26H20z"></path>`,
     viewBox: '0 0 32 32',
   },
+  /** Three vertical dots — overflow / context menu */
+  overflow_menu_vertical: {
+    svg: `<circle cx="16" cy="8" r="2"></circle><circle cx="16" cy="16" r="2"></circle><circle cx="16" cy="24" r="2"></circle>`,
+    viewBox: '0 0 32 32',
+  },
 } as const;
 
 //  Extract a union type from keys
