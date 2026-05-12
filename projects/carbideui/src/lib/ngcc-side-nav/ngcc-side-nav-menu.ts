@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
-  contentChildren,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
   inject,
-  input,
-  model,
 } from '@angular/core';
 import { NgccIcon } from '../ngcc-icons/ngcc-icon';
 import type { NgccIconNameType } from '../ngcc-icons/icons';
@@ -52,28 +53,30 @@ import { NGCC_SIDE_NAV_CONTEXT } from './ngcc-side-nav.types';
 })
 export class NgccSideNavMenu {
   /** Title displayed on the submenu trigger button */
-  readonly title = input('');
+  @Input() title = '';
 
   /**
    * Two-way bindable expanded/collapsed state.
    * Use `[(expanded)]="myVar"` in the parent for controlled behaviour.
    */
-  readonly expanded = model(false);
+  @Input() expanded = false;
+  @Output() expandedChange = new EventEmitter<boolean>();
 
   /** Optional icon placed before the title */
-  readonly iconName = input<NgccIconNameType | undefined>(undefined);
+  @Input() iconName: NgccIconNameType | undefined;
 
   /**
-   * Signal-based content children query (Angular v17.2+).
-   * Automatically tracks projected <ngcc-side-nav-menu-item> instances.
+   * Content children query: tracks projected <ngcc-side-nav-menu-item> instances.
    */
-  private readonly menuItems = contentChildren(NgccSideNavMenuItem);
+  @ContentChildren(NgccSideNavMenuItem) private menuItems!: QueryList<NgccSideNavMenuItem>;
 
   /**
    * True when any projected menu item has `[active]="true"`.
    * Applied as `cds--side-nav__item--active` on the wrapper <li>.
    */
-  readonly hasActiveChild = computed(() => this.menuItems().some((item) => item.active()));
+  get hasActiveChild(): boolean {
+    return this.menuItems?.some((item) => !!item.active) ?? false;
+  }
 
   /**
    * Optional reference to the parent NgccSideNav provided via NGCC_SIDE_NAV_CONTEXT.
@@ -85,9 +88,10 @@ export class NgccSideNavMenu {
     // Rail mode: the nav is collapsed to icon-only width.
     // Sub-items can't be seen in that state — expand the sidenav first so the
     // user can read the full menu before we open/close the submenu.
-    if (this._nav?.rail()) {
+    if (this._nav?.rail) {
       this._nav.expand();
     }
-    this.expanded.update((v) => !v);
+    this.expanded = !this.expanded;
+    this.expandedChange.emit(this.expanded);
   }
 }

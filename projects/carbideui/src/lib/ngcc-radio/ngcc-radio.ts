@@ -1,14 +1,16 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  computed,
-  effect,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  ViewChild,
   inject,
-  input,
-  model,
-  output,
-  viewChild,
+  effect,
+  signal,
 } from '@angular/core';
 import {
   NGCC_RADIO_GROUP_TOKEN,
@@ -30,59 +32,87 @@ let radioIdCounter = 0;
 @Component({
   selector: 'ngcc-radio',
   standalone: true,
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class]': 'hostClasses()' },
+  host: { '[class]': 'hostClasses' },
   templateUrl: './ngcc-radio.html',
 })
-export class NgccRadio<T = unknown> {
+export class NgccRadio<T = unknown> implements OnChanges, AfterViewInit {
   private readonly group = inject(NGCC_RADIO_GROUP_TOKEN, { optional: true });
 
-  // ── Signal inputs ─────────────────────────────────────────────────────────
-  readonly value = input<T | null>(null);
-  readonly id = input<string>(`ngcc-radio-${radioIdCounter++}`);
-  readonly name = input<string>('');
-  readonly required = input<boolean>(false);
-  readonly disabled = input<boolean>(false);
-  readonly labelPlacement = input<NgccRadioLabelPlacement>('right');
-  readonly ariaLabel = input<string | undefined>(undefined);
-  readonly ariaLabelledby = input<string | undefined>(undefined);
-  readonly skeleton = input<boolean>(false);
+  // ── Public inputs (library-friendly) ──────────────────────────────────────
+  @Input() value: T | null = null;
+  @Input() id: string = `ngcc-radio-${radioIdCounter++}`;
+  @Input() name: string = '';
+  @Input() required = false;
+  @Input() disabled = false;
+  @Input() labelPlacement: NgccRadioLabelPlacement = 'right';
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaLabelledby: string | undefined = undefined;
+  @Input() skeleton = false;
 
-  /** Two-way writable signal — group sets this when selection changes. */
-  readonly checked = model<boolean>(false);
+  // ── Internal signals (private state) ────────────────────────────────────
+  private readonly _value = signal<T | null>(this.value);
+  private readonly _checked = signal(false);
+  private readonly _disabled = signal(this.disabled);
 
-  // ── Output ────────────────────────────────────────────────────────────────
-  readonly change = output<NgccRadioChange<T | null> & { source: NgccRadio<T> }>();
+  // ── Outputs (library-friendly)
+  @Output() change = new EventEmitter<NgccRadioChange<T | null> & { source: NgccRadio<T> }>();
 
-  // ── Computed (group values take precedence when inside a group) ───────────
-  readonly effectiveName = computed(() => this.group?.name() || this.name());
-  readonly isDisabled = computed(() => this.disabled() || (this.group?.isDisabled() ?? false));
-  readonly isReadOnly = computed(() => this.group?.readOnly() ?? false);
-  readonly effectiveLabelPlacement = computed(
-    () => this.group?.labelPlacement() ?? this.labelPlacement(),
-  );
-  readonly effectiveSkeleton = computed(() => this.group?.skeleton() || this.skeleton());
-  readonly effectiveAriaLabelledby = computed(() => this.ariaLabelledby() ?? `label-${this.id()}`);
-  readonly hostClasses = computed(() =>
-    [
+  // ── Computed (group values take precedence when inside a group)
+  get effectiveName(): string {
+    return this.group?.name ?? this.name;
+  }
+
+  get isDisabled(): boolean {
+    return this.disabled || (this.group?.isDisabled ?? false);
+  }
+
+  get isReadOnly(): boolean {
+    return this.group?.readOnly ?? false;
+  }
+
+  get effectiveLabelPlacement(): NgccRadioLabelPlacement {
+    return this.group?.labelPlacement ?? this.labelPlacement;
+  }
+
+  get effectiveSkeleton(): boolean {
+    return this.group?.skeleton || this.skeleton;
+  }
+
+  get effectiveAriaLabelledby(): string {
+    return this.ariaLabelledby ?? `label-${this.id}`;
+  }
+
+  get hostClasses(): string {
+    return [
       'cds--radio-button-wrapper',
-      this.effectiveLabelPlacement() === 'left' ? 'cds--radio-button-wrapper--label-left' : '',
+      this.effectiveLabelPlacement === 'left' ? 'cds--radio-button-wrapper--label-left' : '',
     ]
       .filter(Boolean)
-      .join(' '),
-  );
+      .join(' ');
+  }
 
-  // ── ViewChild signal — Angular-native reference, no querySelector needed ──
-  private readonly radioInputRef = viewChild<ElementRef<HTMLInputElement>>('radioInput');
+  @ViewChild('radioInput', { static: false }) radioInputRef?: ElementRef<HTMLInputElement>;
 
   constructor() {
     // Imperatively sync the native checked property whenever the signal changes.
-    // [checked]="checked()" alone does not reliably update the DOM after initial
-    // render because browsers manage radio checked state natively.
+    // We use an effect that will run after view init once the ViewChild is available.
     effect(() => {
-      const el = this.radioInputRef()?.nativeElement;
-      if (el) el.checked = this.checked();
+      const el = this.radioInputRef?.nativeElement;
+      if (el) el.checked = this._checked();
     });
+  }
+
+  ngOnChanges(): void {
+    this._value.set(this.value);
+    this._disabled.set(this.disabled);
+  }
+
+  ngAfterViewInit(): void {
+    // Ensure the native input reflects initial checked state
+    const el = this.radioInputRef?.nativeElement;
+    if (el) el.checked = this._checked();
   }
 
   // ── Internal: registered by the parent group ──────────────────────────────
@@ -98,12 +128,13 @@ export class NgccRadio<T = unknown> {
 
   // ── Event handlers ────────────────────────────────────────────────────────
   onClick(event: Event): void {
-    if (this.isDisabled() || this.isReadOnly()) {
+    if (this.isDisabled || this.isReadOnly) {
       event.preventDefault();
       return;
     }
-    this.checked.set((event.target as HTMLInputElement).checked);
-    const radioEvent = { source: this, value: this.value() };
+    const checked = (event.target as HTMLInputElement).checked;
+    this._checked.set(checked);
+    const radioEvent = { source: this, value: this._value() };
     this.change.emit(radioEvent);
     this.radioChangeHandler(radioEvent);
   }
@@ -111,5 +142,23 @@ export class NgccRadio<T = unknown> {
   /** Stop native change from bubbling — selection is managed via click. */
   onChange(event: Event): void {
     event.stopPropagation();
+  }
+
+  // Methods used by NgccRadioGroup internally
+  getValue(): T | null {
+    return this._value();
+  }
+
+  setChecked(v: boolean): void {
+    this._checked.set(v);
+  }
+
+  isChecked(): boolean {
+    return this._checked();
+  }
+
+  // Public getter for template binding
+  get checked(): boolean {
+    return this._checked();
   }
 }

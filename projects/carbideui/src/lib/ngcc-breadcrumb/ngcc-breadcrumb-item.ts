@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,16 +10,16 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./ngcc-breadcrumb-item.scss'],
   host: {
     class: 'cds--breadcrumb-item',
-    '[class.cds--breadcrumb-item--disabled]': 'disabled()',
+    '[class.cds--breadcrumb-item--disabled]': 'disabled',
   },
 })
 export class NgccBreadcrumbItemComponent {
-  readonly label = input('');
-  readonly href = input<string>();
-  readonly routerLink = input<string | string[]>();
-  readonly current = input(false);
-  readonly disabled = input(false);
-  readonly skeleton = input(false);
-  readonly target = input<string>();
-  readonly rel = input<string>();
+  @Input() label = '';
+  @Input() href?: string;
+  @Input() routerLink?: string | string[];
+  @Input() current = false;
+  @Input() disabled = false;
+  @Input() skeleton = false;
+  @Input() target?: string;
+  @Input() rel?: string;
 }

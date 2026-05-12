@@ -1,15 +1,15 @@
-<nav class="cds--side-nav__navigation" [attr.aria-label]="ariaLabel()">
+<nav class="cds--side-nav__navigation" [attr.aria-label]="ariaLabel">
   <ul class="cds--side-nav__items">
     <ng-content />
   </ul>
 
-  @if (allowExpansion()) {
+  @if (allowExpansion) {
     <footer class="cds--side-nav__footer">
       <ngcc-button
         class="cds--side-nav__toggle"
         variant="ghost"
         [iconOnly]="true"
-        [iconName]="expanded() ? 'chevron_left' : 'chevron_right'"
+        [iconName]="expanded ? 'chevron_left' : 'chevron_right'"
         (click)="toggle()"
       />
     </footer>

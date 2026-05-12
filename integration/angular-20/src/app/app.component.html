@@ -1,7 +1,10 @@
-<!-- CarbideUI Angular 20 integration smoke test -->
+<!-- CarbideUI Angular 20 Integration Smoke Test
+     Exercises the full exported component surface under strictTemplates.
+     Each section maps to a named export group in public-api.ts.           -->
 
+<!-- ── UI Shell ─────────────────────────────────────────────────────── -->
 <ngcc-header>
-  <ngcc-header-name prefix="Carbon" productName="CarbideUI" href="/" />
+  <ngcc-header-name prefix="Carbon" productName="CarbideUI v20" href="/" />
   <ngcc-header-navigation>
     <ngcc-header-item href="/components">Components</ngcc-header-item>
     <ngcc-header-item href="/docs">Docs</ngcc-header-item>
@@ -11,13 +14,102 @@
   </ngcc-header-global>
 </ngcc-header>
 
-<main style="padding: 2rem">
-  <ngcc-button variant="primary">Primary</ngcc-button>
-  <ngcc-button variant="secondary">Secondary</ngcc-button>
-  <ngcc-button variant="tertiary">Tertiary</ngcc-button>
+<main style="padding: 2rem; display: flex; flex-direction: column; gap: 2rem;">
 
+  <!-- ── Breadcrumb ───────────────────────────────────────────────── -->
+  <ngcc-breadcrumb>
+    <ngcc-breadcrumb-item href="/">Home</ngcc-breadcrumb-item>
+    <ngcc-breadcrumb-item href="/components">Components</ngcc-breadcrumb-item>
+  </ngcc-breadcrumb>
+
+  <!-- ── Buttons ─────────────────────────────────────────────────── -->
+  <section aria-label="Button variants">
+    <ngcc-button variant="primary" (click)="openModal()">Open Modal</ngcc-button>
+    <ngcc-button variant="secondary" (click)="triggerNotification()">Notify</ngcc-button>
+    <ngcc-button variant="tertiary" (click)="triggerToast()">Toast</ngcc-button>
+    <ngcc-button variant="danger">Danger</ngcc-button>
+    <ngcc-button variant="ghost">Ghost</ngcc-button>
+  </section>
+
+  <!-- ── Form Controls ───────────────────────────────────────────── -->
+  <section aria-label="Form controls">
+    <ngcc-input
+      label="Text input"
+      placeholder="Enter text…"
+      [value]="inputValue()"
+      (valueChange)="inputValue.set($event)" />
+
+    <ngcc-toggle
+      label="Enable feature"
+      [toggled]="toggleValue()"
+      (toggledChange)="toggleValue.set($event)" />
+
+    <ngcc-checkbox
+      label="I agree to terms"
+      [checked]="checkboxValue()"
+      (checkedChange)="checkboxValue.set($event)" />
+
+    <ngcc-dropdown
+      label="Select option"
+      [items]="dropdownOptions"
+      placeholder="Choose…" />
+  </section>
+
+  <!-- ── Accordion ───────────────────────────────────────────────── -->
   <ngcc-accordion>
-    <ngcc-accordion-item title="Section one">Content A</ngcc-accordion-item>
-    <ngcc-accordion-item title="Section two">Content B</ngcc-accordion-item>
+    <ngcc-accordion-item title="What is CarbideUI?">
+      An independent Angular component library inspired by the IBM Carbon Design System.
+    </ngcc-accordion-item>
+    <ngcc-accordion-item title="Angular version support">
+      Compatible with Angular v20 and v21+.
+    </ngcc-accordion-item>
   </ngcc-accordion>
+
+  <!-- ── Tabs ────────────────────────────────────────────────────── -->
+  <ngcc-tabs>
+    <ngcc-tab-headers>
+      <ngcc-tab label="Overview">
+        <p>Library overview tab content.</p>
+      </ngcc-tab>
+      <ngcc-tab label="API">
+        <p>API reference tab content.</p>
+      </ngcc-tab>
+    </ngcc-tab-headers>
+  </ngcc-tabs>
+
+  <!-- ── Skeleton ────────────────────────────────────────────────── -->
+  <section aria-label="Skeleton loaders">
+    <ngcc-skeleton type="text" />
+    <ngcc-skeleton type="heading" />
+  </section>
+
+  <!-- ── Tooltip ─────────────────────────────────────────────────── -->
+  <ngcc-tooltip content="This is a tooltip">
+    <ngcc-button variant="ghost">Hover me</ngcc-button>
+  </ngcc-tooltip>
+
+  <!-- ── Pagination ──────────────────────────────────────────────── -->
+  <ngcc-pagination
+    [totalItems]="100"
+    [pageSize]="10"
+    [page]="currentPage()"
+    (pageChange)="onPageChange($event)" />
+
+  <!-- ── Theme Switcher ───────────────────────────────────────────── -->
+  <ngcc-color-theme-switcher />
+
+  <!-- ── Notification & Toast containers (rendered, no visible UI) ── -->
+  <ngcc-notification-container />
+  <ngcc-toast-container />
+
+  <!-- ── Modal ───────────────────────────────────────────────────── -->
+  @if (isModalOpen()) {
+    <ngcc-modal
+      heading="Integration Test Modal"
+      [open]="isModalOpen()"
+      (closed)="closeModal()">
+      <p>Modal is rendering correctly from the dist bundle.</p>
+    </ngcc-modal>
+  }
+
 </main>

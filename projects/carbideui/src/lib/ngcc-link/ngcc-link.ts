@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { Component, ChangeDetectionStrategy, input, computed, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { NgccIcon } from '../ngcc-icons/ngcc-icon';
 import { NgccIconNameType } from '../ngcc-icons/icons';
 import { NgccLinkSize, NgccLinkTarget, NgccLinkAriaCurrent } from './ngcc-link.types';
@@ -7,29 +6,26 @@ import { NgccLinkSize, NgccLinkTarget, NgccLinkAriaCurrent } from './ngcc-link.t
 @Component({
   selector: 'ngcc-link',
   standalone: true,
-  imports: [CommonModule, NgccIcon],
+  imports: [NgccIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './ngcc-link.html',
 })
 export class NgccLink {
-  // Inputs (signal-based — no @Input decorator)
-  readonly href = input<string>('');
-  readonly target = input<NgccLinkTarget>('_self');
-  readonly rel = input<string>('');
-  readonly disabled = input<boolean>(false);
-  readonly inline = input<boolean>(false);
-  readonly size = input<NgccLinkSize>('md');
-  readonly visited = input<boolean>(false);
-  readonly iconName = input<NgccIconNameType | undefined>(undefined);
-  readonly ariaLabel = input<string | undefined>(undefined);
-  readonly ariaCurrent = input<NgccLinkAriaCurrent | undefined>(undefined);
-  readonly className = input<string>('');
+  @Input() href = '';
+  @Input() target: NgccLinkTarget = '_self';
+  @Input() rel = '';
+  @Input() disabled = false;
+  @Input() inline = false;
+  @Input() size: NgccLinkSize = 'md';
+  @Input() visited = false;
+  @Input() iconName: NgccIconNameType | undefined = undefined;
+  @Input() ariaLabel: string | undefined = undefined;
+  @Input() ariaCurrent: NgccLinkAriaCurrent | undefined = undefined;
+  @Input() className = '';
 
-  // Output
-  readonly linkClick = output<MouseEvent>();
+  @Output() linkClick = new EventEmitter<MouseEvent>();
 
-  // Computed: all CSS classes
-  readonly classes = computed(() => {
+  get classes(): string {
     const sizeMap: Record<NgccLinkSize, string> = {
       sm: 'cds--link--sm',
       md: '',
@@ -38,32 +34,32 @@ export class NgccLink {
 
     return [
       'cds--link',
-      sizeMap[this.size()],
-      this.inline() ? 'cds--link--inline' : '',
-      this.visited() ? 'cds--link--visited' : '',
-      this.disabled() ? 'cds--link--disabled' : '',
-      this.className(),
+      sizeMap[this.size],
+      this.inline ? 'cds--link--inline' : '',
+      this.visited ? 'cds--link--visited' : '',
+      this.disabled ? 'cds--link--disabled' : '',
+      this.className,
     ]
       .filter(Boolean)
       .join(' ');
-  });
+  }
 
-  // Computed: auto-add noopener noreferrer when target="_blank"
-  readonly resolvedRel = computed<string | null>(() => {
-    if (this.target() === '_blank') {
-      const parts = new Set(this.rel() ? this.rel().split(' ') : []);
+  get resolvedRel(): string | null {
+    if (this.target === '_blank') {
+      const parts = new Set(this.rel ? this.rel.split(' ') : []);
       parts.add('noopener');
       parts.add('noreferrer');
       return Array.from(parts).join(' ');
     }
-    return this.rel() || null;
-  });
+    return this.rel || null;
+  }
 
-  // Computed: tabindex — removed from tab order when disabled
-  readonly resolvedTabIndex = computed(() => (this.disabled() ? -1 : 0));
+  get resolvedTabIndex(): number {
+    return this.disabled ? -1 : 0;
+  }
 
   onClick(event: MouseEvent): void {
-    if (this.disabled()) {
+    if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
       return;
@@ -72,7 +68,7 @@ export class NgccLink {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    if (this.disabled()) {
+    if (this.disabled) {
       event.preventDefault();
       return;
     }

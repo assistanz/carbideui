@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  signal,
+} from '@angular/core';
 
 /**
  * Horizontal navigation bar inside the header shell.
@@ -20,7 +27,13 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { role: 'none' },
 })
-export class NgccHeaderNavigation {
+export class NgccHeaderNavigation implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ariaLabel'])
+      this._ariaLabel.set(changes['ariaLabel'].currentValue ?? 'Navigation');
+  }
+
   /** Accessible label for the <nav> landmark */
-  readonly ariaLabel = input('Navigation');
+  @Input() ariaLabel = 'Navigation';
+  private readonly _ariaLabel = signal('Navigation');
 }

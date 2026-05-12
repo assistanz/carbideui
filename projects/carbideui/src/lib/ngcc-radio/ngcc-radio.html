@@ -1,16 +1,16 @@
-@if (!effectiveSkeleton()) {
+@if (!effectiveSkeleton) {
   <input
     #radioInput
     class="cds--radio-button"
     type="radio"
-    [id]="id()"
-    [name]="effectiveName()"
-    [checked]="checked()"
-    [disabled]="isDisabled()"
-    [required]="required()"
-    [attr.value]="value()"
-    [attr.aria-labelledby]="effectiveAriaLabelledby()"
-    [attr.aria-label]="ariaLabel() ?? null"
+    [id]="id"
+    [name]="effectiveName"
+    [checked]="checked"
+    [disabled]="isDisabled"
+    [required]="required"
+    [attr.value]="value"
+    [attr.aria-labelledby]="effectiveAriaLabelledby"
+    [attr.aria-label]="ariaLabel ?? null"
     (change)="onChange($event)"
     (click)="onClick($event)"
   />
@@ -20,12 +20,12 @@
 
 <label
   class="cds--radio-button__label"
-  [class.cds--skeleton]="effectiveSkeleton()"
-  [attr.for]="id()"
-  [id]="'label-' + id()"
+  [class.cds--skeleton]="effectiveSkeleton"
+  [attr.for]="id"
+  [id]="'label-' + id"
 >
   <span class="cds--radio-button__appearance"></span>
-  @if (!effectiveSkeleton()) {
+  @if (!effectiveSkeleton) {
     <ng-content />
   }
 </label>

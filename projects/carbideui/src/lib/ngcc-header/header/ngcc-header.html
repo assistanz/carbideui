@@ -1,7 +1,7 @@
-<header class="cds--header" role="banner" [attr.aria-label]="ariaLabel() || null">
+<header class="cds--header" role="banner" [attr.aria-label]="ariaLabel || null">
   <!-- Skip-to-content link (visually hidden, becomes visible on focus) -->
-  @if (skipTo()) {
-    <a class="cds--skip-to-content" [attr.href]="'#' + skipTo()" tabindex="0">
+  @if (skipTo) {
+    <a class="cds--skip-to-content" [attr.href]="'#' + skipTo" tabindex="0">
       Skip to main content
     </a>
   }

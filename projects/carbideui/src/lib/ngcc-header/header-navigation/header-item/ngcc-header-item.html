@@ -2,9 +2,9 @@
   <a
     [class]="linkClasses()"
     role="menuitem"
-    [attr.href]="href()"
-    [attr.tabindex]="tabIndex()"
-    [attr.aria-current]="isCurrentPage() ? 'page' : null"
+    [attr.href]="href"
+    [attr.tabindex]="tabIndex"
+    [attr.aria-current]="isCurrentPage ? 'page' : null"
     (click)="onClick($event)"
     (keydown)="onKeydown($event)"
   >

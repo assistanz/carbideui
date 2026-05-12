@@ -1,9 +1,9 @@
 <ngcc-button
   variant="ghost"
   [iconOnly]="true"
-  [iconName]="iconName()"
-  [ariaLabel]="ariaLabel()"
-  [ariaExpanded]="active()"
-  [className]="'cds--header__action' + (active() ? ' cds--header__action--active' : '')"
+  [iconName]="iconName"
+  [ariaLabel]="ariaLabel"
+  [ariaExpanded]="active"
+  [className]="'cds--header__action' + (active ? ' cds--header__action--active' : '')"
   (click)="onClick($event)"
 />

@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  signal,
+} from '@angular/core';
 
 /**
  * Sliding panel linked to a header action (notifications, app-switcher, etc.).
@@ -16,13 +23,20 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   styleUrls: ['./ngcc-header-panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgccHeaderPanel {
-  readonly expanded = input(false);
-  readonly ariaLabel = input('Panel');
+export class NgccHeaderPanel implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['expanded']) this._expanded.set(changes['expanded'].currentValue ?? false);
+    if (changes['ariaLabel']) this._ariaLabel.set(changes['ariaLabel'].currentValue ?? 'Panel');
+  }
 
-  readonly panelClasses = computed(() =>
-    ['cds--header-panel', this.expanded() ? 'cds--header-panel--expanded' : '']
+  @Input() expanded = false;
+  private readonly _expanded = signal(false);
+  @Input() ariaLabel = 'Panel';
+  private readonly _ariaLabel = signal('Panel');
+
+  get panelClasses(): string {
+    return ['cds--header-panel', this._expanded() ? 'cds--header-panel--expanded' : '']
       .filter(Boolean)
-      .join(' '),
-  );
+      .join(' ');
+  }
 }

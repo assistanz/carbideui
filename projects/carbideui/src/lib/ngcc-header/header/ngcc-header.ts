@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  signal,
+} from '@angular/core';
 
 /**
  * Enterprise-grade Carbon Design System header shell.
@@ -39,17 +46,24 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   templateUrl: './ngcc-header.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgccHeader {
+export class NgccHeader implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ariaLabel']) this._ariaLabel.set(changes['ariaLabel'].currentValue ?? '');
+    if (changes['skipTo']) this._skipTo.set(changes['skipTo'].currentValue ?? 'main-content');
+  }
+
   /**
    * Accessible label for the <header> landmark.
    * Should match the product name shown in NgccHeaderName.
    */
-  readonly ariaLabel = input('');
+  @Input() ariaLabel = '';
+  private readonly _ariaLabel = signal('');
 
   /**
    * ID of the main content element for the skip link.
    * Renders a visually-hidden skip link for keyboard/screen-reader users.
    * Pass an empty string to disable.
    */
-  readonly skipTo = input('main-content');
+  @Input() skipTo = 'main-content';
+  private readonly _skipTo = signal('main-content');
 }

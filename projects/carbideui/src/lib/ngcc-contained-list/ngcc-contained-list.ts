@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgccContainedListKind, NgccContainedListSize } from './ngcc-contained-list.types';
 
 @Component({
@@ -9,34 +9,34 @@ import { NgccContainedListKind, NgccContainedListSize } from './ngcc-contained-l
   styleUrls: ['./ngcc-contained-list.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[class]': 'classes()',
+    '[class]': 'classes',
   },
 })
 export class NgccContainedList {
   private static count = 0;
 
   /** A label describing the contained list. */
-  readonly label = input('');
+  @Input() label = '';
 
   /** The kind of ContainedList you want to display. */
-  readonly kind = input<NgccContainedListKind>('on-page');
+  @Input() kind: NgccContainedListKind = 'on-page';
 
   /** Specify the size of the contained list. */
-  readonly size = input<NgccContainedListSize | undefined>(undefined);
+  @Input() size: NgccContainedListSize | undefined = undefined;
 
   /** Specify whether the dividing lines in between list items should be inset. */
-  readonly isInset = input(false);
+  @Input() isInset = false;
 
   /** Whether a header action element has been projected via [ngccContainedListAction]. */
-  readonly hasAction = input(false);
+  @Input() hasAction = false;
 
   /** Unique ID for the label element used by aria-labelledby. */
   readonly labelId = `ngcc-contained-list-${NgccContainedList.count++}-header`;
 
-  readonly classes = computed(() => {
-    const kind = this.kind();
-    const size = this.size();
-    const isInset = this.isInset();
+  get classes(): string {
+    const kind = this.kind;
+    const size = this.size;
+    const isInset = this.isInset;
 
     const cls = ['cds--contained-list', `cds--contained-list--${kind}`];
     if (isInset) cls.push('cds--contained-list--inset-rulers');
@@ -45,5 +45,5 @@ export class NgccContainedList {
       cls.push(`cds--layout--size-${size}`);
     }
     return cls.join(' ');
-  });
+  }
 }

@@ -1,9 +1,9 @@
 <li class="cds--side-nav__menu-item">
   <a
-    [class]="active() ? 'cds--side-nav__link cds--side-nav__link--current' : 'cds--side-nav__link'"
-    [href]="href()"
-    [attr.aria-current]="active() ? 'page' : null"
-    [attr.title]="title() || null"
+    [class]="active ? 'cds--side-nav__link cds--side-nav__link--current' : 'cds--side-nav__link'"
+    [href]="href"
+    [attr.aria-current]="active ? 'page' : null"
+    [attr.title]="title || null"
     (click)="onClick($event)"
   >
     <span class="cds--side-nav__link-text">
