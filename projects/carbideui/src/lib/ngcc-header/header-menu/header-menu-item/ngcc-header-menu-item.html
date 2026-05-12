@@ -2,9 +2,9 @@
   <a
     [class]="linkClasses()"
     role="menuitem"
-    [attr.href]="disabled() ? null : href()"
-    [attr.aria-disabled]="disabled() ? true : null"
-    [attr.aria-current]="isCurrentPage() ? 'page' : null"
+    [attr.href]="disabled ? null : href"
+    [attr.aria-disabled]="disabled ? true : null"
+    [attr.aria-current]="isCurrentPage ? 'page' : null"
     (click)="onClick($event)"
     (keydown)="onKeydown($event)"
   >

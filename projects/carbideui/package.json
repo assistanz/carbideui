@@ -30,16 +30,17 @@
   "typescript",
   "angular-carbon-components",
   "carbideui"
-],
-  "module": "./fesm2022/carbideui.mjs",
-  "typings": "./types/carbideui.d.ts",
+  ],
+  "main": "./fesm2022/assistanz-carbideui.mjs",
+  "module": "./fesm2022/assistanz-carbideui.mjs",
+  "types": "./index.d.ts",
   "exports": {
     "./styles": "./styles/carbon.scss"
   },
   "files": [
     "fesm2022/",
     "styles/",
-    "types/",
+    "*.d.ts",
     "README.md",
     "LICENSE"
   ],
@@ -49,13 +50,14 @@
     "@angular/forms": ">=20 <22",
     "@angular/platform-browser": ">=20 <22",
     "@angular/router": ">=20 <22",
+    "rxjs": "^7.8.0",
     "@carbon/charts": "^1.27.3",
     "@carbon/styles": "^1.102.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": ["*.scss"],
+  "sideEffects": ["*.scss", "*.css"],
   "publishConfig": {
     "access": "public",
     "tag": "latest"

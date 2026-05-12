@@ -20,6 +20,8 @@ module.exports = [
       'storybook-static/',
       '**/*.spec.ts',
       '**/*.stories.ts',
+      '**/demo.component.ts',
+      '**/test-utils/**',
     ],
   },
 

@@ -3,10 +3,12 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  EventEmitter,
+  Input,
+  Output,
   inject,
-  input,
-  model,
   viewChild,
+  signal,
 } from '@angular/core';
 import { NgccIcon } from '../../ngcc-icons/ngcc-icon';
 import { NgccHeaderMenuTrigger } from '../ngcc-header.types';
@@ -38,11 +40,34 @@ import { NgccHeaderMenuTrigger } from '../ngcc-header.types';
 })
 export class NgccHeaderMenu {
   /** Visible label on the trigger button */
-  readonly title = input('');
+  @Input()
+  get title(): string {
+    return this._title();
+  }
+  set title(value: string) {
+    this._title.set(value);
+  }
+  private readonly _title = signal('');
   /** How the menu opens — 'click' (default) or 'mouseover' */
-  readonly trigger = input<NgccHeaderMenuTrigger>('click');
+  @Input()
+  get trigger(): NgccHeaderMenuTrigger {
+    return this._trigger();
+  }
+  set trigger(value: NgccHeaderMenuTrigger) {
+    this._trigger.set(value);
+  }
+  private readonly _trigger = signal<NgccHeaderMenuTrigger>('click');
   /** Two-way bindable expanded state — use [(expanded)]="myVar" in parent */
-  readonly expanded = model(false);
+  @Input()
+  get expanded(): boolean {
+    return this._expanded();
+  }
+  set expanded(value: boolean) {
+    this._expanded.set(value);
+    this.expandedChange.emit(value);
+  }
+  @Output() expandedChange = new EventEmitter<boolean>();
+  private readonly _expanded = signal(false);
 
   /**
    * Signal-based view queries (Angular v17.2+).
@@ -64,32 +89,35 @@ export class NgccHeaderMenu {
   // ─── Expand / Collapse ─────────────────────────────────────────────────────
 
   expand(): void {
-    this.expanded.set(true);
+    this._expanded.set(true);
+    this.expandedChange.emit(this._expanded());
   }
 
   collapse(): void {
-    this.expanded.set(false);
+    this._expanded.set(false);
+    this.expandedChange.emit(this._expanded());
   }
 
   toggle(): void {
-    this.expanded.update((v) => !v);
+    this._expanded.update((v: boolean) => !v);
+    this.expandedChange.emit(this._expanded());
   }
 
   // ─── Trigger button events ─────────────────────────────────────────────────
 
   onTriggerClick(): void {
-    if (this.trigger() === 'click') this.toggle();
+    if (this._trigger() === 'click') this.toggle();
   }
 
   onTriggerMouseEnter(): void {
-    if (this.trigger() === 'mouseover') {
+    if (this._trigger() === 'mouseover') {
       if (this._hoverTimeout !== null) clearTimeout(this._hoverTimeout);
       this.expand();
     }
   }
 
   onTriggerMouseLeave(): void {
-    if (this.trigger() === 'mouseover') {
+    if (this._trigger() === 'mouseover') {
       this._hoverTimeout = setTimeout(() => this.collapse(), 150);
     }
   }
@@ -101,7 +129,7 @@ export class NgccHeaderMenu {
       case ' ':
         event.preventDefault();
         this.toggle();
-        if (this.expanded()) {
+        if (this._expanded()) {
           // model() updates synchronously — expanded() reflects the new state here
           requestAnimationFrame(() => this.focusMenuItemAt(0));
         }
@@ -109,13 +137,13 @@ export class NgccHeaderMenu {
 
       case 'ArrowDown':
         event.preventDefault();
-        if (!this.expanded()) this.expand();
+        if (!this._expanded()) this.expand();
         requestAnimationFrame(() => this.focusMenuItemAt(0));
         break;
 
       case 'ArrowUp':
         event.preventDefault();
-        if (!this.expanded()) this.expand();
+        if (!this._expanded()) this.expand();
         requestAnimationFrame(() => this.focusMenuItemAt(-1));
         break;
 
@@ -178,13 +206,13 @@ export class NgccHeaderMenu {
   }
 
   onMenuMouseEnter(): void {
-    if (this.trigger() === 'mouseover' && this._hoverTimeout !== null) {
+    if (this._trigger() === 'mouseover' && this._hoverTimeout !== null) {
       clearTimeout(this._hoverTimeout);
     }
   }
 
   onMenuMouseLeave(): void {
-    if (this.trigger() === 'mouseover') {
+    if (this._trigger() === 'mouseover') {
       this._hoverTimeout = setTimeout(() => this.collapse(), 150);
     }
   }

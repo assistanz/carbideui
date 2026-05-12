@@ -1,13 +1,14 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
-  computed,
-  contentChildren,
-  effect,
+  ContentChildren,
+  EventEmitter,
   forwardRef,
   inject,
-  input,
-  output,
+  Input,
+  Output,
+  QueryList,
   signal,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
@@ -52,85 +53,78 @@ let radioGroupIdCounter = 0;
   },
   templateUrl: './ngcc-radio-group.html',
 })
-export class NgccRadioGroup<T = unknown> implements ControlValueAccessor, NgccRadioGroupContext {
+export class NgccRadioGroup<T = unknown>
+  implements ControlValueAccessor, NgccRadioGroupContext, AfterContentInit
+{
   // Use constructor injection pattern to avoid NG0200 circular dep that occurs
   // when combining inject(NgControl) with an NG_VALUE_ACCESSOR provider.
   private readonly ngControl = inject(NgControl, { optional: true, self: true });
 
-  // ── Signal inputs ─────────────────────────────────────────────────────────
-  readonly name = input<string>(`ngcc-radio-group-${radioGroupIdCounter++}`);
-  readonly disabled = input<boolean>(false);
-  readonly skeleton = input<boolean>(false);
-  readonly orientation = input<NgccRadioOrientation>('horizontal');
-  readonly labelPlacement = input<NgccRadioLabelPlacement>('right');
-  readonly legend = input<string | undefined>(undefined);
-  readonly ariaLabel = input<string | undefined>(undefined);
-  readonly ariaLabelledby = input<string | undefined>(undefined);
-  readonly helperText = input<string | undefined>(undefined);
-  readonly invalid = input<boolean>(false);
-  readonly invalidText = input<string | undefined>(undefined);
-  readonly warn = input<boolean>(false);
-  readonly warnText = input<string | undefined>(undefined);
-  readonly readOnly = input<boolean>(false);
+  // ── Public @Input properties.
+  @Input() name = `ngcc-radio-group-${radioGroupIdCounter++}`;
+  @Input() disabled = false;
+  @Input() skeleton = false;
+  @Input() orientation: NgccRadioOrientation = 'horizontal';
+  @Input() labelPlacement: NgccRadioLabelPlacement = 'right';
+  @Input() legend?: string;
+  @Input() ariaLabel?: string;
+  @Input() ariaLabelledby?: string;
+  @Input() helperText?: string;
+  @Input() invalid = false;
+  @Input() invalidText?: string;
+  @Input() warn = false;
+  @Input() warnText?: string;
+  @Input() readOnly = false;
 
-  // ── Output ────────────────────────────────────────────────────────────────
-  readonly change = output<NgccRadioChange<T | null> & { source: NgccRadio<T> }>();
+  // ── Output event
+  @Output() change = new EventEmitter<NgccRadioChange<T | null> & { source: NgccRadio<T> }>();
 
-  // ── Internal mutable state ────────────────────────────────────────────────
+  // ── Internal mutable state
   private readonly _value = signal<T | null>(null);
   private readonly _disabledByForm = signal<boolean>(false);
 
-  // ── NgccRadioGroupContext — consumed by child NgccRadio via injection ──────
-  readonly isDisabled = computed(() => this.disabled() || this._disabledByForm());
+  // ── NgccRadioGroupContext properties that satisfy the interface.
+  get isDisabled(): boolean {
+    return this.disabled || this._disabledByForm();
+  }
 
-  // ── Computed fieldset classes ─────────────────────────────────────────────
-  readonly fieldsetClasses = computed(() =>
-    [
+  // ── Computed fieldset classes
+  fieldsetClasses(): string {
+    return [
       'cds--radio-button-group',
-      this.orientation() === 'vertical' ? 'cds--radio-button-group--vertical' : '',
-      this.labelPlacement() === 'left' ? 'cds--radio-button-group--label-left' : '',
-      this.invalid() ? 'cds--radio-button-group--invalid' : '',
-      !this.invalid() && this.warn() ? 'cds--radio-button-group--warning' : '',
-      this.readOnly() ? 'cds--radio-button-group--readonly' : '',
+      this.orientation === 'vertical' ? 'cds--radio-button-group--vertical' : '',
+      this.labelPlacement === 'left' ? 'cds--radio-button-group--label-left' : '',
+      this.invalid ? 'cds--radio-button-group--invalid' : '',
+      !this.invalid && this.warn ? 'cds--radio-button-group--warning' : '',
+      this.readOnly ? 'cds--radio-button-group--readonly' : '',
     ]
       .filter(Boolean)
-      .join(' '),
-  );
+      .join(' ');
+  }
 
-  // ── contentChildren signal — replaces @ContentChildren + QueryList ────────
-  readonly radios = contentChildren<NgccRadio<T>>(forwardRef(() => NgccRadio));
+  // ── content children (projected radios)
+  @ContentChildren(forwardRef(() => NgccRadio)) radios!: QueryList<NgccRadio<T>>;
 
   constructor() {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
-
-    // Re-bind change handlers whenever the set of radio buttons changes.
-    // Effect automatically cleans up — no manual unsubscribe needed.
-    effect(() => {
-      this.bindRadioHandlers(this.radios());
-    });
-
-    // Sync checked state whenever radios or the current value changes.
-    effect(() => {
-      this.syncCheckedState(this.radios());
-    });
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   private syncCheckedState(radios: readonly NgccRadio<T>[]): void {
     const current = this._value();
-    radios.forEach((radio) => radio.checked.set(radio.value() === current));
+    radios.forEach((radio) => radio.setChecked(radio.getValue() === current));
   }
 
   private bindRadioHandlers(radios: readonly NgccRadio<T>[]): void {
     radios.forEach((radio) => {
       radio.registerRadioChangeHandler((event) => {
         if (this._value() === event.value) return;
-        // Use this.radios() to deselect all other radios at handler time.
-        this.radios().forEach((r) => {
-          if (r !== event.source) r.checked.set(false);
+        // Deselect all other radios at handler time.
+        this.radios.toArray().forEach((r) => {
+          if (r !== event.source) r.setChecked(false);
         });
         this._value.set(event.value);
         this.propagateChange(event.value);
@@ -144,9 +138,7 @@ export class NgccRadioGroup<T = unknown> implements ControlValueAccessor, NgccRa
 
   writeValue(val: T | null): void {
     this._value.set(val);
-    // If radios are already available sync immediately;
-    // otherwise the syncCheckedState effect will handle it.
-    const radios = this.radios();
+    const radios = this.radios ? this.radios.toArray() : [];
     if (radios.length > 0) {
       this.syncCheckedState(radios);
     }
@@ -162,6 +154,18 @@ export class NgccRadioGroup<T = unknown> implements ControlValueAccessor, NgccRa
 
   setDisabledState(isDisabled: boolean): void {
     this._disabledByForm.set(isDisabled);
+  }
+
+  ngAfterContentInit(): void {
+    // Initial binding
+    this.bindRadioHandlers(this.radios.toArray());
+    this.syncCheckedState(this.radios.toArray());
+
+    // Re-bind when radios change
+    this.radios.changes.subscribe(() => {
+      this.bindRadioHandlers(this.radios.toArray());
+      this.syncCheckedState(this.radios.toArray());
+    });
   }
 
   // ── Focus handler (declared in host binding above) ────────────────────────

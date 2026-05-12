@@ -1,10 +1,10 @@
-<a class="cds--header__name" [attr.href]="href()" [attr.title]="titleAttr()">
-  @if (brand()) {
-    <span class="cds--header__name--prefix">{{ brand() }}</span
+<a class="cds--header__name" [attr.href]="href" [attr.title]="titleAttr()">
+  @if (brand) {
+    <span class="cds--header__name--prefix">{{ brand }}</span
     >&nbsp;
   }
-  @if (productName()) {
-    {{ productName() }}
+  @if (productName) {
+    {{ productName }}
   }
   <!-- Allow fully custom brand content via projection -->
   <ng-content />

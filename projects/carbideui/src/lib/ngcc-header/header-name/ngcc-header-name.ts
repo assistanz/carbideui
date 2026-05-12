@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  computed,
+  signal,
+} from '@angular/core';
 
 /**
  * Brand prefix + product name link in the header.
@@ -14,14 +22,25 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { role: 'none' },
 })
-export class NgccHeaderName {
+export class NgccHeaderName implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['brand']) this._brand.set(changes['brand'].currentValue ?? 'CarbideUI');
+    if (changes['productName']) this._productName.set(changes['productName'].currentValue ?? '');
+    if (changes['href']) this._href.set(changes['href'].currentValue ?? '/');
+  }
+
   /** Brand prefix, e.g. "CarbideUI" */
-  readonly brand = input('CarbideUI');
+  @Input() brand = 'CarbideUI';
+  private readonly _brand = signal('CarbideUI');
   /** Product / suite name shown after the brand */
-  readonly productName = input('');
+  @Input() productName = '';
+  private readonly _productName = signal('');
   /** Link destination */
-  readonly href = input('/');
+  @Input() href = '/';
+  private readonly _href = signal('/');
 
   /** Combined title attribute for accessibility */
-  readonly titleAttr = computed(() => [this.brand(), this.productName()].filter(Boolean).join(' '));
+  readonly titleAttr = computed(() =>
+    [this._brand(), this._productName()].filter(Boolean).join(' '),
+  );
 }

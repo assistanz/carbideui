@@ -28,9 +28,9 @@
     "commit": "czg",
     "prepare": "husky",
     "semantic-release": "semantic-release",
-    "integration:build": "npm run build:lib && npm run integration:ng20 && npm run integration:ng21",
-    "integration:ng20": "cd integration/angular-20 && npm ci && npm run build",
-    "integration:ng21": "cd integration/angular-21 && npm ci && npm run build"
+    "integration:build": "node scripts/verify-exports.mjs && npm run integration:ng20 && npm run integration:ng21",
+    "integration:ng20": "cd integration/angular-20 && IBM_TELEMETRY_DISABLED=true npm ci && npm run verify:full",
+    "integration:ng21": "cd integration/angular-21 && IBM_TELEMETRY_DISABLED=true npm ci && npm run verify:full"
   },
   "config": {
     "commitizen": {

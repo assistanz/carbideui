@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 
 /**
  * A navigable link nested inside <ngcc-side-nav-menu>.
@@ -26,13 +26,13 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 })
 export class NgccSideNavMenuItem {
   /** Navigation URL */
-  readonly href = input('#');
+  @Input() href = '#';
   /** Marks this link as the active / current page */
-  readonly active = input(false);
+  @Input() active = false;
   /** Optional title attribute for the anchor */
-  readonly title = input('');
+  @Input() title = '';
 
-  readonly itemClick = output<Event>();
+  @Output() itemClick = new EventEmitter<Event>();
 
   onClick(event: Event): void {
     this.itemClick.emit(event);

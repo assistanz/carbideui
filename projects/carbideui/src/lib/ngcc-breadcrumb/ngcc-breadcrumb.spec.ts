@@ -108,7 +108,7 @@ describe('NgccBreadcrumbComponent', () => {
 
       const items = getBreadcrumbItems();
       const lastItem = items[items.length - 1];
-      expect(lastItem.componentInstance.current()).toBe(true);
+      expect(lastItem.componentInstance.current).toBe(true);
     });
 
     it('respects explicit current flag on items', () => {
@@ -119,7 +119,7 @@ describe('NgccBreadcrumbComponent', () => {
       detectChanges();
 
       const items = getBreadcrumbItems();
-      expect(items[0].componentInstance.current()).toBe(true);
+      expect(items[0].componentInstance.current).toBe(true);
     });
 
     it('non-last items are not current by default', () => {
@@ -131,8 +131,8 @@ describe('NgccBreadcrumbComponent', () => {
       detectChanges();
 
       const items = getBreadcrumbItems();
-      expect(items[0].componentInstance.current()).toBe(false);
-      expect(items[1].componentInstance.current()).toBe(false);
+      expect(items[0].componentInstance.current).toBe(false);
+      expect(items[1].componentInstance.current).toBe(false);
     });
   });
 
@@ -145,7 +145,7 @@ describe('NgccBreadcrumbComponent', () => {
       const items = getBreadcrumbItems();
       expect(items.length).toBe(3);
       items.forEach((item) => {
-        expect(item.componentInstance.skeleton()).toBe(true);
+        expect(item.componentInstance.skeleton).toBe(true);
       });
     });
 

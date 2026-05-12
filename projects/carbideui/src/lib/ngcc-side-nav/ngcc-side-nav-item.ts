@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgccIcon } from '../ngcc-icons/ngcc-icon';
 import type { NgccIconNameType } from '../ngcc-icons/icons';
 
@@ -29,23 +29,25 @@ import type { NgccIconNameType } from '../ngcc-icons/icons';
 })
 export class NgccSideNavItem {
   /** Navigation URL */
-  readonly href = input('#');
+  @Input() href = '#';
   /** Marks this link as the active / current page */
-  readonly active = input(false);
+  @Input() active = false;
   /** Optional title attribute for the anchor */
-  readonly title = input('');
+  @Input() title = '';
   /** Optional icon placed before the link text */
-  readonly iconName = input<NgccIconNameType | undefined>(undefined);
+  @Input() iconName: NgccIconNameType | undefined = undefined;
 
-  readonly itemClick = output<Event>();
+  @Output() itemClick = new EventEmitter<Event>();
 
-  readonly itemClasses = computed(() => ['cds--side-nav__item'].filter(Boolean).join(' '));
+  get itemClasses(): string {
+    return ['cds--side-nav__item'].filter(Boolean).join(' ');
+  }
 
-  readonly linkClasses = computed(() =>
-    ['cds--side-nav__link', this.active() ? 'cds--side-nav__link--current' : '']
+  get linkClasses(): string {
+    return ['cds--side-nav__link', this.active ? 'cds--side-nav__link--current' : '']
       .filter(Boolean)
-      .join(' '),
-  );
+      .join(' ');
+  }
 
   onClick(event: Event): void {
     this.itemClick.emit(event);

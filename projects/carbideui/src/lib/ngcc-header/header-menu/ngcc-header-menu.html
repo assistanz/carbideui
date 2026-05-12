@@ -5,13 +5,13 @@
     class="cds--header__menu-item cds--header__menu-title"
     tabindex="0"
     aria-haspopup="menu"
-    [attr.aria-expanded]="expanded()"
+    [attr.aria-expanded]="expanded"
     (click)="onTriggerClick()"
     (mouseenter)="onTriggerMouseEnter()"
     (mouseleave)="onTriggerMouseLeave()"
     (keydown)="onTriggerKeydown($event)"
   >
-    {{ title() }}
+    {{ title }}
     <ngcc-icon
       name="chevron_down"
       [decorative]="true"
@@ -29,7 +29,7 @@
     class="cds--header__menu"
     role="menu"
     tabindex="0"
-    [attr.aria-label]="title()"
+    [attr.aria-label]="title"
     (keydown)="onMenuKeydown($event)"
     (focusout)="onMenuFocusOut($event)"
     (mouseenter)="onMenuMouseEnter()"

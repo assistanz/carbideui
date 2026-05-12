@@ -411,7 +411,7 @@ describe('NgccCodeSnippetComponent', () => {
   describe('Component signals', () => {
     it('needsExpansion is false for single variant', () => {
       detectChanges();
-      expect(getSnippetComponent().needsExpansion()).toBe(false);
+      expect(getSnippetComponent().needsExpansion).toBe(false);
     });
 
     it('needsExpansion is true when multi code exceeds maxCollapsedNumberOfRows', () => {
@@ -419,19 +419,19 @@ describe('NgccCodeSnippetComponent', () => {
       host.code = MULTI_CODE; // 5 lines
       host.maxCollapsedNumberOfRows = 3;
       detectChanges();
-      expect(getSnippetComponent().needsExpansion()).toBe(true);
+      expect(getSnippetComponent().needsExpansion).toBe(true);
     });
 
     it('containerMaxHeight returns null for non-multi types', () => {
       detectChanges();
-      expect(getSnippetComponent().containerMaxHeight()).toBeNull();
+      expect(getSnippetComponent().containerMaxHeight).toBeNull();
     });
 
     it('containerMaxHeight returns rem value for multi type', () => {
       host.type = 'multi';
       host.maxCollapsedNumberOfRows = 10;
       detectChanges();
-      expect(getSnippetComponent().containerMaxHeight()).toBe('15rem');
+      expect(getSnippetComponent().containerMaxHeight).toBe('15rem');
     });
   });
 

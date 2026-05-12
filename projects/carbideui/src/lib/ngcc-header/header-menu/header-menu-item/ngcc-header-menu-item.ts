@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  computed,
+  signal,
+} from '@angular/core';
 
 /**
  * A single item inside an <ngcc-header-menu> dropdown.
@@ -13,21 +23,31 @@ import { ChangeDetectionStrategy, Component, computed, input, output } from '@an
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { role: 'none' },
 })
-export class NgccHeaderMenuItem {
-  readonly href = input('/');
-  readonly isCurrentPage = input(false);
-  readonly disabled = input(false);
+export class NgccHeaderMenuItem implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['href']) this._href.set(changes['href'].currentValue ?? '/');
+    if (changes['isCurrentPage'])
+      this._isCurrentPage.set(changes['isCurrentPage'].currentValue ?? false);
+    if (changes['disabled']) this._disabled.set(changes['disabled'].currentValue ?? false);
+  }
 
-  readonly itemClick = output<Event>();
+  @Input() href = '/';
+  private readonly _href = signal('/');
+  @Input() isCurrentPage = false;
+  private readonly _isCurrentPage = signal(false);
+  @Input() disabled = false;
+  private readonly _disabled = signal(false);
+
+  @Output() itemClick = new EventEmitter<Event>();
 
   readonly linkClasses = computed(() =>
-    ['cds--header__menu-item', this.isCurrentPage() ? 'cds--header__menu-item--current' : '']
+    ['cds--header__menu-item', this._isCurrentPage() ? 'cds--header__menu-item--current' : '']
       .filter(Boolean)
       .join(' '),
   );
 
   onClick(event: Event): void {
-    if (this.disabled()) {
+    if (this._disabled()) {
       event.preventDefault();
       return;
     }
@@ -35,7 +55,7 @@ export class NgccHeaderMenuItem {
   }
 
   onKeydown(event: KeyboardEvent): void {
-    if (this.disabled()) return;
+    if (this._disabled()) return;
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       this.itemClick.emit(event);

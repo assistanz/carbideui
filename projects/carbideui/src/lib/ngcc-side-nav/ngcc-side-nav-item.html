@@ -1,14 +1,14 @@
-<li [class]="itemClasses()">
+<li [class]="itemClasses">
   <a
-    [class]="linkClasses()"
-    [href]="href()"
-    [attr.aria-current]="active() ? 'page' : null"
-    [attr.title]="title() || null"
+    [class]="linkClasses"
+    [href]="href"
+    [attr.aria-current]="active ? 'page' : null"
+    [attr.title]="title || null"
     (click)="onClick($event)"
   >
-    @if (iconName()) {
+    @if (iconName) {
       <div class="cds--side-nav__icon">
-        <ngcc-icon [name]="iconName()!" [decorative]="true" size="md" />
+        <ngcc-icon [name]="iconName!" [decorative]="true" size="md" />
       </div>
     }
     <span class="cds--side-nav__link-text">

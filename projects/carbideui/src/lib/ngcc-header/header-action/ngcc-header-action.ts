@@ -1,12 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  input,
-  model,
-  output,
-  HostListener,
   ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
   inject,
+  signal,
 } from '@angular/core';
 import { NgccButton } from '../../ngcc-button/ngcc-button';
 import type { NgccIconNameType } from '../../ngcc-icons/icons';
@@ -27,30 +30,48 @@ import type { NgccIconNameType } from '../../ngcc-icons/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { role: 'none' },
 })
-export class NgccHeaderAction {
+export class NgccHeaderAction implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ariaLabel']) this._ariaLabel.set(changes['ariaLabel'].currentValue ?? '');
+    if (changes['iconName']) this._iconName.set(changes['iconName'].currentValue ?? undefined);
+    if (changes['toggleable']) this._toggleable.set(changes['toggleable'].currentValue ?? true);
+    if (changes['active']) {
+      this._active.set(changes['active'].currentValue ?? false);
+    }
+  }
+
   private elementRef = inject(ElementRef);
 
   /** Accessible label for the button */
-  readonly ariaLabel = input('');
-  /** Two-way bindable active/panel-open state — use [(active)]="myVar" in parent */
-  readonly active = model(false);
-  /** Icon to display — any key from the NgccIcon registry */
-  readonly iconName = input<NgccIconNameType | undefined>(undefined);
-  /** Set false to make the button fire-and-forget (no toggle behaviour) */
-  readonly toggleable = input(true);
+  @Input() ariaLabel = '';
+  private readonly _ariaLabel = signal('');
 
-  readonly actionClick = output<MouseEvent>();
+  /** Two-way bindable active/panel-open state — use [(active)]="myVar" in parent */
+  @Input() active = false;
+  @Output() activeChange = new EventEmitter<boolean>();
+  private readonly _active = signal(false);
+
+  /** Icon to display — any key from the NgccIcon registry */
+  @Input() iconName: NgccIconNameType | undefined = undefined;
+  private readonly _iconName = signal<NgccIconNameType | undefined>(undefined);
+
+  /** Set false to make the button fire-and-forget (no toggle behaviour) */
+  @Input() toggleable = true;
+  private readonly _toggleable = signal(true);
+
+  @Output() actionClick = new EventEmitter<MouseEvent>();
 
   onClick(event: MouseEvent): void {
     this.actionClick.emit(event);
-    if (this.toggleable()) {
-      this.active.update((v) => !v);
+    if (this._toggleable()) {
+      this._active.update((v) => !v);
+      this.activeChange.emit(this._active());
     }
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    if (!this.active() || !this.toggleable()) return;
+    if (!this._active() || !this._toggleable()) return;
 
     // Evaluate click path to support detached DOM elements
     const path = event.composedPath() as HTMLElement[];
@@ -60,14 +81,16 @@ export class NgccHeaderAction {
     const isInsidePanel = path.some((el) => el.tagName?.toLowerCase() === 'ngcc-header-panel');
 
     if (!isInsideAction && !isInsidePanel) {
-      this.active.set(false);
+      this._active.set(false);
+      this.activeChange.emit(this._active());
     }
   }
 
   @HostListener('document:keydown.escape')
   onEscape(): void {
-    if (this.active() && this.toggleable()) {
-      this.active.set(false);
+    if (this._active() && this._toggleable()) {
+      this._active.set(false);
+      this.activeChange.emit(this._active());
       // Return focus to the trigger element when closed via Escape key
       this.elementRef.nativeElement.querySelector('button')?.focus();
     }

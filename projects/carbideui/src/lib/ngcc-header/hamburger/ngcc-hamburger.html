@@ -3,10 +3,9 @@
   [iconOnly]="true"
   iconName="menu"
   [ariaLabel]="currentLabel()"
-  [ariaExpanded]="active()"
+  [ariaExpanded]="active"
   [className]="
-    'cds--header__action cds--header__menu-trigger' +
-    (active() ? ' cds--header__action--active' : '')
+    'cds--header__action cds--header__menu-trigger' + (active ? ' cds--header__action--active' : '')
   "
   (click)="toggle()"
 />

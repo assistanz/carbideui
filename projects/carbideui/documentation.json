@@ -2273,6 +2273,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    type: 'single',\n    code: singleLineCode,\n  },\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-demo.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2293,6 +2303,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2308,6 +2328,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    name: 'add',\n    size: 'md',\n    color: 'currentColor',\n    ariaLabel: 'Add',\n  },\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    href: '/docs',\n    size: 'md',\n    disabled: false,\n    visited: false,\n    inline: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link\n        [href]=\"href\"\n        [size]=\"size\"\n        [disabled]=\"disabled\"\n        [visited]=\"visited\"\n        [inline]=\"inline\"\n        [iconName]=\"iconName\"\n        [target]=\"target\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaCurrent]=\"ariaCurrent\"\n      >Carbon Link</ngcc-link>\n    `,\n  }),\n}"
             },
             {
                 "name": "Default",
@@ -2370,6 +2400,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  name: 'Default',\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    labelText: 'Enable feature',\n    labelA: 'Off',\n    labelB: 'On',\n    toggled: false,\n    disabled: false,\n    readOnly: false,\n    skeleton: false,\n    hideLabel: false,\n    size: 'md',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-toggle\n        [labelText]=\"labelText\"\n        [labelA]=\"labelA\"\n        [labelB]=\"labelB\"\n        [toggled]=\"toggled\"\n        [disabled]=\"disabled\"\n        [readOnly]=\"readOnly\"\n        [skeleton]=\"skeleton\"\n        [hideLabel]=\"hideLabel\"\n        [size]=\"size\"\n        [ariaLabel]=\"ariaLabel\"\n        [className]=\"className\"\n      ></ngcc-toggle>\n    `,\n  }),\n}"
             },
             {
                 "name": "Default",
@@ -2449,6 +2489,36 @@
                 "name": "Disabled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    type: 'single',\n    code: singleLineCode,\n    disabled: true,\n  },\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    href: '/restricted',\n    disabled: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [disabled]=\"disabled\">\n        Unavailable Link\n      </ngcc-link>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    labelText: 'Unavailable feature',\n    disabled: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"display:flex;flex-direction:column;gap:1rem;\">\n        <ngcc-toggle [labelText]=\"labelText\" [disabled]=\"true\" [toggled]=\"false\"></ngcc-toggle>\n        <ngcc-toggle [labelText]=\"labelText\" [disabled]=\"true\" [toggled]=\"true\"></ngcc-toggle>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2494,6 +2564,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { legend: 'One radio disabled' },\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-radio-group\n        [legend]=\"legend\"\n        [orientation]=\"orientation\"\n        [labelPlacement]=\"labelPlacement\"\n        [helperText]=\"helperText\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaLabelledby]=\"ariaLabelledby\"\n        (change)=\"change($event)\"\n      >\n        <ngcc-radio value=\"a\">Option A</ngcc-radio>\n        <ngcc-radio value=\"b\" [disabled]=\"true\">Option B (disabled)</ngcc-radio>\n        <ngcc-radio value=\"c\">Option C</ngcc-radio>\n      </ngcc-radio-group>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Disclosed",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: { ...args, kind: 'disclosed' },\n    template: `\n      <ngcc-contained-list [label]=\"label\" kind=\"disclosed\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
             },
             {
                 "name": "DonutChart",
@@ -2586,6 +2666,16 @@
                 "defaultValue": "{\n  args: { ariaLabel: 'Side navigation', expanded: true, allowExpansion: true },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div ${SHELL_WRAP}>\n        <ngcc-side-nav\n          [ariaLabel]=\"ariaLabel\"\n          [(expanded)]=\"expanded\"\n          [allowExpansion]=\"allowExpansion\"\n        >\n          <ngcc-side-nav-item href=\"/dashboard\" iconName=\"home\" [active]=\"true\">Dashboard</ngcc-side-nav-item>\n\n          <ngcc-side-nav-menu title=\"Compute\" iconName=\"cpu\" [expanded]=\"true\">\n            <ngcc-side-nav-menu-item href=\"/compute/instances\">Instances</ngcc-side-nav-menu-item>\n            <ngcc-side-nav-menu-item href=\"/compute/images\">Images</ngcc-side-nav-menu-item>\n          </ngcc-side-nav-menu>\n\n          <ngcc-side-nav-item href=\"/settings\" iconName=\"configuration\">Settings</ngcc-side-nav-item>\n        </ngcc-side-nav>\n      </div>\n    `,\n  }),\n}",
                 "rawdescription": "Footer toggle button — click to collapse/expand. Uses `[(expanded)]` two-way binding.",
                 "description": "<p>Footer toggle button — click to collapse/expand. Uses <code>[(expanded)]</code> two-way binding.</p>\n"
+            },
+            {
+                "name": "ExternalLink",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    href: 'https://carbondesignsystem.com',\n    iconName: 'arrow_up',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [target]=\"'_blank'\" [iconName]=\"iconName\">\n        Carbon Design System\n      </ngcc-link>\n    `,\n  }),\n}"
             },
             {
                 "name": "FireAndForgetAction",
@@ -2684,6 +2774,16 @@
                 "defaultValue": "{\n  args: {\n    label: 'No Arrows',\n    hideArrows: true,\n    placeholder: 'Type a number',\n  },\n}"
             },
             {
+                "name": "HideLabel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  tags: ['!dev'],\n  args: {\n    labelText: 'Hidden label toggle',\n    hideLabel: true,\n    ariaLabel: 'Hidden label toggle',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-toggle\n        [labelText]=\"labelText\"\n        [hideLabel]=\"true\"\n        [ariaLabel]=\"ariaLabel\"\n      ></ngcc-toggle>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "HighContrastDark",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -2732,6 +2832,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{ args: { cfg: { ...base, type: 'info' } } }"
+            },
+            {
+                "name": "Inline",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    href: '/policy',\n    inline: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <p style=\"font-size: 14px;\">\n        Read our\n        <ngcc-link [href]=\"href\" [inline]=\"true\">privacy policy</ngcc-link>\n        for more information.\n      </p>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "InsetRulers",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: { ...args, isInset: true },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"true\">\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
             },
             {
                 "name": "IntegerOnly",
@@ -2889,21 +3009,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccButton>",
-                "defaultValue": "{\n  title: 'Components/Button',\n  component: NgccButton,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccButton, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: [\n        'primary',\n        'secondary',\n        'tertiary',\n        'ghost',\n        'danger',\n        'danger_tertiary',\n        'danger_ghost',\n      ],\n    },\n    size: {\n      control: { type: 'select' },\n      options: ['xs', 'sm', 'md', 'lg', 'xl'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    iconOnly: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    expressive: { control: 'boolean' },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-breadcrumb/ngcc-breadcrumb.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccBreadcrumbComponent>",
                 "defaultValue": "{\n  title: 'Components/Breadcrumb',\n  component: NgccBreadcrumbComponent,\n  tags: ['autodocs'],\n  decorators: [\n    applicationConfig({\n      providers: [provideRouter([])],\n    }),\n    moduleMetadata({\n      imports: [NgccBreadcrumbComponent, NgccBreadcrumbItemComponent],\n    }),\n  ],\n  argTypes: {\n    items: { control: 'object' },\n    size: { control: { type: 'select' }, options: ['sm', 'md'] },\n    noTrailingSlash: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    skeletonCount: { control: 'number' },\n    ariaLabel: { control: 'text' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccButton>",
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: NgccButton,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccButton, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: [\n        'primary',\n        'secondary',\n        'tertiary',\n        'ghost',\n        'danger',\n        'danger_tertiary',\n        'danger_ghost',\n      ],\n    },\n    size: {\n      control: { type: 'select' },\n      options: ['xs', 'sm', 'md', 'lg', 'xl'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    iconOnly: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    expressive: { control: 'boolean' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -2939,11 +3059,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccCodeSnippetComponent>",
+                "defaultValue": "{\n  title: 'Components/CodeSnippet',\n  component: NgccCodeSnippetComponent,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccCodeSnippetComponent],\n    }),\n  ],\n  argTypes: {\n    type: {\n      control: { type: 'select' },\n      options: ['inline', 'single', 'multi'],\n    },\n    code: { control: 'text' },\n    disabled: { control: 'boolean' },\n    hideCopyButton: { control: 'boolean' },\n    wrapText: { control: 'boolean' },\n    light: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    feedback: { control: 'text' },\n    feedbackTimeout: { control: 'number' },\n    showMoreText: { control: 'text' },\n    showLessText: { control: 'text' },\n    copyButtonDescription: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    maxCollapsedNumberOfRows: { control: 'number' },\n    maxExpandedNumberOfRows: { control: 'number' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-switcher.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccColorThemeSwitcher>",
                 "defaultValue": "{\n  title: 'Components/Color Theme Switcher',\n  component: NgccColorThemeSwitcher,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      providers: [NgccColorThemeService],\n    }),\n  ],\n  parameters: {\n    layout: 'centered',\n    docs: {\n      description: {\n        component: `\n### 🎨 NgccColorThemeSwitcher\n\nThe **NgccColorThemeSwitcher** lets you interactively customize your Carbon color palette:\n- Select *primary* and *secondary* base colors\n- Toggle between base Carbon themes (\\`g10\\`, \\`g90\\`, \\`g100\\`)\n- Preview color shades in real-time\n\n#### 🔧 How It Works\n- The component uses the **ColorThemeService** with Angular **signals** for reactive theme updates.\n- Color changes instantly apply via CSS variable overrides on \\`document.documentElement\\`.\n- Persist your chosen palette by saving the theme configuration in your application settings.\n\n#### 🧱 Usage\n\\`\\`\\`html\n<ngcc-color-theme-switcher></ngcc-color-theme-switcher>\n\\`\\`\\`\n\n#### 💡 Tip\nYou can combine this with **CarbonThemeService** for full theme & color control across your enterprise app.\n        `,\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccContainedList>",
+                "defaultValue": "{\n  title: 'Components/ContainedList',\n  component: NgccContainedList,\n  decorators: [\n    moduleMetadata({\n      imports: [\n        NgccContainedList,\n        NgccContainedListItem,\n        NgccButton,\n        NgccContainedListActionDirective,\n        NgccContainedListItemActionDirective,\n      ],\n    }),\n  ],\n  tags: ['autodocs'],\n  argTypes: {\n    kind: {\n      control: { type: 'radio' },\n      options: ['on-page', 'disclosed'] satisfies NgccContainedListKind[],\n    },\n    size: {\n      control: { type: 'select' },\n      options: [undefined, 'sm', 'md', 'lg', 'xl'] satisfies (NgccContainedListSize | undefined)[],\n    },\n    isInset: { control: 'boolean' },\n  },\n  args: {\n    label: 'List title',\n    kind: 'on-page',\n    isInset: false,\n  },\n}"
             },
             {
                 "name": "meta",
@@ -3008,6 +3148,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<NgccIcon>",
                 "defaultValue": "{\n  title: 'Components/Icon',\n  component: NgccIcon,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    size: {\n      control: { type: 'select' },\n      options: ['sm', 'md', 'lg', 'xl', 2, 3, 4], // presets + numbers\n    },\n    color: { control: 'color' },\n    ariaLabel: { control: 'text' },\n    decorative: { control: 'boolean' },\n    svgClass: { control: 'text' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccLink>",
+                "defaultValue": "{\n  title: 'Components/Link',\n  component: NgccLink,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccLink, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    size: {\n      control: { type: 'select' },\n      options: ['sm', 'md', 'lg'],\n    },\n    target: {\n      control: { type: 'select' },\n      options: ['_self', '_blank', '_parent', '_top'],\n    },\n    ariaCurrent: {\n      control: { type: 'select' },\n      options: ['page', 'step', 'location', 'date', 'time', 'true', 'false'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    ariaLabel: { control: 'text' },\n    disabled: { control: 'boolean' },\n    inline: { control: 'boolean' },\n    visited: { control: 'boolean' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -3113,6 +3263,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccToggle>",
+                "defaultValue": "{\n  title: 'Components/Toggle',\n  component: NgccToggle,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccToggle],\n    }),\n  ],\n  argTypes: {\n    size: {\n      control: { type: 'select' },\n      options: ['sm', 'md'],\n    },\n    labelA: { control: 'text' },\n    labelB: { control: 'text' },\n    labelText: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    className: { control: 'text' },\n    toggled: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readOnly: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    hideLabel: { control: 'boolean' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -3192,6 +3352,16 @@
                 "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-accordion [multi]=\"multi\" [size]=\"size\" [align]=\"align\">\n        <ngcc-accordion-item title=\"First\">\n          First section content\n        </ngcc-accordion-item>\n        <ngcc-accordion-item title=\"Second\" [defaultOpen]=\"true\">\n          Second section content\n        </ngcc-accordion-item>\n        <ngcc-accordion-item title=\"Third\">\n          Third section content\n        </ngcc-accordion-item>\n      </ngcc-accordion>\n    `,\n  }),\n}"
             },
             {
+                "name": "multiLineCode",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "unknown",
+                "defaultValue": "`import React from 'react';\nimport { Button } from '@carbon/react';\n\nfunction App() {\n  return (\n    <div>\n      <Button kind=\"primary\">Click me</Button>\n    </div>\n  );\n}\n\nexport default App;`"
+            },
+            {
                 "name": "MultiSelect",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -3200,6 +3370,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    items: sampleItems,\n    placeholder: 'Pick one or more',\n    multi: true,\n  },\n}"
+            },
+            {
+                "name": "MultiWrapText",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Multi — Wrap Text',\n  args: {\n    type: 'multi',\n    code: multiLineCode,\n    wrapText: true,\n  },\n}"
+            },
+            {
+                "name": "NoCopyButton",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'No Copy Button',\n  args: {\n    type: 'single',\n    code: singleLineCode,\n    hideCopyButton: true,\n  },\n}"
             },
             {
                 "name": "NoSkipLink",
@@ -3396,6 +3586,16 @@
                 "defaultValue": "{\n  args: { readOnly: true, legend: 'Read-only group' },\n  render: (args) => ({ props: { ...args }, template: FULL_TEMPLATE }),\n}"
             },
             {
+                "name": "ReadOnly",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    labelText: 'Read-only setting',\n    readOnly: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"display:flex;flex-direction:column;gap:1rem;\">\n        <ngcc-toggle [labelText]=\"labelText\" [readOnly]=\"true\" [toggled]=\"false\"></ngcc-toggle>\n        <ngcc-toggle [labelText]=\"labelText\" [readOnly]=\"true\" [toggled]=\"true\"></ngcc-toggle>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "Required",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -3550,14 +3750,14 @@
                 "defaultValue": "{\n  args: {\n    items: [{ label: 'Home' }],\n  },\n}"
             },
             {
-                "name": "Sizes",
+                "name": "singleLineCode",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"display: flex; gap: 1rem;\">\n        <ngcc-button label=\"Small\" size=\"sm\" variant=\"primary\"></ngcc-button>\n        <ngcc-button label=\"Medium\" size=\"md\" variant=\"primary\"></ngcc-button>\n        <ngcc-button label=\"Large\" size=\"lg\" variant=\"primary\"></ngcc-button>\n      </div>\n    `,\n  }),\n}"
+                "type": "unknown",
+                "defaultValue": "`node -e \"process.versions\" | grep node`"
             },
             {
                 "name": "Sizes",
@@ -3573,11 +3773,51 @@
                 "name": "Sizes",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"display: flex; gap: 1rem;\">\n        <ngcc-button label=\"Small\" size=\"sm\" variant=\"primary\"></ngcc-button>\n        <ngcc-button label=\"Medium\" size=\"md\" variant=\"primary\"></ngcc-button>\n        <ngcc-button label=\"Large\" size=\"lg\" variant=\"primary\"></ngcc-button>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Sizes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: {\n      singleCode: singleLineCode,\n      multiCode: multiLineCode,\n    },\n    template: `\n      <div style=\"display: flex; flex-direction: column; gap: 2rem;\">\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Inline</p>\n          <p style=\"font-size: 14px; font-family: sans-serif;\">\n            Run <ngcc-code-snippet type=\"inline\" [code]=\"singleCode\" /> to install dependencies.\n          </p>\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Single</p>\n          <ngcc-code-snippet type=\"single\" [code]=\"singleCode\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Multi</p>\n          <ngcc-code-snippet type=\"multi\" [code]=\"multiCode\" [maxCollapsedNumberOfRows]=\"4\" />\n        </div>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Sizes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-icons/ngcc-icons.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 1rem; align-items: center;\">\n        <ngcc-icon name=\"add\" size=\"sm\"></ngcc-icon>\n        <ngcc-icon name=\"add\" size=\"md\"></ngcc-icon>\n        <ngcc-icon name=\"add\" size=\"lg\"></ngcc-icon>\n        <ngcc-icon name=\"add\" size=\"xl\"></ngcc-icon>\n        <ngcc-icon name=\"add\" [size]=\"2\"></ngcc-icon>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Sizes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  tags: ['!dev'],\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 1.5rem; align-items: center;\">\n        <ngcc-link href=\"/sm\" size=\"sm\">Small Link</ngcc-link>\n        <ngcc-link href=\"/md\" size=\"md\">Medium Link</ngcc-link>\n        <ngcc-link href=\"/lg\" size=\"lg\">Large Link</ngcc-link>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Sizes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  tags: ['!dev'],\n  render: () => ({\n    template: `\n      <div style=\"display:flex;flex-direction:column;gap:1.5rem;\">\n        <ngcc-toggle labelText=\"Default (md)\" size=\"md\" [toggled]=\"true\"></ngcc-toggle>\n        <ngcc-toggle labelText=\"Small (sm)\" size=\"sm\" [toggled]=\"true\"></ngcc-toggle>\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Sizes",
@@ -3603,6 +3843,16 @@
                 "name": "Skeleton",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: {},\n    template: `\n      <div style=\"display: flex; flex-direction: column; gap: 2rem;\">\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Single</p>\n          <ngcc-code-snippet type=\"single\" [skeleton]=\"true\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Multi</p>\n          <ngcc-code-snippet type=\"multi\" [skeleton]=\"true\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Inline</p>\n          <p style=\"font-size: 14px; font-family: sans-serif;\">\n            Loading: <ngcc-code-snippet type=\"inline\" [skeleton]=\"true\" />\n          </p>\n        </div>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Skeleton",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-datepicker/ngcc-date-picker.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -3618,6 +3868,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { skeleton: true, legend: '' },\n  render: (args) => ({ props: { ...args }, template: FULL_TEMPLATE }),\n}"
+            },
+            {
+                "name": "Skeleton",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    template: `<ngcc-toggle [skeleton]=\"true\" labelText=\"Loading\"></ngcc-toggle>`,\n  }),\n}"
             },
             {
                 "name": "Skeleton",
@@ -3862,6 +4122,16 @@
                 "defaultValue": "{\n  args: {\n    cfg: {\n      ...base,\n      type: 'success',\n      title: 'Saved',\n      subtitle: 'Settings updated successfully',\n      actionLabel: 'Undo',\n      action: action('undo-clicked'),\n    },\n  },\n}"
             },
             {
+                "name": "WithActions",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\" [hasAction]=\"true\">\n        <ngcc-button ngccContainedListAction label=\"Add\" variant=\"ghost\" iconName=\"add\" [iconOnly]=\"true\" />\n        <ngcc-contained-list-item [hasAction]=\"true\">\n          List item\n          <ngcc-button ngccContainedListItemAction label=\"Options\" variant=\"ghost\" iconName=\"overflow_menu_vertical\" [iconOnly]=\"true\" />\n        </ngcc-contained-list-item>\n        <ngcc-contained-list-item [hasAction]=\"true\">\n          List item\n          <ngcc-button ngccContainedListItemAction label=\"Options\" variant=\"ghost\" iconName=\"overflow_menu_vertical\" [iconOnly]=\"true\" />\n        </ngcc-contained-list-item>\n        <ngcc-contained-list-item [hasAction]=\"true\">\n          List item\n          <ngcc-button ngccContainedListItemAction label=\"Options\" variant=\"ghost\" iconName=\"overflow_menu_vertical\" [iconOnly]=\"true\" />\n        </ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "WithActiveItem",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4012,6 +4282,26 @@
                 "defaultValue": "{\n  args: {\n    label: 'Add Item',\n    variant: 'primary',\n    iconName: 'add',\n  },\n}"
             },
             {
+                "name": "WithIcon",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    href: '/launch',\n    iconName: 'arrow_up',\n    size: 'md',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [iconName]=\"iconName\" [size]=\"size\">\n        Launch App\n      </ngcc-link>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "WithIcons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "WithIcons",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4022,6 +4312,16 @@
                 "defaultValue": "{\n  args: { ariaLabel: 'Side navigation', expanded: true },\n  render: (args) => ({\n    props: { ...args, currentPage: '/dashboard' },\n    template: `\n      <div ${SHELL_WRAP}>\n        <ngcc-side-nav\n          [ariaLabel]=\"ariaLabel\"\n          [(expanded)]=\"expanded\"\n        >\n          <ngcc-side-nav-item href=\"/dashboard\" iconName=\"home\" [active]=\"currentPage === '/dashboard'\">\n            Dashboard\n          </ngcc-side-nav-item>\n          <ngcc-side-nav-item href=\"/analytics\" iconName=\"services\">Analytics</ngcc-side-nav-item>\n          <ngcc-side-nav-item href=\"/notifications\" iconName=\"notification\">Notifications</ngcc-side-nav-item>\n          <ngcc-side-nav-item href=\"/users\" iconName=\"user_multi\">Users</ngcc-side-nav-item>\n        </ngcc-side-nav>\n      </div>\n    `,\n  }),\n}",
                 "rawdescription": "Items with icons beside the link text.",
                 "description": "<p>Items with icons beside the link text.</p>\n"
+            },
+            {
+                "name": "WithInteractiveItems",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
             },
             {
                 "name": "WithMaxLength",
@@ -4138,8 +4438,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccButton>",
-                "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
+                "rawtype": "StoryObj<NgccBreadcrumbComponent>",
+                "file": "projects/carbideui/src/lib/ngcc-breadcrumb/ngcc-breadcrumb.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -4149,8 +4449,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccBreadcrumbComponent>",
-                "file": "projects/carbideui/src/lib/ngcc-breadcrumb/ngcc-breadcrumb.stories.ts",
+                "rawtype": "StoryObj<NgccButton>",
+                "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -4193,6 +4493,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<NgccCodeSnippetComponent>",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj",
                 "file": "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-demo.stories.ts",
                 "deprecated": false,
@@ -4206,6 +4517,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<NgccColorThemeSwitcher>",
                 "file": "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-switcher.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NgccContainedList>",
+                "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -4261,6 +4583,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<NgccIcon>",
                 "file": "projects/carbideui/src/lib/ngcc-icons/ngcc-icons.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NgccLink>",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -4371,6 +4704,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<NgccToast>",
                 "file": "projects/carbideui/src/lib/ngcc-toast/ngcc-toast.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NgccToggle>",
+                "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -5912,6 +6256,98 @@
                     "defaultValue": "{\n  args: { label: 'Accept terms', required: true, helperText: 'This is required' },\n}"
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    type: 'single',\n    code: singleLineCode,\n  },\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    type: 'single',\n    code: singleLineCode,\n    disabled: true,\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccCodeSnippetComponent>",
+                    "defaultValue": "{\n  title: 'Components/CodeSnippet',\n  component: NgccCodeSnippetComponent,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccCodeSnippetComponent],\n    }),\n  ],\n  argTypes: {\n    type: {\n      control: { type: 'select' },\n      options: ['inline', 'single', 'multi'],\n    },\n    code: { control: 'text' },\n    disabled: { control: 'boolean' },\n    hideCopyButton: { control: 'boolean' },\n    wrapText: { control: 'boolean' },\n    light: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    feedback: { control: 'text' },\n    feedbackTimeout: { control: 'number' },\n    showMoreText: { control: 'text' },\n    showLessText: { control: 'text' },\n    copyButtonDescription: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    maxCollapsedNumberOfRows: { control: 'number' },\n    maxExpandedNumberOfRows: { control: 'number' },\n  },\n}"
+                },
+                {
+                    "name": "multiLineCode",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`import React from 'react';\nimport { Button } from '@carbon/react';\n\nfunction App() {\n  return (\n    <div>\n      <Button kind=\"primary\">Click me</Button>\n    </div>\n  );\n}\n\nexport default App;`"
+                },
+                {
+                    "name": "MultiWrapText",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Multi — Wrap Text',\n  args: {\n    type: 'multi',\n    code: multiLineCode,\n    wrapText: true,\n  },\n}"
+                },
+                {
+                    "name": "NoCopyButton",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'No Copy Button',\n  args: {\n    type: 'single',\n    code: singleLineCode,\n    hideCopyButton: true,\n  },\n}"
+                },
+                {
+                    "name": "singleLineCode",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "defaultValue": "`node -e \"process.versions\" | grep node`"
+                },
+                {
+                    "name": "Sizes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: {\n      singleCode: singleLineCode,\n      multiCode: multiLineCode,\n    },\n    template: `\n      <div style=\"display: flex; flex-direction: column; gap: 2rem;\">\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Inline</p>\n          <p style=\"font-size: 14px; font-family: sans-serif;\">\n            Run <ngcc-code-snippet type=\"inline\" [code]=\"singleCode\" /> to install dependencies.\n          </p>\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Single</p>\n          <ngcc-code-snippet type=\"single\" [code]=\"singleCode\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Multi</p>\n          <ngcc-code-snippet type=\"multi\" [code]=\"multiCode\" [maxCollapsedNumberOfRows]=\"4\" />\n        </div>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Skeleton",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: {},\n    template: `\n      <div style=\"display: flex; flex-direction: column; gap: 2rem;\">\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Single</p>\n          <ngcc-code-snippet type=\"single\" [skeleton]=\"true\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Multi</p>\n          <ngcc-code-snippet type=\"multi\" [skeleton]=\"true\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Inline</p>\n          <p style=\"font-size: 14px; font-family: sans-serif;\">\n            Loading: <ngcc-code-snippet type=\"inline\" [skeleton]=\"true\" />\n          </p>\n        </div>\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-switcher.stories.ts": [
                 {
                     "name": "Default",
@@ -5932,6 +6368,78 @@
                     "deprecationMessage": "",
                     "type": "Meta<NgccColorThemeSwitcher>",
                     "defaultValue": "{\n  title: 'Components/Color Theme Switcher',\n  component: NgccColorThemeSwitcher,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      providers: [NgccColorThemeService],\n    }),\n  ],\n  parameters: {\n    layout: 'centered',\n    docs: {\n      description: {\n        component: `\n### 🎨 NgccColorThemeSwitcher\n\nThe **NgccColorThemeSwitcher** lets you interactively customize your Carbon color palette:\n- Select *primary* and *secondary* base colors\n- Toggle between base Carbon themes (\\`g10\\`, \\`g90\\`, \\`g100\\`)\n- Preview color shades in real-time\n\n#### 🔧 How It Works\n- The component uses the **ColorThemeService** with Angular **signals** for reactive theme updates.\n- Color changes instantly apply via CSS variable overrides on \\`document.documentElement\\`.\n- Persist your chosen palette by saving the theme configuration in your application settings.\n\n#### 🧱 Usage\n\\`\\`\\`html\n<ngcc-color-theme-switcher></ngcc-color-theme-switcher>\n\\`\\`\\`\n\n#### 💡 Tip\nYou can combine this with **CarbonThemeService** for full theme & color control across your enterprise app.\n        `,\n      },\n    },\n  },\n}"
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Disclosed",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: { ...args, kind: 'disclosed' },\n    template: `\n      <ngcc-contained-list [label]=\"label\" kind=\"disclosed\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "InsetRulers",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: { ...args, isInset: true },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"true\">\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item>List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccContainedList>",
+                    "defaultValue": "{\n  title: 'Components/ContainedList',\n  component: NgccContainedList,\n  decorators: [\n    moduleMetadata({\n      imports: [\n        NgccContainedList,\n        NgccContainedListItem,\n        NgccButton,\n        NgccContainedListActionDirective,\n        NgccContainedListItemActionDirective,\n      ],\n    }),\n  ],\n  tags: ['autodocs'],\n  argTypes: {\n    kind: {\n      control: { type: 'radio' },\n      options: ['on-page', 'disclosed'] satisfies NgccContainedListKind[],\n    },\n    size: {\n      control: { type: 'select' },\n      options: [undefined, 'sm', 'md', 'lg', 'xl'] satisfies (NgccContainedListSize | undefined)[],\n    },\n    isInset: { control: 'boolean' },\n  },\n  args: {\n    label: 'List title',\n    kind: 'on-page',\n    isInset: false,\n  },\n}"
+                },
+                {
+                    "name": "WithActions",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\" [hasAction]=\"true\">\n        <ngcc-button ngccContainedListAction label=\"Add\" variant=\"ghost\" iconName=\"add\" [iconOnly]=\"true\" />\n        <ngcc-contained-list-item [hasAction]=\"true\">\n          List item\n          <ngcc-button ngccContainedListItemAction label=\"Options\" variant=\"ghost\" iconName=\"overflow_menu_vertical\" [iconOnly]=\"true\" />\n        </ngcc-contained-list-item>\n        <ngcc-contained-list-item [hasAction]=\"true\">\n          List item\n          <ngcc-button ngccContainedListItemAction label=\"Options\" variant=\"ghost\" iconName=\"overflow_menu_vertical\" [iconOnly]=\"true\" />\n        </ngcc-contained-list-item>\n        <ngcc-contained-list-item [hasAction]=\"true\">\n          List item\n          <ngcc-button ngccContainedListItemAction label=\"Options\" variant=\"ghost\" iconName=\"overflow_menu_vertical\" [iconOnly]=\"true\" />\n        </ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithIcons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item iconName=\"user\">List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithInteractiveItems",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts": [
@@ -6014,6 +6522,78 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: {\n    helperText: 'Select a fruit from the list',\n  },\n}"
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    href: '/docs',\n    size: 'md',\n    disabled: false,\n    visited: false,\n    inline: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link\n        [href]=\"href\"\n        [size]=\"size\"\n        [disabled]=\"disabled\"\n        [visited]=\"visited\"\n        [inline]=\"inline\"\n        [iconName]=\"iconName\"\n        [target]=\"target\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaCurrent]=\"ariaCurrent\"\n      >Carbon Link</ngcc-link>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    href: '/restricted',\n    disabled: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [disabled]=\"disabled\">\n        Unavailable Link\n      </ngcc-link>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "ExternalLink",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    href: 'https://carbondesignsystem.com',\n    iconName: 'arrow_up',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [target]=\"'_blank'\" [iconName]=\"iconName\">\n        Carbon Design System\n      </ngcc-link>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Inline",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    href: '/policy',\n    inline: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <p style=\"font-size: 14px;\">\n        Read our\n        <ngcc-link [href]=\"href\" [inline]=\"true\">privacy policy</ngcc-link>\n        for more information.\n      </p>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccLink>",
+                    "defaultValue": "{\n  title: 'Components/Link',\n  component: NgccLink,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccLink, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    size: {\n      control: { type: 'select' },\n      options: ['sm', 'md', 'lg'],\n    },\n    target: {\n      control: { type: 'select' },\n      options: ['_self', '_blank', '_parent', '_top'],\n    },\n    ariaCurrent: {\n      control: { type: 'select' },\n      options: ['page', 'step', 'location', 'date', 'time', 'true', 'false'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    ariaLabel: { control: 'text' },\n    disabled: { control: 'boolean' },\n    inline: { control: 'boolean' },\n    visited: { control: 'boolean' },\n  },\n}"
+                },
+                {
+                    "name": "Sizes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  tags: ['!dev'],\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 1.5rem; align-items: center;\">\n        <ngcc-link href=\"/sm\" size=\"sm\">Small Link</ngcc-link>\n        <ngcc-link href=\"/md\" size=\"md\">Medium Link</ngcc-link>\n        <ngcc-link href=\"/lg\" size=\"lg\">Large Link</ngcc-link>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithIcon",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    href: '/launch',\n    iconName: 'arrow_up',\n    size: 'md',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [iconName]=\"iconName\" [size]=\"size\">\n        Launch App\n      </ngcc-link>\n    `,\n  }),\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-pagination/ngcc-pagination.stories.ts": [
@@ -6324,6 +6904,78 @@
                     "deprecationMessage": "",
                     "type": "Meta<NgccThemeSwitcher>",
                     "defaultValue": "{\n  title: 'Components/Theme Switcher',\n  tags: ['autodocs'],\n  component: NgccThemeSwitcher,\n  decorators: [\n    moduleMetadata({\n      providers: [NgccThemeService],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component: `\n### 🧭 NgccThemeSwitcher Component\n\nUse the **NgccThemeSwitcher** to easily toggle between available Ngcc themes.\nIt uses the **NgccThemeService** to apply the chosen theme globally via \\`data-carbon-theme\\`.\n\n#### 🔧 Example Usage\n\n\\`\\`\\`html\n<ngcc-theme-switcher></ngcc-theme-switcher>\n\\`\\`\\`\n\n#### 🧠 Inside Your App\n\n\\`\\`\\`ts\nimport { NgccThemeService } from 'ngcc-angular';\n\nconstructor(private themeService: NgccThemeService) {\n  this.themeService.setTheme('g100');\n}\n\n        `,\n      },\n    },\n  },\n}"
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    labelText: 'Enable feature',\n    labelA: 'Off',\n    labelB: 'On',\n    toggled: false,\n    disabled: false,\n    readOnly: false,\n    skeleton: false,\n    hideLabel: false,\n    size: 'md',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-toggle\n        [labelText]=\"labelText\"\n        [labelA]=\"labelA\"\n        [labelB]=\"labelB\"\n        [toggled]=\"toggled\"\n        [disabled]=\"disabled\"\n        [readOnly]=\"readOnly\"\n        [skeleton]=\"skeleton\"\n        [hideLabel]=\"hideLabel\"\n        [size]=\"size\"\n        [ariaLabel]=\"ariaLabel\"\n        [className]=\"className\"\n      ></ngcc-toggle>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    labelText: 'Unavailable feature',\n    disabled: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"display:flex;flex-direction:column;gap:1rem;\">\n        <ngcc-toggle [labelText]=\"labelText\" [disabled]=\"true\" [toggled]=\"false\"></ngcc-toggle>\n        <ngcc-toggle [labelText]=\"labelText\" [disabled]=\"true\" [toggled]=\"true\"></ngcc-toggle>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "HideLabel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  tags: ['!dev'],\n  args: {\n    labelText: 'Hidden label toggle',\n    hideLabel: true,\n    ariaLabel: 'Hidden label toggle',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-toggle\n        [labelText]=\"labelText\"\n        [hideLabel]=\"true\"\n        [ariaLabel]=\"ariaLabel\"\n      ></ngcc-toggle>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccToggle>",
+                    "defaultValue": "{\n  title: 'Components/Toggle',\n  component: NgccToggle,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccToggle],\n    }),\n  ],\n  argTypes: {\n    size: {\n      control: { type: 'select' },\n      options: ['sm', 'md'],\n    },\n    labelA: { control: 'text' },\n    labelB: { control: 'text' },\n    labelText: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    className: { control: 'text' },\n    toggled: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readOnly: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    hideLabel: { control: 'boolean' },\n  },\n}"
+                },
+                {
+                    "name": "ReadOnly",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    labelText: 'Read-only setting',\n    readOnly: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"display:flex;flex-direction:column;gap:1rem;\">\n        <ngcc-toggle [labelText]=\"labelText\" [readOnly]=\"true\" [toggled]=\"false\"></ngcc-toggle>\n        <ngcc-toggle [labelText]=\"labelText\" [readOnly]=\"true\" [toggled]=\"true\"></ngcc-toggle>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Sizes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  tags: ['!dev'],\n  render: () => ({\n    template: `\n      <div style=\"display:flex;flex-direction:column;gap:1.5rem;\">\n        <ngcc-toggle labelText=\"Default (md)\" size=\"md\" [toggled]=\"true\"></ngcc-toggle>\n        <ngcc-toggle labelText=\"Small (sm)\" size=\"sm\" [toggled]=\"true\"></ngcc-toggle>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Skeleton",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    template: `<ngcc-toggle [skeleton]=\"true\" labelText=\"Loading\"></ngcc-toggle>`,\n  }),\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts": [
@@ -6747,19 +7399,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccButton>",
-                    "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-breadcrumb/ngcc-breadcrumb.stories.ts": [
                 {
                     "name": "Story",
@@ -6767,6 +7406,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccBreadcrumbComponent>",
                     "file": "projects/carbideui/src/lib/ngcc-breadcrumb/ngcc-breadcrumb.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccButton>",
+                    "file": "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -6812,6 +7464,19 @@
                     "kind": 184
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccCodeSnippetComponent>",
+                    "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-demo.stories.ts": [
                 {
                     "name": "Story",
@@ -6832,6 +7497,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccColorThemeSwitcher>",
                     "file": "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-switcher.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccContainedList>",
+                    "file": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -6884,6 +7562,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccIcon>",
                     "file": "projects/carbideui/src/lib/ngcc-icons/ngcc-icons.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccLink>",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -7020,6 +7711,19 @@
                     "kind": 184
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccToggle>",
+                    "file": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts": [
                 {
                     "name": "Story",
@@ -7093,7 +7797,7 @@
         "children": []
     },
     "coverage": {
-        "count": 11,
+        "count": 10,
         "status": "low",
         "files": [
             {
@@ -7657,6 +8361,106 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "multiLineCode",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "MultiWrapText",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "NoCopyButton",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "singleLineCode",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Sizes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Skeleton",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-demo.stories.ts",
                 "type": "component",
                 "linktype": "component",
@@ -7746,6 +8550,86 @@
             },
             {
                 "filePath": "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-switcher.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disclosed",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InsetRulers",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithActions",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithIcons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithInteractiveItems",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-contained-list/ngcc-contained-list.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -8782,6 +9666,86 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ExternalLink",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Inline",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Sizes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithIcon",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/carbideui/src/lib/ngcc-modal/ngcc-modal.stories.ts",
                 "type": "class",
                 "linktype": "classe",
@@ -9621,6 +10585,86 @@
             },
             {
                 "filePath": "projects/carbideui/src/lib/ngcc-toast/ngcc-toast.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "HideLabel",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ReadOnly",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Sizes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Skeleton",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-toggle/ngcc-toggle.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

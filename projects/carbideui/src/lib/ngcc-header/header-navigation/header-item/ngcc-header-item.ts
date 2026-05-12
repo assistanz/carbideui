@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  computed,
+  signal,
+} from '@angular/core';
 
 /**
  * A single navigation link inside <ngcc-header-navigation>.
@@ -15,18 +25,28 @@ import { ChangeDetectionStrategy, Component, computed, input, output } from '@an
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { role: 'none' },
 })
-export class NgccHeaderItem {
-  /** Navigation URL */
-  readonly href = input('/');
-  /** Marks this link as the active / current page */
-  readonly isCurrentPage = input(false);
-  /** Tab index override */
-  readonly tabIndex = input(0);
+export class NgccHeaderItem implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['href']) this._href.set(changes['href'].currentValue ?? '/');
+    if (changes['isCurrentPage'])
+      this._isCurrentPage.set(changes['isCurrentPage'].currentValue ?? false);
+    if (changes['tabIndex']) this._tabIndex.set(changes['tabIndex'].currentValue ?? 0);
+  }
 
-  readonly itemClick = output<Event>();
+  /** Navigation URL */
+  @Input() href: string = '/';
+  private readonly _href = signal('/');
+  /** Marks this link as the active / current page */
+  @Input() isCurrentPage = false;
+  private readonly _isCurrentPage = signal(false);
+  /** Tab index override */
+  @Input() tabIndex = 0;
+  private readonly _tabIndex = signal(0);
+
+  @Output() itemClick = new EventEmitter<Event>();
 
   readonly linkClasses = computed(() =>
-    ['cds--header__menu-item', this.isCurrentPage() ? 'cds--header__menu-item--current' : '']
+    ['cds--header__menu-item', this._isCurrentPage() ? 'cds--header__menu-item--current' : '']
       .filter(Boolean)
       .join(' '),
   );

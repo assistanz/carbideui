@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgccBreadcrumbItemComponent } from './ngcc-breadcrumb-item';
 import { NgccBreadcrumbItem, NgccBreadcrumbSize } from './ngcc-breadcrumb.types';
 
@@ -11,19 +11,25 @@ import { NgccBreadcrumbItem, NgccBreadcrumbSize } from './ngcc-breadcrumb.types'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgccBreadcrumbComponent {
-  readonly items = input<NgccBreadcrumbItem[]>([]);
-  readonly size = input<NgccBreadcrumbSize>('md');
-  readonly noTrailingSlash = input(false);
-  readonly skeleton = input(false);
-  readonly skeletonCount = input(3);
-  readonly ariaLabel = input('Breadcrumb');
+  @Input() items: NgccBreadcrumbItem[] = [];
+  @Input() size: NgccBreadcrumbSize = 'md';
+  @Input() noTrailingSlash = false;
+  @Input() skeleton = false;
+  @Input() skeletonCount = 3;
+  @Input() ariaLabel = 'Breadcrumb';
 
-  readonly resolvedItems = computed(() =>
-    this.items().map((item, index, arr) => ({
+  get resolvedItems(): NgccBreadcrumbItem[] {
+    return this.items.map((item, index, arr) => ({
       ...item,
       current: item.current ?? index === arr.length - 1,
-    })),
-  );
+    }));
+  }
 
-  readonly skeletonItems = computed(() => Array(this.skeletonCount()).fill(null));
+  get skeletonItems(): null[] {
+    return Array(this.skeletonCount).fill(null);
+  }
+
+  trackByIndex(_index: number): number {
+    return _index;
+  }
 }

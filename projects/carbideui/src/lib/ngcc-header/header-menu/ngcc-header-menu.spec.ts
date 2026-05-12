@@ -110,27 +110,27 @@ describe('NgccHeaderMenu', () => {
     it('expand() sets expanded to true', () => {
       detectChanges();
       getMenuComponent().expand();
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('collapse() sets expanded to false', () => {
       host.expanded = true;
       detectChanges();
       getMenuComponent().collapse();
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
 
     it('toggle() flips expanded from false to true', () => {
       detectChanges();
       getMenuComponent().toggle();
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('toggle() flips expanded from true to false', () => {
       host.expanded = true;
       detectChanges();
       getMenuComponent().toggle();
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
   });
 
@@ -138,21 +138,21 @@ describe('NgccHeaderMenu', () => {
     it('clicking trigger opens menu', () => {
       detectChanges();
       getTrigger().nativeElement.click();
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('clicking trigger again closes menu', () => {
       detectChanges();
       getTrigger().nativeElement.click();
       getTrigger().nativeElement.click();
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
 
     it('clicking trigger in mouseover mode does not toggle', () => {
       host.trigger = 'mouseover';
       detectChanges();
       getTrigger().nativeElement.click();
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
   });
 
@@ -176,7 +176,7 @@ describe('NgccHeaderMenu', () => {
       getTrigger().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('Enter key closes the menu when already expanded', () => {
@@ -185,7 +185,7 @@ describe('NgccHeaderMenu', () => {
       getTrigger().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
 
     it('Space key opens the menu', () => {
@@ -193,7 +193,7 @@ describe('NgccHeaderMenu', () => {
       getTrigger().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: ' ', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('ArrowDown on trigger expands the menu', () => {
@@ -201,7 +201,7 @@ describe('NgccHeaderMenu', () => {
       getTrigger().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('ArrowUp on trigger expands the menu', () => {
@@ -209,7 +209,7 @@ describe('NgccHeaderMenu', () => {
       getTrigger().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('Escape on trigger collapses the menu', () => {
@@ -218,7 +218,7 @@ describe('NgccHeaderMenu', () => {
       getTrigger().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
   });
 
@@ -229,7 +229,7 @@ describe('NgccHeaderMenu', () => {
       getMenuList().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
 
     it('Escape in menu list collapses the menu', () => {
@@ -238,7 +238,7 @@ describe('NgccHeaderMenu', () => {
       getMenuList().nativeElement.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
       );
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
     });
 
     it('Escape in menu list returns focus to trigger', () => {
@@ -328,7 +328,7 @@ describe('NgccHeaderMenu', () => {
         relatedTarget: externalEl,
       });
       getMenuList().nativeElement.dispatchEvent(focusOutEvent);
-      expect(getMenuComponent().expanded()).toBe(false);
+      expect(getMenuComponent().expanded).toBe(false);
       document.body.removeChild(externalEl);
     });
 
@@ -341,7 +341,7 @@ describe('NgccHeaderMenu', () => {
         relatedTarget: items[1].nativeElement,
       });
       getMenuList().nativeElement.dispatchEvent(focusOutEvent);
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
   });
 
@@ -350,7 +350,7 @@ describe('NgccHeaderMenu', () => {
       host.trigger = 'mouseover';
       detectChanges();
       getTrigger().nativeElement.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-      expect(getMenuComponent().expanded()).toBe(true);
+      expect(getMenuComponent().expanded).toBe(true);
     });
 
     it('mouseleave on trigger collapses after 150ms delay', () => {
@@ -360,9 +360,9 @@ describe('NgccHeaderMenu', () => {
       vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
       try {
         getTrigger().nativeElement.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-        expect(getMenuComponent().expanded()).toBe(true); // not yet collapsed
+        expect(getMenuComponent().expanded).toBe(true); // not yet collapsed
         vi.runAllTimers();
-        expect(getMenuComponent().expanded()).toBe(false);
+        expect(getMenuComponent().expanded).toBe(false);
       } finally {
         vi.useRealTimers();
       }
@@ -375,9 +375,9 @@ describe('NgccHeaderMenu', () => {
       vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
       try {
         getMenuList().nativeElement.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-        expect(getMenuComponent().expanded()).toBe(true);
+        expect(getMenuComponent().expanded).toBe(true);
         vi.runAllTimers();
-        expect(getMenuComponent().expanded()).toBe(false);
+        expect(getMenuComponent().expanded).toBe(false);
       } finally {
         vi.useRealTimers();
       }
@@ -393,7 +393,7 @@ describe('NgccHeaderMenu', () => {
         // Trigger mouseenter on menu list to clear the timer
         getMenuList().nativeElement.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
         vi.runAllTimers();
-        expect(getMenuComponent().expanded()).toBe(true); // Should remain open
+        expect(getMenuComponent().expanded).toBe(true); // Should remain open
       } finally {
         vi.useRealTimers();
       }

@@ -5,11 +5,10 @@
     "entryFile": "src/public-api.ts",
     "styleIncludePaths": [
       "src/styles"
-    ],
-    "flatModuleFile": "carbideui"
+    ]
   },
   "assets": [
-   {
+    {
       "input": "src/styles",
       "glob": "**/*.scss",
       "output": "styles"
