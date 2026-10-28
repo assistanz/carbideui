@@ -52,7 +52,7 @@ Import Carbon styles in your global stylesheet (`styles.scss`) or register them 
   $font-path: '@ibm/plex'
 );
 
-@use '@assistanz/carbideui/styles';
+@use '@assistanz/carbideui/styles/carbon';
 ```
 
 ---
@@ -92,7 +92,7 @@ npm run storybook
 
 Hosted docs: [assistanz.github.io/carbideui](https://assistanz.github.io/carbideui)
 
-Full component usage reference: [COMPONENT_USAGE_REFERENCE.md](./COMPONENT_USAGE_REFERENCE.md)
+Full component usage reference: [COMPONENT_USAGE_REFERENCE.md](./docs/COMPONENT_USAGE_REFERENCE.md)
 
 ---
 

@@ -131,6 +131,47 @@ describe('NgccStepper', () => {
       expect(c.summary()).toBe('Step 4 of 4');
     });
 
+    it('next() and previous() emit stepChange only when the step changes', async () => {
+      const c = fixture.componentInstance;
+      const seen: number[] = [];
+      c.stepChange.subscribe((e) => seen.push(e.index));
+      c.previous();
+      c.next();
+      c.next();
+      c.previous();
+      expect(seen).toEqual([1, 2, 1]);
+    });
+
+    it('keeps an invalid step behind the current one reachable', async () => {
+      await set({
+        current: 2,
+        steps: STEPS.map((s, i) => (i === 0 ? { ...s, invalid: true } : s)),
+      });
+      expect(states()[0]).toBe('invalid');
+      expect(buttons()[0].tabIndex).toBe(0);
+    });
+
+    it('tracks steps by id when given', async () => {
+      await set({ steps: STEPS.map((s, i) => ({ ...s, id: `s${i}` })) });
+      const first = buttons()[0];
+      await set({
+        steps: [
+          { id: 's0', label: 'Renamed' },
+          ...STEPS.slice(1).map((s, i) => ({ ...s, id: `s${i + 1}` })),
+        ],
+      });
+      expect(buttons()[0]).toBe(first);
+    });
+
+    it('handles an empty steps array', async () => {
+      await set({ steps: [] });
+      const c = fixture.componentInstance;
+      expect(c.summary()).toBe('No steps');
+      c.next();
+      c.previous();
+      expect(c.current()).toBe(0);
+    });
+
     it('stays vertical when asked', async () => {
       await set({ vertical: true });
       expect(el().querySelector('ol')!.classList).toContain('cds--progress--vertical');

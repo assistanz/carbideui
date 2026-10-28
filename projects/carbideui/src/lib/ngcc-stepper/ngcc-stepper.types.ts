@@ -1,5 +1,5 @@
 export interface NgccStep {
-  /** Stable id, used in `stepChange`. Defaults to the index. */
+  /** Stable id, used to track the step across re-renders. Defaults to the index. */
   id?: string;
   label: string;
   /** Small text under the label, e.g. "Optional". */

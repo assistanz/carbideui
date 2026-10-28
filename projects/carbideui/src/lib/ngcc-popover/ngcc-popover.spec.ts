@@ -116,6 +116,11 @@ describe('NgccPopover', () => {
       expect(host.open()).toBe(false);
     });
 
+    it('keeps the content inside the host so moving onto it is not a leave', () => {
+      const content = pop().querySelector('.cds--popover-content')!;
+      expect(pop().contains(content)).toBe(true);
+    });
+
     it('opens on keyboard focus and closes when focus leaves', async () => {
       trigger().focus();
       await flush();
@@ -160,10 +165,14 @@ describe('NgccPopover', () => {
     it('gives each popover its own id', () => {
       const second = TestBed.createComponent(HostComponent);
       second.detectChanges();
-      const ids = [fixture, second].map(
-        (f) => (f.nativeElement as HTMLElement).querySelector('.cds--popover-content')!.id,
-      );
-      expect(new Set(ids).size).toBe(2);
+      try {
+        const ids = [fixture, second].map(
+          (f) => (f.nativeElement as HTMLElement).querySelector('.cds--popover-content')!.id,
+        );
+        expect(new Set(ids).size).toBe(2);
+      } finally {
+        second.destroy();
+      }
     });
 
     it('has no axe violations open', async () => {

@@ -7,6 +7,7 @@ interface NgccStepView {
   state: NgccStepState;
   reachable: boolean;
   stateLabel: string;
+  key: string | number;
 }
 
 const STATE_LABEL: Record<NgccStepState, string> = {
@@ -24,6 +25,9 @@ const STATE_LABEL: Record<NgccStepState, string> = {
  * (`linear`) only completed steps and the current one can be clicked; set `linear` to `false` to
  * allow jumping anywhere.
  *
+ * An `invalid` step stays reachable even when it is behind the current one, so users can go back
+ * and fix it. Each reachable step is a normal button in the tab order (no roving tabindex).
+ *
  * Accessible: an ordered list in a labelled `nav`, `aria-current="step"` on the active step, and
  * each state is spelled out in hidden text (never color alone).
  */
@@ -36,7 +40,7 @@ const STATE_LABEL: Record<NgccStepState, string> = {
   template: `
     <nav [attr.aria-label]="ariaLabel()">
       <ol class="cds--progress" [class.cds--progress--vertical]="vertical()">
-        @for (v of views(); track v.index) {
+        @for (v of views(); track v.key) {
           <li
             class="cds--progress-step"
             [class.cds--progress-step--complete]="v.state === 'complete'"
@@ -109,7 +113,7 @@ export class NgccStepper {
   /** Only completed steps and the current one are clickable. Turn off to allow any step. */
   readonly linear = input(true);
   readonly ariaLabel = input('Progress');
-  /** Emits the step the user navigated to by clicking it. */
+  /** Emits the step navigated to, whether by clicking it or through `next()` / `previous()`. */
   readonly stepChange = output<{ index: number; step: NgccStep }>();
 
   protected readonly views = computed<NgccStepView[]>(() => {
@@ -124,24 +128,41 @@ export class NgccStepper {
             ? 'current'
             : 'incomplete';
       const reachable = !step.disabled && (!linear || index <= current);
-      return { step, index, state, reachable, stateLabel: STATE_LABEL[state] };
+      return {
+        step,
+        index,
+        state,
+        reachable,
+        stateLabel: STATE_LABEL[state],
+        key: step.id ?? index,
+      };
     });
   });
 
   /** 1-based "Step 2 of 4" text, handy for a live region or a mobile summary. */
-  readonly summary = computed(() => `Step ${this.current() + 1} of ${this.steps().length}`);
+  readonly summary = computed(() => {
+    const total = this.steps().length;
+    return total ? `Step ${this.current() + 1} of ${total}` : 'No steps';
+  });
 
   protected go(view: NgccStepView): void {
-    if (!view.reachable || view.index === this.current()) return;
-    this.current.set(view.index);
-    this.stepChange.emit({ index: view.index, step: view.step });
+    if (!view.reachable) return;
+    this.moveTo(view.index);
   }
 
   next(): void {
-    this.current.update((c) => Math.min(c + 1, this.steps().length - 1));
+    this.moveTo(this.current() + 1);
   }
 
   previous(): void {
-    this.current.update((c) => Math.max(c - 1, 0));
+    this.moveTo(this.current() - 1);
+  }
+
+  private moveTo(target: number): void {
+    const steps = this.steps();
+    const index = Math.min(Math.max(target, 0), steps.length - 1);
+    if (!steps.length || index === this.current()) return;
+    this.current.set(index);
+    this.stepChange.emit({ index, step: steps[index] });
   }
 }
