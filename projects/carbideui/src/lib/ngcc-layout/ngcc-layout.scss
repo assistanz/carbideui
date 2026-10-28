@@ -1,0 +1,62 @@
+// Page grid: Carbon breakpoints (md 42rem, lg 66rem).
+.ngcc-page-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--ngcc-grid-gap, 1rem);
+  inline-size: 100%;
+
+  > * {
+    grid-column: var(--ngcc-col-sm, 1 / -1);
+    min-inline-size: 0;
+  }
+
+  @media (min-width: 42rem) {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+
+    > * {
+      grid-column: var(--ngcc-col-md, 1 / -1);
+    }
+  }
+
+  @media (min-width: 66rem) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+
+    > * {
+      grid-column: var(--ngcc-col-lg, 1 / -1);
+    }
+  }
+}
+
+// Panel grid: wrapping columns, equal height per row.
+.ngcc-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(
+      min(
+        100%,
+        max(
+          var(--ngcc-panel-min, 16rem),
+          calc(
+            (100% - (var(--ngcc-panel-cols, 4) - 1) * var(--ngcc-grid-gap, 1rem)) /
+              var(--ngcc-panel-cols, 4)
+          )
+        )
+      ),
+      1fr
+    )
+  );
+  gap: var(--ngcc-grid-gap, 1rem);
+  align-items: stretch;
+  inline-size: 100%;
+
+  > * {
+    min-inline-size: 0;
+  }
+
+  // The panel inside each cell (tile, stat tile, chart card) fills the stretched cell.
+  > * > :first-child {
+    height: 100%;
+    box-sizing: border-box;
+  }
+}

@@ -354,6 +354,33 @@ tableConfig: NgccTableConfig = {
 };
 ```
 
+#### Table add-ons: status cell, expandable rows, selection
+
+```ts
+columns: NgccTableColumn[] = [
+  { key: 'id', header: 'Invoice', sortable: true },
+  { key: 'amount', header: 'Amount', sortable: true },
+  // value -> status tag (dot + text). Built-in names: running, success, pending, warning, error, stopped
+  { key: 'status', header: 'Status', cell: 'status', statusMap: { Paid: 'green', Overdue: 'red' } },
+];
+```
+
+```html
+<ngcc-table [columns]="columns" [rows]="rows" [config]="{ pagination: false, rowSelection: 'multiple' }"
+            (rowSelect)="selected = $event" (rowExpand)="onExpand($event)">
+  <!-- Providing this template turns on the expand column -->
+  <ng-template ngccTableExpandedRow let-row let-index="index">
+    Invoice {{ row.id }}: due {{ row.due }}
+  </ng-template>
+</ngcc-table>
+```
+
+- `rowSelection`: `'multiple'` (default), `'single'` (one row, no select-all box) or `'none'`.
+  Selection and expansion follow the row object, so they survive sorting and paging; replacing `rows` clears them.
+- `rowSelect` emits the selected rows in their original order; `rowExpand` emits `{ row, expanded }`.
+- `config.expandable: false` hides the expand column even if a template is present.
+- Sorting cycles ascending, descending, none; numbers sort numerically.
+
 ---
 
 ### 9. NgccPagination
@@ -1080,6 +1107,226 @@ donutData = {
   label="Completion"
 />
 ```
+
+---
+
+### 23a. NgccCharts: more chart types
+
+`<ngcc-charts>` draws ten chart types. Set `type`; pass Carbon Charts `options` as usual.
+
+| `type` | Use it for | Data shape |
+| --- | --- | --- |
+| `bar` | compare categories | `{ group, value }` or `{ group, key, value }` |
+| `horizontalBar` | ranked lists, top N | `{ group, value }` |
+| `stackedBar` | parts of a whole per category | `{ group, key, value }` |
+| `line` / `area` | trends | `{ group, key, value }` |
+| `stackedArea` | cumulative trend by series | `{ group, key, value }` |
+| `combo` | bars and a line together (revenue vs capacity) | `{ group, key, value }` |
+| `heatmap` | utilization by zone and time | `{ x, y, value }` |
+| `pie` / `donut` | share of a total | `{ group, value }` |
+
+```html
+<!-- Revenue as bars, capacity as a line -->
+<ngcc-charts type="combo" [data]="rows"
+  [options]="{ axes: { bottom: { mapsTo: 'key', scaleType: 'labels' }, left: { mapsTo: 'value' } } }" />
+
+<!-- Heat map: x across, y down, value as the color -->
+<ngcc-charts type="heatmap" [data]="cells"
+  [options]="{ heatmap: { colorLegend: { title: 'Utilization %' } } }" />
+```
+
+- **Combo:** with no `comboChartTypes` in `options`, the first series draws as bars and the rest as lines.
+  To choose, use `ngccComboChartTypes({ bars: ['Revenue'], lines: ['Capacity'] })`.
+- **Heat map:** defaults map `x` to the bottom axis and `y` to the left; pass `options.axes.bottom.mapsTo`
+  (and `left`) to use other field names. Values appear in the tooltip, so color is never the only signal.
+- **Horizontal bar and heat map** merge your `axes` options with the defaults. The older types
+  (`bar`, `line`, ...) keep their existing behavior: your `axes` replace the defaults.
+- **Live data:** the chart now redraws when `data` or `options` change to another non-empty value. Before
+  this fix, only an empty/non-empty switch updated it.
+
+---
+
+### 23b. Thresholds, goals and ranked lists
+
+**Reference lines.** `[thresholds]` draws limits and goals on the value axis of bar, stacked bar, line, area,
+stacked area and combo charts (a vertical line on `horizontalBar`).
+
+```typescript
+thresholds: NgccChartThreshold[] = [
+  { value: 90, label: 'Capacity limit', kind: 'limit' }, // red
+  { value: 70, label: 'Target', kind: 'goal' },          // green
+  { value: 50, label: 'Floor', color: '#8a3ffc' },        // any color; kind defaults to 'limit'
+];
+```
+
+```html
+<ngcc-charts type="line" [data]="cpu" [options]="opts" [thresholds]="thresholds" />
+```
+
+Thresholds you already put in `options.axes.<axis>.thresholds` are kept and yours are added after them.
+Pie, donut and heat map ignore `thresholds`.
+
+**Ranked lists.** `sort` and `limit` rank rows by `value` before drawing:
+
+```html
+<ngcc-charts type="horizontalBar" sort="desc" [limit]="5" [data]="customers"
+  [options]="{ axes: { bottom: { title: 'Monthly spend ($)' } } }" />
+```
+
+`sort`: `'none'` (default, keeps your order), `'asc'`, `'desc'`. Rows without a numeric `value` sort last. Your
+`data` array is never modified. Works on any bar chart, not only `horizontalBar`.
+
+---
+
+### 23c. NgccChartState (loading and empty)
+
+Every chart panel (`ngcc-charts`, `ngcc-gauge-chart`) uses one shared placeholder: the library skeleton while
+`[loading]` is true, and a "no data" message at the same height when there is nothing to draw, so the layout
+does not jump. Loading wins over empty, so a loading chart never reads as "no data".
+
+```html
+<ngcc-charts type="heatmap" [loading]="loading" [data]="cells" noDataMessage="No utilization data" />
+```
+
+Use it in your own chart wrappers too:
+
+```html
+<ngcc-chart-state [loading]="loading" [empty]="!rows.length" message="No data for this period" height="300px" />
+```
+
+Inputs: `loading`, `empty`, `message` (default "No data available"), `height` (default `300px`). The skeleton
+announces itself (`role="status"`, `aria-busy`) and the empty message is a polite status.
+
+---
+
+### 23d. NgccSparkline (and KPI tile trends)
+
+A tiny trend graphic for KPI tiles and table rows. Pure SVG with no chart library, so dozens can share a
+dashboard.
+
+```html
+<ngcc-sparkline [data]="[12, 14, 13, 18, 21, 24]" type="area" sentiment="positive-up" />
+```
+
+| Input | Default | Notes |
+| --- | --- | --- |
+| `data` | `[]` | series, oldest first; non-finite values are ignored |
+| `type` | `'line'` | `'line'`, `'area'`, `'bar'` |
+| `width` / `height` | `120` / `32` | drawing size in px; shrinks to fit a narrower container |
+| `min` / `max` | data range | pin the scale, e.g. `0` / `100` for percentages |
+| `status` | `'none'` | `success`, `warning`, `error`, `info` use the theme's `--cds-support-*` tokens |
+| `sentiment` | `'neutral'` | `positive-up` (revenue) or `positive-down` (cost): green when the trend is good, red when bad |
+| `color` | | any CSS color; wins over `status` and `sentiment` |
+| `showLastPoint` | `true` | dot on the latest value (line and area) |
+| `label` | generated | accessible name; default is a summary like "Trend over 6 points: from 1 to 8, up (+700%)" |
+| `decorative` | `false` | hide from assistive technology when nearby text says it |
+| `loading` | `false` | shows the library skeleton at the same size |
+| `emptyLabel` | `'No trend data'` | shown (with a dashed baseline) when there are fewer than 2 points (1 for bars) |
+
+With no `color`, `status` or `sentiment`, it uses the theme's interactive color, so it follows any color theme.
+
+**On a KPI tile:** give `ngcc-stat-tile` a series and it draws the trend under the value, colored by the tile's
+`status`, else by its `trendSentiment`.
+
+```html
+<ngcc-stat-tile label="Monthly revenue" value="$48,200" delta="+12.4%" status="success"
+  [sparkline]="[31, 34, 33, 38, 41, 44, 48]" />
+```
+
+Extra tile inputs: `sparkline`, `sparklineType` (`'area'` default), `sparklineLabel`, `sparklineWidth` (160),
+`sparklineHeight` (32).
+
+---
+
+### 23e. NgccPageHeader
+
+Title, breadcrumbs, description and actions for every module page. Renders the page's one `<h1>`.
+
+```html
+<ngcc-page-header title="Invoices" description="All invoices" [breadcrumbs]="crumbs">
+  <ngcc-tag ngccPageMeta type="green" [dot]="true">Active</ngcc-tag>
+  <ngcc-button ngccPageActions label="Create invoice" />
+  <!-- tabs along the bottom edge: set [hasTabs]="true" and project <ngcc-tabs ngccPageTabs> -->
+</ngcc-page-header>
+```
+
+Inputs: `title` (required), `description`, `breadcrumbs`, `breadcrumbLabel`, `loading` (skeleton title), `hasTabs`.
+Slots: `[ngccPageActions]`, `[ngccPageMeta]`, `[ngccPageTabs]`.
+
+### 23f. NgccStepper
+
+Progress indicator for multi-step create flows.
+
+```html
+<ngcc-stepper #stepper [steps]="steps" [(current)]="step" (stepChange)="onStep($event)" ariaLabel="Create client" />
+<button (click)="stepper.previous()">Back</button> <button (click)="stepper.next()">Next</button>
+```
+
+```ts
+steps: NgccStep[] = [
+  { label: 'Details' },
+  { label: 'Plan', secondaryLabel: 'Optional' },
+  { label: 'Billing', invalid: false },
+];
+```
+
+`current` is the zero-based active step. Earlier steps are complete, later ones incomplete, `invalid: true` shows
+the error state. `linear` (default `true`) lets users go back but not skip ahead; `vertical` stacks the steps;
+`disabled` removes a step from navigation. An `invalid` step behind the current one stays clickable so users can go
+back and fix it. Give steps an `id` to keep their DOM stable when the array is replaced (default: the index).
+`(stepChange)` emits `{ index, step }` for clicks and for `next()` / `previous()`, but not when the step does not
+change (for example `next()` on the last step). With no steps, `summary()` returns "No steps". Every reachable
+step is a normal tab stop; unreachable ones are removed from the tab order. State is spelled out in hidden text and the active step has
+`aria-current="step"`.
+
+### 23g. NgccAvatar
+
+```html
+<ngcc-avatar name="Ada Lovelace" size="lg" />
+<ngcc-avatar name="Acme Corp" shape="square" [decorative]="true" /> Acme Corp
+<ngcc-avatar name="Ada" src="/ada.jpg" />
+```
+
+Photo when `src` loads (initials if it fails), otherwise initials on a color that is stable per name, otherwise a
+person icon. `size`: `xs | sm | md | lg | xl` (24, 32, 40, 48, 64 px). The accessible name is `name`; set
+`decorative` when the name is printed next to it.
+
+### 23h. NgccPopover
+
+Non-modal detail popover (no backdrop). Mark the trigger with `ngccPopoverTrigger`.
+
+```html
+<ngcc-popover label="Cluster details" placement="bottom-start" [(open)]="open">
+  <button ngccPopoverTrigger class="cds--btn cds--btn--ghost">Details</button>
+  <p>Region eu-west-1, 12 nodes</p>
+</ngcc-popover>
+```
+
+`trigger="click"` (default) toggles; Escape or an outside click closes (Escape returns focus to the trigger).
+`trigger="hover"` opens on hover and on keyboard focus and stays open while the pointer or focus is inside.
+`placement` takes 12 values (`top`, `bottom-start`, `right-end`, …); `caret` shows the pointer. The trigger gets
+`aria-expanded`, `aria-controls` and `aria-haspopup="dialog"`.
+
+### 23i. Layout helpers
+
+```html
+<!-- 4 / 8 / 12 column page grid on Carbon's breakpoints -->
+<ngcc-page-grid gap="default">
+  <ngcc-stat-tile ngccGridSpan [sm]="4" [md]="4" [lg]="3" label="Users" value="1,284" />
+  <section ngccGridSpan [sm]="4" [md]="8" [lg]="8">Chart</section>
+  <aside ngccGridSpan [sm]="4" [md]="8" [lg]="4">Activity</aside>
+</ngcc-page-grid>
+
+<!-- wrapping panels, equal height within each row -->
+<ngcc-panel-grid [columns]="3" min="16rem">
+  <ngcc-tile>…</ngcc-tile>
+  <ngcc-stat-tile label="Open tickets" value="37" />
+</ngcc-panel-grid>
+```
+
+`gap`: `condensed` (0.5rem), `default` (1rem), `wide` (2rem). `ngccGridSpan` omitted breakpoints span the full row;
+`[start]` pins the first column on large screens. `ngcc-panel-grid`: `columns` is the most panels per row, `min`
+the narrowest a panel may get before wrapping.
 
 ---
 

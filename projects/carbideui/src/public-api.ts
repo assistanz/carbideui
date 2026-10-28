@@ -56,9 +56,14 @@ export * from './lib/ngcc-tabs/ngcc-tab-skeleton';
 
 // Theme
 export * from './lib/ngcc-theme-switcher/ngcc-theme-init';
+export * from './lib/ngcc-theme-switcher/ngcc-theme.types';
+export * from './lib/ngcc-theme-switcher/ngcc-theme.service';
+export * from './lib/ngcc-theme-switcher/ngcc-theme-switcher';
 
 // Charts
 export * from './lib/ngcc-charts/ngcc-charts';
+export * from './lib/ngcc-charts/ngcc-charts.types';
+export * from './lib/ngcc-charts/ngcc-chart-state';
 export * from './lib/ngcc-charts/ngcc-gauge-chart/ngcc-gauge-chart';
 
 // Accordion
@@ -98,6 +103,9 @@ export * from './lib/ngcc-pagination/ngcc-pagination';
 export * from './lib/ngcc-color-theme/ngcc-color-theme.service';
 export * from './lib/ngcc-color-theme/ngcc-color-theme-switcher';
 export * from './lib/ngcc-color-theme/ngcc-color-theme.types';
+export * from './lib/ngcc-color-theme/ngcc-color-theme.presets';
+export * from './lib/ngcc-color-theme/ngcc-theme.providers';
+export * from './lib/ngcc-color-theme/ngcc-color-theme.presets';
 export * from './lib/ngcc-color-theme/utils/wcag-color-utils';
 export * from './lib/ngcc-color-theme/tokens/index';
 
@@ -143,6 +151,22 @@ export * from './lib/ngcc-tile/public-api';
 
 // Stat Tile
 export * from './lib/ngcc-stat-tile/public-api';
+export * from './lib/ngcc-sparkline/public-api';
+
+// Page header
+export * from './lib/ngcc-page-header/public-api';
+
+// stepper
+export * from './lib/ngcc-stepper/public-api';
+
+// avatar
+export * from './lib/ngcc-avatar/public-api';
+
+// popover
+export * from './lib/ngcc-popover/public-api';
+
+// layout
+export * from './lib/ngcc-layout/public-api';
 
 // Tag
 export * from './lib/ngcc-tag/public-api';

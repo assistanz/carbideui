@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { NgccIcon } from '../ngcc-icons/ngcc-icon';
+import { NgccSparkline } from '../ngcc-sparkline/ngcc-sparkline';
+import { NgccSparklineType } from '../ngcc-sparkline/ngcc-sparkline.types';
 
 export type NgccStatTrend = 'up' | 'down' | 'flat';
 export type NgccStatStatus = 'none' | 'success' | 'warning' | 'error' | 'info';
@@ -13,7 +15,7 @@ export type NgccStatTrendSentiment = 'positive-up' | 'positive-down' | 'neutral'
 @Component({
   selector: 'ngcc-stat-tile',
   standalone: true,
-  imports: [NgccIcon],
+  imports: [NgccIcon, NgccSparkline],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
   styleUrl: './ngcc-stat-tile.scss',
@@ -45,6 +47,18 @@ export type NgccStatTrendSentiment = 'positive-up' | 'positive-down' | 'neutral'
           }
         </p>
       }
+      @if (hasSparkline()) {
+        <ngcc-sparkline
+          class="ngcc-stat__spark"
+          [data]="sparkline()"
+          [type]="sparklineType()"
+          [status]="status()"
+          [sentiment]="trendSentiment()"
+          [label]="sparklineLabel()"
+          [width]="sparklineWidth()"
+          [height]="sparklineHeight()"
+        />
+      }
     </div>
   `,
 })
@@ -58,6 +72,15 @@ export class NgccStatTile {
   readonly trend = input<NgccStatTrend | undefined>(undefined);
   readonly trendSentiment = input<NgccStatTrendSentiment>('positive-up');
   readonly status = input<NgccStatStatus>('none');
+  /** A short series (oldest first) drawn under the value as a trend. */
+  readonly sparkline = input<readonly number[]>([]);
+  readonly sparklineType = input<NgccSparklineType>('area');
+  /** Overrides the generated text alternative (e.g. "Last 12 months, revenue"). */
+  readonly sparklineLabel = input('');
+  readonly sparklineWidth = input(160);
+  readonly sparklineHeight = input(32);
+
+  protected readonly hasSparkline = computed(() => this.sparkline().length > 0);
 
   protected readonly hasDelta = computed(() => this.delta() !== undefined && this.delta() !== '');
 

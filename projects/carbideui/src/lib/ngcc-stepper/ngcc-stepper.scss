@@ -1,0 +1,28 @@
+.ngcc-stepper__icon {
+  flex: none;
+  fill: currentColor;
+}
+
+// Carbon draws the unclickable state with cursor only; keep keyboard focus out of it too.
+.cds--progress-step-button--unclickable {
+  cursor: default;
+}
+
+.cds--progress-step--invalid .ngcc-stepper__icon {
+  fill: var(--cds-support-error);
+}
+
+.cds--progress-step--complete .ngcc-stepper__icon,
+.cds--progress-step--current .ngcc-stepper__icon {
+  fill: var(--cds-interactive, #0f62fe);
+}
+
+.cds--progress-step--incomplete .ngcc-stepper__icon {
+  fill: var(--cds-icon-secondary, #525252);
+}
+
+.cds--progress-text {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}

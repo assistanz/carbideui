@@ -1,0 +1,41 @@
+:host {
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+  vertical-align: middle;
+}
+
+.ngcc-sparkline__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ngcc-sparkline__line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ngcc-sparkline__area {
+  fill: currentColor;
+  fill-opacity: 0.16;
+  stroke: none;
+}
+
+.ngcc-sparkline__point {
+  fill: currentColor;
+}
+
+.ngcc-sparkline__bar {
+  fill: currentColor;
+}
+
+.ngcc-sparkline__empty {
+  stroke: var(--cds-border-strong-01, #8d8d8d);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}

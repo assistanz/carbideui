@@ -1,16 +1,151 @@
-<section class="ngcc--theme-switcher">
-  <h4>Active Theme: {{ currentTheme() }}</h4>
+<section class="ngcc--theme-switcher" [class.ngcc--theme-switcher--compact]="compact()">
+  @if (heading()) {
+    <h4 class="ngcc--theme-switcher__heading">{{ heading() }}</h4>
+  }
 
-  <div class="ngcc--theme-switcher__buttons">
-    @for (theme of themes; track theme) {
-      <button
-        type="button"
-        class="cds--btn cds--btn--ghost"
-        [class.active]="currentTheme() === theme"
-        (click)="setTheme(theme)"
-      >
-        {{ theme }}
-      </button>
+  <!-- Category 1: Color theme (the four Carbon themes) -->
+  <div class="ngcc--theme-switcher__group">
+    <span class="ngcc--theme-switcher__group-label" [id]="uid + '-color'">Color theme</span>
+    <div
+      class="ngcc--theme-switcher__options"
+      role="radiogroup"
+      [attr.aria-labelledby]="uid + '-color'"
+    >
+      @for (opt of options(); track opt.value) {
+        <button
+          type="button"
+          role="radio"
+          class="ngcc--theme-card"
+          [class.ngcc--theme-card--active]="currentTheme() === opt.value"
+          [attr.aria-checked]="currentTheme() === opt.value"
+          [attr.aria-label]="opt.label + ' — ' + opt.description"
+          [attr.title]="compact() ? opt.label : null"
+          [tabindex]="tabIndex(themeValuesList(), currentTheme(), opt.value)"
+          (click)="selectTheme(opt.value)"
+          (keydown)="onThemeKeydown($event)"
+        >
+          <span
+            class="ngcc--theme-card__preview"
+            aria-hidden="true"
+            [style.background-color]="opt.preview.background"
+          >
+            <span
+              class="ngcc--theme-card__surface"
+              [style.background-color]="opt.preview.surface"
+            ></span>
+            <span class="ngcc--theme-card__line" [style.background-color]="opt.preview.text"></span>
+          </span>
+          @if (!compact()) {
+            <span class="ngcc--theme-card__label">{{ opt.label }}</span>
+            <span class="ngcc--theme-card__desc">{{ opt.description }}</span>
+          }
+        </button>
+      }
+    </div>
+
+    @if (showFollowSystem()) {
+      <div class="cds--form-item cds--checkbox-wrapper">
+        <input
+          [id]="uid + '-follow-system'"
+          type="checkbox"
+          class="cds--checkbox"
+          [checked]="followSystem()"
+          (change)="onFollowSystemChange($any($event.target).checked)"
+        />
+        <label [for]="uid + '-follow-system'" class="cds--checkbox-label">
+          <span class="cds--checkbox-label-text">Match system light/dark setting</span>
+        </label>
+      </div>
     }
   </div>
+
+  <!-- Category 2: Corner style -->
+  @if (showCornerStyle()) {
+    <div class="ngcc--theme-switcher__group">
+      <span class="ngcc--theme-switcher__group-label" [id]="uid + '-corner'">Corner style</span>
+      <div
+        class="ngcc--theme-switcher__options"
+        role="radiogroup"
+        [attr.aria-labelledby]="uid + '-corner'"
+      >
+        @for (opt of cornerOptions; track opt.value) {
+          <button
+            type="button"
+            role="radio"
+            class="ngcc--theme-card"
+            [class.ngcc--theme-card--active]="currentCorner() === opt.value"
+            [attr.aria-checked]="currentCorner() === opt.value"
+            [attr.aria-label]="opt.label + ' — ' + opt.description"
+            [attr.title]="compact() ? opt.label : null"
+            [tabindex]="tabIndex(cornerValues, currentCorner(), opt.value)"
+            (click)="selectCorner(opt.value)"
+            (keydown)="onCornerKeydown($event)"
+          >
+            <span class="ngcc--theme-card__preview ngcc--corner-preview" aria-hidden="true">
+              <span
+                class="ngcc--corner-preview__container"
+                [style.border-radius]="opt.preview.container"
+              >
+                <span
+                  class="ngcc--corner-preview__control"
+                  [style.border-radius]="opt.preview.control"
+                ></span>
+              </span>
+            </span>
+            @if (!compact()) {
+              <span class="ngcc--theme-card__label">{{ opt.label }}</span>
+              <span class="ngcc--theme-card__desc">{{ opt.description }}</span>
+            }
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Category 3: Button label alignment -->
+  @if (showButtonAlign()) {
+    <div class="ngcc--theme-switcher__group">
+      <span class="ngcc--theme-switcher__group-label" [id]="uid + '-align'">
+        Button label alignment
+      </span>
+      <div
+        class="ngcc--theme-switcher__options"
+        role="radiogroup"
+        [attr.aria-labelledby]="uid + '-align'"
+      >
+        @for (opt of alignOptions; track opt.value) {
+          <button
+            type="button"
+            role="radio"
+            class="ngcc--theme-card"
+            [class.ngcc--theme-card--active]="currentAlign() === opt.value"
+            [attr.aria-checked]="currentAlign() === opt.value"
+            [attr.aria-label]="opt.label + ' — ' + opt.description"
+            [attr.title]="compact() ? opt.label : null"
+            [tabindex]="tabIndex(alignValues, currentAlign(), opt.value)"
+            (click)="selectAlign(opt.value)"
+            (keydown)="onAlignKeydown($event)"
+          >
+            <span class="ngcc--theme-card__preview ngcc--align-preview" aria-hidden="true">
+              <span
+                class="ngcc--align-preview__button"
+                [class.ngcc--align-preview__button--centered]="opt.value === 'centered'"
+              >
+                <span class="ngcc--align-preview__label"></span>
+                <span class="ngcc--align-preview__icon"></span>
+              </span>
+            </span>
+            @if (!compact()) {
+              <span class="ngcc--theme-card__label">{{ opt.label }}</span>
+              <span class="ngcc--theme-card__desc">{{ opt.description }}</span>
+            }
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <p class="ngcc--theme-switcher__status" role="status" aria-live="polite">
+    {{ statusMessage() }}
+  </p>
 </section>

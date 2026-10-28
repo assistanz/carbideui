@@ -19,3 +19,23 @@
 .cds--table-header:hover .cds--table-header-label {
   cursor: pointer;
 }
+
+// Expanded-row content: full width, no truncation, a little air.
+.ngcc--table-details > td {
+  padding: 1rem 1rem 1rem 3rem;
+  white-space: normal;
+  background: var(--cds-layer-accent-01, var(--cds-layer-01));
+}
+
+.ngcc--table-details:hover > td {
+  background: var(--cds-layer-accent-01, var(--cds-layer-01));
+}
+
+// Chevron points right when collapsed and down when open (Carbon's base rule rotates it always).
+:host ::ng-deep .cds--table-expand__svg {
+  transform: none;
+}
+
+:host ::ng-deep .cds--parent-row.cds--expandable-row .cds--table-expand__svg {
+  transform: rotate(90deg);
+}

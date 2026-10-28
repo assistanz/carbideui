@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { NgccGaugeChart } from './ngcc-gauge-chart';
 import { NgccSkeleton } from '../../ngcc-skeleton/ngcc-skeleton';
 import { NgccThemeService } from '../../ngcc-theme-switcher/ngcc-theme.service';
@@ -8,12 +8,12 @@ import { runAxe } from '../../../test-utils/a11y';
 
 // Mock theme service for predictable output
 class MockThemeService {
-  private theme = 'g10';
+  readonly theme = signal('g10');
   getTheme() {
-    return this.theme;
+    return this.theme();
   }
   setTheme(t: string) {
-    this.theme = t;
+    this.theme.set(t);
   }
 }
 

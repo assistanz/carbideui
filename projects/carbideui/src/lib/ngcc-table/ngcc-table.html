@@ -4,15 +4,24 @@
     <table class="cds--data-table cds--data-table--compact" aria-label="Data table">
       <thead class="cds--data-table__head">
         <tr class="cds--data-table__row">
+          @if (isExpandable()) {
+            <th scope="col" class="cds--table-expand">
+              <span class="cds--visually-hidden">Expand row</span>
+            </th>
+          }
           @if (allowSelection()) {
             <th scope="col" class="cds--table-column-checkbox">
-              <ngcc-checkbox
-                [label]="''"
-                [ariaLabel]="'Select all rows'"
-                [checked]="isAllSelected()"
-                [indeterminate]="isIndeterminate()"
-                (checkedChange)="toggleAllRowsSelected()"
-              />
+              @if (getConfig().rowSelection !== 'single') {
+                <ngcc-checkbox
+                  [label]="''"
+                  [ariaLabel]="'Select all rows'"
+                  [checked]="isAllSelected()"
+                  [indeterminate]="isIndeterminate()"
+                  (checkedChange)="toggleAllRowsSelected()"
+                />
+              } @else {
+                <span class="cds--visually-hidden">Select row</span>
+              }
             </th>
           }
           @for (col of getColumns(); track col.key) {
@@ -22,7 +31,6 @@
               (mouseleave)="hoveredCol = null"
               class="thead_action cds--table-header"
               [class.cds--table-sortable]="col.sortable"
-              (click)="toggleSort(col.key, col.sortable)"
               [attr.aria-sort]="getSortAria(col.key)"
               [style.width]="getColumnWidth(col)"
             >
@@ -78,18 +86,36 @@
           @for (row of processedRows(); track $index; let i = $index) {
             <tr
               class="cds--data-table__row"
-              (click)="toggleRowSelect(i, row)"
-              [class.cds--data-table--selected]="isSelected(i)"
+              (click)="onRowClick($event, row)"
+              [class.cds--data-table--selected]="isSelected(row)"
+              [class.cds--parent-row]="isExpandable()"
+              [class.cds--expandable-row]="isExpandable() && isExpanded(row)"
               [class.cds--data-table__row--zebra]="i % 2 === 0"
-              [attr.aria-selected]="isSelected(i) ? 'true' : 'false'"
+              [attr.aria-selected]="isSelected(row) ? 'true' : 'false'"
             >
+              @if (isExpandable()) {
+                <td class="cds--table-expand">
+                  <button
+                    type="button"
+                    class="cds--table-expand__button"
+                    [attr.aria-expanded]="isExpanded(row)"
+                    [attr.aria-controls]="'ngcc-row-details-' + absIndex(row)"
+                    [attr.aria-label]="
+                      (isExpanded(row) ? 'Collapse row ' : 'Expand row ') + (i + 1)
+                    "
+                    (click)="toggleExpand(row)"
+                  >
+                    <ngcc-icon name="chevron_right" svgClass="cds--table-expand__svg" size="sm" />
+                  </button>
+                </td>
+              }
               @if (allowSelection()) {
                 <td class="cds--table-column-checkbox">
                   <ngcc-checkbox
                     [label]="''"
                     [ariaLabel]="'Select row ' + (i + 1)"
-                    [checked]="isSelected(i)"
-                    (checkedChange)="toggleRowSelect(i, row)"
+                    [checked]="isSelected(row)"
+                    (checkedChange)="toggleRowSelect(row)"
                   />
                 </td>
               }
@@ -99,13 +125,34 @@
                   [attr.title]="stringify($any(row)[col.key])"
                   [style.width]="getColumnWidth(col)"
                 >
-                  {{ $any(row)[col.key] }}
+                  @if (col.cell === 'status') {
+                    <ngcc-tag [type]="statusType(col, $any(row)[col.key])" [dot]="true" size="sm">{{
+                      $any(row)[col.key]
+                    }}</ngcc-tag>
+                  } @else {
+                    {{ $any(row)[col.key] }}
+                  }
                 </td>
               }
             </tr>
+            @if (isExpandable() && isExpanded(row)) {
+              <tr
+                class="cds--expandable-row ngcc--table-details"
+                [id]="'ngcc-row-details-' + absIndex(row)"
+              >
+                <td [attr.colspan]="columnCount()">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      expandedTemplate()!.template;
+                      context: { $implicit: row, index: absIndex(row) }
+                    "
+                  />
+                </td>
+              </tr>
+            }
           } @empty {
             <tr>
-              <td class="ngcc--no-data" [attr.colspan]="getColumns().length + 1">
+              <td class="ngcc--no-data" [attr.colspan]="columnCount()">
                 <div>No data available</div>
               </td>
             </tr>

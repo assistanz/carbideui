@@ -1,4 +1,5 @@
 import { WCAGLevel, NgccAccessibilityIssue, NgccColorScale } from './utils/wcag-color-utils';
+import { NgccThemeColorOverrides } from './tokens/index';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // WCAG Compliance Types
@@ -61,4 +62,36 @@ export interface NgccColorThemeConfig {
   primaryScale?: NgccColorScale;
   /** Generated color scale for secondary */
   secondaryScale?: NgccColorScale;
+}
+
+/** Persisted / exportable color settings */
+export interface NgccColorThemeSnapshot {
+  version: 1;
+  brandColor: string;
+  wcagLevel: WCAGLevel;
+  autoAdjust: boolean;
+  /** Per-theme base color overrides. Omitted when nothing is customized. */
+  themeColors?: NgccThemeColorOverrides;
+}
+
+export interface NgccBrandPreset {
+  name: string;
+  color: string;
+}
+
+export const NGCC_BRAND_PRESETS: readonly NgccBrandPreset[] = [
+  { name: 'Carbon Blue', color: '#0f62fe' },
+  { name: 'Teal', color: '#007d79' },
+  { name: 'Purple', color: '#8a3ffc' },
+  { name: 'Magenta', color: '#d02670' },
+  { name: 'Green', color: '#198038' },
+  { name: 'Orange', color: '#ba4e00' },
+];
+
+/** Returns lowercase #rrggbb for a valid #rgb / #rrggbb string, otherwise null. */
+export function normalizeHexColor(value: string): string | null {
+  const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec((value ?? '').trim());
+  if (!m) return null;
+  const h = m[1].toLowerCase();
+  return '#' + (h.length === 3 ? h.replace(/./g, (c) => c + c) : h);
 }

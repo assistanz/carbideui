@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.ngcc--charts__loading,
+.ngcc--charts__empty {
+  width: 100%;
+}
+
+.ngcc--charts__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 1rem 0;
+  text-align: center;
+  color: var(--cds-text-secondary, #525252);
+}

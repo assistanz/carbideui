@@ -1,143 +1,452 @@
-<section class="ngcc--color-theme-switcher">
-  <header class="ngcc--color-theme-switcher__header">
-    <h4>Color Theme Configuration</h4>
-    <ngcc-button variant="ghost" size="sm" label="Reset to Defaults" (click)="resetOverrides()" />
+<section class="ngcc-cts" aria-labelledby="ngcc-color-heading">
+  <header class="ngcc-cts__header">
+    <div>
+      <h4 id="ngcc-color-heading" class="ngcc-cts__title">Color theme</h4>
+      <p class="ngcc-cts__sub">
+        Editing <strong>{{ baseTheme() }}</strong>
+        @if (modifiedCount()) {
+          <span aria-hidden="true">·</span> {{ modifiedCount() }} changed
+        }
+      </p>
+    </div>
+    <ngcc-button variant="ghost" size="sm" label="Reset to defaults" (click)="resetOverrides()" />
   </header>
 
-  <div class="ngcc--color-theme-switcher__controls">
-    <!-- Brand Color Picker -->
-    <div class="ngcc--color-theme-switcher__color-picker">
-      <label for="brand-color" class="cds--label">Brand Color</label>
-      <div class="ngcc--color-picker-row">
-        <input
-          id="brand-color"
-          type="color"
-          [value]="brandColor()"
-          (input)="onBrandColorChange($event.target.value)"
-          aria-label="Select brand color"
-        />
-        <span class="ngcc--color-value">{{ brandColor() }}</span>
+  <!-- Two compact segmented controls: where to start, and which base theme to edit -->
+  <div class="ngcc-cts__controls">
+    <div class="ngcc-cts__field">
+      <span class="ngcc-cts__label" id="color-presets-label">Starting point</span>
+      <div class="ngcc-seg" role="group" aria-labelledby="color-presets-label">
+        <button
+          type="button"
+          class="ngcc--chip ngcc-seg__btn"
+          [class.ngcc-seg__btn--on]="activePreset() === ''"
+          [attr.aria-pressed]="activePreset() === ''"
+          (click)="resetOverrides()"
+        >
+          Carbon
+        </button>
+        @for (p of colorPresets; track p.id) {
+          <button
+            type="button"
+            class="ngcc--chip ngcc-seg__btn"
+            [class.ngcc-seg__btn--on]="activePreset() === p.id"
+            [attr.aria-pressed]="activePreset() === p.id"
+            [attr.title]="p.description"
+            (click)="applyColorPreset(p)"
+          >
+            <span class="ngcc-seg__dot" [style.background-color]="p.brandColor"></span>
+            {{ p.name }}
+          </button>
+        }
       </div>
     </div>
 
-    <!-- Base Theme Selector -->
-    <div class="ngcc--color-theme-switcher__theme-select">
-      <span class="cds--label" id="theme-label">Base Theme</span>
-      <div class="ngcc--theme-options" role="radiogroup" aria-labelledby="theme-label">
-        @for (t of themes(); track t) {
-          <ngcc-button
-            [variant]="t === baseTheme() ? 'primary' : 'ghost'"
-            size="sm"
-            [label]="t"
+    <div class="ngcc-cts__field">
+      <span class="ngcc-cts__label" id="theme-label">Base theme</span>
+      <div class="ngcc-seg" role="group" aria-labelledby="theme-label">
+        @for (t of themes; track t) {
+          <button
+            type="button"
+            class="ngcc-seg__btn"
+            [class.ngcc-seg__btn--on]="t === baseTheme()"
             [attr.aria-pressed]="t === baseTheme()"
             (click)="onBaseThemeChange(t)"
-          />
+          >
+            {{ t }}
+          </button>
         }
       </div>
     </div>
   </div>
 
-  <!-- Derived Color Palette Preview -->
-  <div class="ngcc--color-theme-switcher__palette">
-    <span class="cds--label">Derived Color Palette</span>
-    <div class="ngcc--palette-grid">
-      <div class="ngcc--palette-item">
-        <div class="ngcc--palette-swatch" [style.background-color]="primaryColor()"></div>
-        <span class="ngcc--palette-label">Primary</span>
-      </div>
-      <div class="ngcc--palette-item">
-        <div class="ngcc--palette-swatch" [style.background-color]="secondaryColor()"></div>
-        <span class="ngcc--palette-label">Secondary</span>
-      </div>
-      <div class="ngcc--palette-item">
-        <div class="ngcc--palette-swatch" [style.background-color]="dangerColor()"></div>
-        <span class="ngcc--palette-label">Danger</span>
-      </div>
-      <div class="ngcc--palette-item">
-        <div class="ngcc--palette-swatch" [style.background-color]="successColor()"></div>
-        <span class="ngcc--palette-label">Success</span>
-      </div>
-      <div class="ngcc--palette-item">
-        <div class="ngcc--palette-swatch" [style.background-color]="warningccolor()"></div>
-        <span class="ngcc--palette-label">Warning</span>
-      </div>
-      <div class="ngcc--palette-item">
-        <div class="ngcc--palette-swatch" [style.background-color]="infoColor()"></div>
-        <span class="ngcc--palette-label">Info</span>
-      </div>
-    </div>
+  <!-- Tabs: one thing at a time -->
+  <div class="ngcc-tabs" role="tablist" aria-label="Color theme sections">
+    @for (t of tabs(); track t.id) {
+      <button
+        type="button"
+        role="tab"
+        class="ngcc-tabs__tab"
+        [id]="'ngcc-cts-tab-' + t.id"
+        [attr.aria-selected]="activeTab() === t.id"
+        [attr.aria-controls]="'ngcc-cts-panel-' + t.id"
+        [attr.tabindex]="activeTab() === t.id ? 0 : -1"
+        (click)="tab.set(t.id)"
+        (keydown)="onTabKeydown($event)"
+      >
+        {{ t.label }}
+        @if (t.id === 'colors' && modifiedCount()) {
+          <span class="ngcc-count">{{ modifiedCount() }}</span>
+        }
+        @if (t.id === 'a11y' && report(); as r) {
+          <span class="ngcc-count" [class.ngcc-count--fail]="!r.compliant">
+            {{ r.compliant ? '✓' : errorCount() }}
+          </span>
+        }
+      </button>
+    }
   </div>
 
-  <!-- Applied Token Preview -->
-  <div class="ngcc--color-theme-switcher__tokens">
-    <span class="cds--label">Applied Theme Tokens</span>
-    <div class="ngcc--token-grid">
-      <div
-        class="ngcc--token-item"
-        style="
-          background-color: var(--cds-background);
-          color: var(--cds-text-primary);
-          border: 1px solid var(--cds-border-subtle-01);
-        "
-      >
-        Background
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="
-          background-color: var(--cds-layer-01);
-          color: var(--cds-text-primary);
-          border: 1px solid var(--cds-border-subtle-01);
-        "
-      >
-        Layer 01
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="
-          background-color: var(--cds-layer-02);
-          color: var(--cds-text-primary);
-          border: 1px solid var(--cds-border-subtle-01);
-        "
-      >
-        Layer 02
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="background-color: var(--cds-interactive-01); color: var(--cds-text-on-color)"
-      >
-        Interactive
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="background-color: var(--cds-button-primary); color: var(--cds-text-on-color)"
-      >
-        Primary Btn
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="background-color: var(--cds-button-secondary); color: var(--cds-text-on-color)"
-      >
-        Secondary Btn
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="background-color: var(--cds-support-error); color: var(--cds-text-on-color)"
-      >
-        Error
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="background-color: var(--cds-support-success); color: var(--cds-text-on-color)"
-      >
-        Success
-      </div>
-      <div
-        class="ngcc--token-item"
-        style="background-color: var(--cds-support-warning); color: var(--cds-text-primary)"
-      >
-        Warning
-      </div>
+  <!-- ── Colors: pick on the left, edit + see its tokens on the right ───── -->
+  @if (activeTab() === 'colors') {
+    <div
+      class="ngcc-split"
+      role="tabpanel"
+      id="ngcc-cts-panel-colors"
+      aria-labelledby="ngcc-cts-tab-colors"
+    >
+      <nav class="ngcc-list" aria-label="Colors">
+        <div class="ngcc-list__search">
+          <label class="cds--visually-hidden" for="ngcc-token-filter">Find a color or token</label>
+          <input
+            id="ngcc-token-filter"
+            type="search"
+            class="cds--text-input cds--text-input--sm"
+            placeholder="Find a color or token"
+            autocomplete="off"
+            spellcheck="false"
+            [value]="filter()"
+            (input)="filter.set($any($event.target).value)"
+          />
+        </div>
+
+        @if (nothingMatches()) {
+          <p class="ngcc--empty" role="status">No colors or tokens match “{{ filter() }}”.</p>
+        }
+
+        @for (cat of categories(); track cat.id) {
+          <div class="ngcc-list__group">
+            <h5 class="ngcc-list__heading">
+              <span class="ngcc--category__title">{{ cat.label }}</span>
+              @if (cat.modified) {
+                <span class="ngcc--category__badge">{{ cat.modified }} changed</span>
+              }
+            </h5>
+            <ul class="ngcc-list__items">
+              @for (row of cat.rows; track row.key) {
+                <li>
+                  <button
+                    type="button"
+                    class="ngcc-item ngcc--theme-colors__row"
+                    [class.ngcc-item--on]="selectedRow()?.key === row.key"
+                    [attr.aria-current]="selectedRow()?.key === row.key ? 'true' : null"
+                    (click)="selectedKey.set(row.key)"
+                  >
+                    <span class="ngcc-swatch" [style.background-color]="row.value"></span>
+                    <span class="ngcc-item__text">
+                      <span class="ngcc--theme-colors__name">{{ row.label }}</span>
+                      <span class="ngcc-item__hex">{{ row.value }}</span>
+                    </span>
+                    @if (row.overridden) {
+                      <span class="ngcc-item__dot" title="Modified">
+                        <span class="cds--visually-hidden">modified</span>
+                      </span>
+                    }
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </nav>
+
+      @if (selectedRow(); as row) {
+        <div class="ngcc-detail" aria-live="polite">
+          <div class="ngcc-detail__head">
+            <div>
+              <h5 class="ngcc-detail__title">
+                {{ row.label }}
+                @if (row.overridden) {
+                  <span class="ngcc-tag ngcc--theme-colors__modified">modified</span>
+                }
+                @if (row.derived) {
+                  <span class="ngcc-tag ngcc-tag--info ngcc--theme-colors__auto"
+                    >auto-adjusted</span
+                  >
+                }
+              </h5>
+              <p class="ngcc-detail__desc">{{ row.description }}</p>
+            </div>
+          </div>
+
+          <div class="ngcc-editor">
+            <input
+              type="color"
+              class="ngcc-editor__picker"
+              [id]="'theme-color-' + row.key"
+              [value]="row.value"
+              [attr.aria-label]="row.label + ' color'"
+              (input)="onThemeColorInput(row.key, $any($event.target).value)"
+            />
+            <input
+              type="text"
+              class="cds--text-input cds--text-input--sm ngcc--hex-input"
+              [value]="row.value"
+              maxlength="7"
+              spellcheck="false"
+              autocomplete="off"
+              [attr.aria-label]="row.label + ' hex value'"
+              (change)="onThemeColorCommit(row.key, $event)"
+            />
+            <button
+              type="button"
+              class="ngcc-link ngcc--theme-colors__reset"
+              [disabled]="!row.overridden"
+              [attr.aria-label]="'Reset ' + row.label"
+              (click)="resetThemeColor(row.key)"
+            >
+              Reset
+            </button>
+          </div>
+
+          @if (row.derived) {
+            <p class="ngcc--category__note">
+              Adjusted automatically to meet your WCAG target on <strong>{{ baseTheme() }}</strong
+              >, so the applied value can differ slightly from the one you pick.
+            </p>
+          }
+
+          <h6 class="ngcc-detail__subhead">CSS tokens</h6>
+          <ul class="ngcc-tokens" [attr.aria-label]="row.label + ' tokens'">
+            @for (name of row.cssVars; track name) {
+              <li class="ngcc-tokens__row">
+                <code class="ngcc--token-name">{{ name }}</code>
+                <button
+                  type="button"
+                  class="ngcc-link ngcc--token"
+                  [attr.title]="'Copy ' + name"
+                  [attr.aria-label]="'Copy ' + name"
+                  (click)="copyToken(name)"
+                >
+                  Copy
+                </button>
+              </li>
+            }
+          </ul>
+
+          @if (!row.derived) {
+            <div class="ngcc-snippet">
+              <div class="ngcc-snippet__bar">
+                <span class="ngcc-snippet__title">CSS override</span>
+                <button type="button" class="ngcc-link ngcc-snippet__copy" (click)="copySnippet()">
+                  Copy CSS
+                </button>
+              </div>
+              <pre
+                class="ngcc-snippet__code"
+                tabindex="0"
+              ><code>{{ selectedSnippet() }}</code></pre>
+            </div>
+          }
+        </div>
+      }
     </div>
-  </div>
+
+    @if (themeHasOverrides()) {
+      <div class="ngcc--theme-colors__header">
+        <ngcc-button
+          variant="ghost"
+          size="sm"
+          label="Reset theme colors"
+          (click)="resetThemeColors()"
+        />
+      </div>
+    }
+  }
+
+  <!-- ── Brand ───────────────────────────────────────────────────────────── -->
+  @if (activeTab() === 'brand') {
+    <div
+      class="ngcc-pane"
+      role="tabpanel"
+      id="ngcc-cts-panel-brand"
+      aria-labelledby="ngcc-cts-tab-brand"
+    >
+      <p class="ngcc-pane__intro">One color that derives buttons, interactive states and charts.</p>
+      <div class="ngcc-editor">
+        <input
+          id="brand-color"
+          type="color"
+          class="ngcc-editor__picker"
+          [value]="brandColor()"
+          (input)="onPickerInput($any($event.target).value)"
+          aria-label="Select brand color"
+        />
+        <input
+          id="brand-color-hex"
+          type="text"
+          class="cds--text-input cds--text-input--sm ngcc--hex-input"
+          [class.cds--text-input--invalid]="hexInvalid()"
+          [value]="hexDraft()"
+          (input)="onHexInput($any($event.target).value)"
+          maxlength="7"
+          spellcheck="false"
+          autocomplete="off"
+          aria-label="Brand color hex value"
+          [attr.aria-invalid]="hexInvalid()"
+          aria-describedby="brand-color-hex-error"
+        />
+      </div>
+      @if (hexInvalid()) {
+        <span id="brand-color-hex-error" class="ngcc--field-error" role="alert">
+          Enter a hex color like #0f62fe
+        </span>
+      }
+
+      @if (presets().length) {
+        <div class="ngcc--preset-row" role="group" aria-label="Brand color presets">
+          @for (preset of presets(); track preset.color) {
+            <button
+              type="button"
+              class="ngcc--preset"
+              [class.ngcc--preset--active]="isActivePreset(preset)"
+              [style.background-color]="preset.color"
+              [attr.aria-label]="preset.name"
+              [attr.aria-pressed]="isActivePreset(preset)"
+              [attr.title]="preset.name"
+              (click)="selectPreset(preset)"
+            ></button>
+          }
+        </div>
+      }
+
+      <h6 class="ngcc-detail__subhead">Drives these tokens</h6>
+      <ul class="ngcc-tokens" aria-label="Tokens driven by the brand color">
+        @for (name of brandTokens; track name) {
+          <li class="ngcc-tokens__row">
+            <code class="ngcc--token-name">{{ name }}</code>
+            <button
+              type="button"
+              class="ngcc-link ngcc--token"
+              [attr.title]="'Copy ' + name"
+              [attr.aria-label]="'Copy ' + name"
+              (click)="copyToken(name)"
+            >
+              Copy
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  <!-- ── Accessibility ───────────────────────────────────────────────────── -->
+  @if (activeTab() === 'a11y') {
+    <div
+      class="ngcc-pane ngcc--color-theme-switcher__wcag"
+      role="tabpanel"
+      id="ngcc-cts-panel-a11y"
+      aria-labelledby="ngcc-cts-tab-a11y"
+    >
+      <div class="ngcc-editor">
+        <div class="ngcc-field-col">
+          <label for="wcag-level" class="ngcc-cts__label">WCAG target</label>
+          <select
+            id="wcag-level"
+            class="cds--select-input cds--select-input--sm"
+            [value]="wcag().level"
+            (change)="onWcagLevelChange($any($event.target).value)"
+          >
+            <option value="AA" [selected]="wcag().level === 'AA'">AA (4.5:1)</option>
+            <option value="AAA" [selected]="wcag().level === 'AAA'">AAA (7:1)</option>
+          </select>
+        </div>
+        <div class="cds--form-item cds--checkbox-wrapper">
+          <input
+            id="wcag-auto"
+            type="checkbox"
+            class="cds--checkbox"
+            [checked]="wcag().autoAdjust"
+            (change)="onAutoAdjustChange($any($event.target).checked)"
+          />
+          <label for="wcag-auto" class="cds--checkbox-label">
+            <span class="cds--checkbox-label-text">Auto-adjust low-contrast colors</span>
+          </label>
+        </div>
+      </div>
+
+      @if (report(); as r) {
+        <p
+          class="ngcc--report-status"
+          [class.ngcc--report-status--fail]="!r.compliant"
+          [class.ngcc--report-status--warn]="r.compliant && warningCount() > 0"
+        >
+          @if (r.compliant && r.issues.length === 0) {
+            Meets WCAG {{ r.level }} for all checked tokens
+          } @else {
+            {{ errorCount() }} error(s), {{ warningCount() }} warning(s) for WCAG {{ r.level }}
+          }
+        </p>
+        @if (r.issues.length) {
+          <ul class="ngcc--report-issues">
+            @for (issue of r.issues; track issue.token + issue.type) {
+              <li>
+                <strong>{{ issue.severity }}</strong> · {{ issue.message }}
+                @if (issue.suggestedValue) {
+                  <span> — try {{ issue.suggestedValue }}</span>
+                }
+              </li>
+            }
+          </ul>
+        }
+      }
+    </div>
+  }
+
+  <!-- ── Result: palette, copy / import / export ─────────────────────────── -->
+  @if (activeTab() === 'output') {
+    <div
+      class="ngcc-pane ngcc--output"
+      role="tabpanel"
+      id="ngcc-cts-panel-output"
+      aria-labelledby="ngcc-cts-tab-output"
+    >
+      <h6 class="ngcc-detail__subhead">Effective palette</h6>
+      <div class="ngcc--palette-grid">
+        @for (
+          item of [
+            { label: 'Primary', color: primaryColor() },
+            { label: 'Secondary', color: secondaryColor() },
+            { label: 'Error', color: dangerColor() },
+            { label: 'Success', color: successColor() },
+            { label: 'Warning', color: warningColor() },
+            { label: 'Info', color: infoColor() },
+          ];
+          track item.label
+        ) {
+          <div class="ngcc--palette-item">
+            <div
+              class="ngcc--palette-swatch"
+              role="img"
+              [attr.aria-label]="item.label + ' ' + item.color"
+              [style.background-color]="item.color"
+            ></div>
+            <span class="ngcc--palette-label">{{ item.label }}</span>
+          </div>
+        }
+      </div>
+
+      <h6 class="ngcc-detail__subhead">Copy, export &amp; import</h6>
+      <div class="ngcc--transfer-actions">
+        <ngcc-button variant="tertiary" size="sm" label="Copy CSS" (click)="copyCss()" />
+        <ngcc-button variant="tertiary" size="sm" label="Copy settings" (click)="copyConfig()" />
+        <ngcc-button variant="primary" size="sm" label="Apply settings" (click)="applyConfig()" />
+      </div>
+      <label for="ngcc-transfer" class="cds--visually-hidden">Theme settings JSON</label>
+      <textarea
+        id="ngcc-transfer"
+        class="cds--text-area ngcc--transfer-text"
+        rows="6"
+        spellcheck="false"
+        [value]="transferText()"
+        [attr.aria-invalid]="transferError()"
+        (input)="transferText.set($any($event.target).value)"
+      ></textarea>
+      @if (transferError()) {
+        <span class="ngcc--field-error" role="alert">Invalid settings JSON</span>
+      }
+    </div>
+  }
+
+  <p class="cds--visually-hidden" role="status" aria-live="polite">{{ announcement() }}</p>
 </section>

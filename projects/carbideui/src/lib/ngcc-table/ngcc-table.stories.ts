@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { NgccTable } from './ngcc-table';
+import { NgccTable, NgccTableExpandedRowDirective } from './ngcc-table';
 import type { NgccTableColumn } from './ngcc-table.types';
 import { NgccTableToolbar } from './ngcc-table-toolbar';
 import { NgccTableSkeleton } from './ngcc-table-skeleton';
@@ -12,7 +12,13 @@ const meta: Meta<NgccTable> = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, NgccTable, NgccTableToolbar, NgccTableSkeleton],
+      imports: [
+        CommonModule,
+        NgccTable,
+        NgccTableExpandedRowDirective,
+        NgccTableToolbar,
+        NgccTableSkeleton,
+      ],
     }),
   ],
   argTypes: {
@@ -254,5 +260,50 @@ export const DynamicSearch: Story = {
 
       </div>
     `,
+  }),
+};
+
+/* --- Invoice table: status cell, expandable rows, selection --- */
+const invoiceColumns: NgccTableColumn[] = [
+  { key: 'id', header: 'Invoice', sortable: true },
+  { key: 'client', header: 'Client', sortable: true },
+  { key: 'amount', header: 'Amount ($)', sortable: true, align: 'end' },
+  {
+    key: 'status',
+    header: 'Status',
+    sortable: true,
+    cell: 'status',
+    statusMap: { Paid: 'green', Overdue: 'red', Draft: 'gray', Sent: 'blue' },
+  },
+];
+
+const invoiceRows = [
+  { id: 'INV-1042', client: 'Acme Corp', amount: 1240, status: 'Paid', due: '2026-10-01' },
+  { id: 'INV-1043', client: 'Globex', amount: 3410, status: 'Overdue', due: '2026-09-15' },
+  { id: 'INV-1044', client: 'Initech', amount: 900, status: 'Sent', due: '2026-11-02' },
+  { id: 'INV-1045', client: 'Umbrella', amount: 2100, status: 'Draft', due: '2026-11-20' },
+];
+
+export const ExpandableRow: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Status cells (`cell: "status"` + `statusMap`), expandable rows (`<ng-template ngccTableExpandedRow>`), sortable columns and row selection. Selection and expansion follow the row, so they survive sorting.',
+      },
+    },
+  },
+  render: () => ({
+    props: {
+      columns: invoiceColumns,
+      rows: invoiceRows,
+      config: { pagination: false, rowSelection: 'multiple' },
+    },
+    template: `
+      <ngcc-table [columns]="columns" [rows]="rows" [config]="config">
+        <ng-template ngccTableExpandedRow let-row>
+          <strong>{{ row.id }}</strong> for {{ row.client }}: due {{ row.due }}.
+        </ng-template>
+      </ngcc-table>`,
   }),
 };

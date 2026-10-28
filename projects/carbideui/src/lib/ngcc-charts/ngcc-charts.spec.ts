@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { NgccCharts } from './ngcc-charts';
 import { NgccThemeService } from '../ngcc-theme-switcher/ngcc-theme.service';
 import { NgccChartType } from './ngcc-charts.types';
@@ -9,11 +9,12 @@ import { runAxe } from '../../test-utils/a11y';
 describe('NgccCharts', () => {
   let fixture: ComponentFixture<NgccCharts<NgccChartType>>;
   let component: NgccCharts<NgccChartType>;
-  let themeService: { getTheme: ReturnType<typeof vi.fn> };
+  let themeService: { getTheme: ReturnType<typeof vi.fn>; theme: ReturnType<typeof signal> };
 
   beforeEach(async () => {
     themeService = {
       getTheme: vi.fn().mockReturnValue('g10'),
+      theme: signal('g10'),
     };
 
     await TestBed.configureTestingModule({

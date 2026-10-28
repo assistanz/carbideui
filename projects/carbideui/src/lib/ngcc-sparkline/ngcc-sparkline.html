@@ -1,0 +1,46 @@
+@if (loading()) {
+  <ngcc-skeleton [width]="widthPx()" [height]="heightPx()" />
+} @else {
+  <svg
+    class="ngcc-sparkline__svg"
+    xmlns="http://www.w3.org/2000/svg"
+    [attr.viewBox]="'0 0 ' + width() + ' ' + height()"
+    [attr.width]="width()"
+    [attr.height]="height()"
+    [style.color]="resolvedColor()"
+    [style.max-width.px]="width()"
+    [attr.data-trend]="trend()"
+    [attr.role]="decorative() ? null : 'img'"
+    [attr.aria-label]="decorative() ? null : accessibleName()"
+    [attr.aria-hidden]="decorative() ? 'true' : null"
+    focusable="false"
+  >
+    @if (isEmpty()) {
+      <line
+        class="ngcc-sparkline__empty"
+        x1="2"
+        [attr.x2]="width() - 2"
+        [attr.y1]="baselineY()"
+        [attr.y2]="baselineY()"
+      />
+    } @else if (type() === 'bar') {
+      @for (b of bars(); track $index) {
+        <rect
+          class="ngcc-sparkline__bar"
+          [attr.x]="b.x"
+          [attr.y]="b.y"
+          [attr.width]="b.width"
+          [attr.height]="b.height"
+        />
+      }
+    } @else {
+      @if (type() === 'area') {
+        <path class="ngcc-sparkline__area" [attr.d]="areaPath()" />
+      }
+      <path class="ngcc-sparkline__line" [attr.d]="linePath()" />
+      @if (showLastPoint() && lastPoint(); as p) {
+        <circle class="ngcc-sparkline__point" [attr.cx]="p.x" [attr.cy]="p.y" r="2.5" />
+      }
+    }
+  </svg>
+}

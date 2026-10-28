@@ -1,0 +1,117 @@
+// Corner style — controlled by `data-corner-style="square|rounded|curved"` on <html>.
+//
+// Everything flows through tokens + global overrides; feature components are not edited.
+//   Controls   → --ngcc-radius-button / --ngcc-radius-input
+//   Containers → --ngcc-radius-container
+//
+// Square is Carbon's own look: no overrides are emitted for it, only tokens (all 0),
+// so the default rendering is byte-for-byte what Carbon ships.
+
+:root {
+  --ngcc-radius-button: 0;
+  --ngcc-radius-input: 0;
+  --ngcc-radius-container: 0;
+  --ngcc-radius-checkbox: 2px; // Carbon default, never exceeds 2px
+
+  // Tokens that existing components already read (ngcc-button / ngcc-input).
+  --sb--button-corner-radius: var(--ngcc-radius-button);
+  --sb--input-corner-radius: var(--ngcc-radius-input);
+  --ngcc--input-corner-radius: var(--ngcc-radius-input);
+}
+
+:root[data-corner-style='square'] {
+  --ngcc-radius-button: 0;
+  --ngcc-radius-input: 0;
+  --ngcc-radius-container: 0;
+}
+
+:root[data-corner-style='rounded'] {
+  --ngcc-radius-button: 4px;
+  --ngcc-radius-input: 4px;
+  --ngcc-radius-container: 8px;
+}
+
+:root[data-corner-style='curved'] {
+  --ngcc-radius-button: 999px;
+  --ngcc-radius-input: 24px;
+  --ngcc-radius-container: 16px;
+}
+
+// Selector is (0,3,0) once nested, which beats Carbon (0,1,0) and the
+// encapsulated component rules (0,2,0) without !important.
+:root:is([data-corner-style='rounded'], [data-corner-style='curved']) {
+  // ── Controls ───────────────────────────────────────────────────────────────
+  .cds--btn {
+    border-radius: var(--ngcc-radius-button);
+  }
+
+  // Full-bleed footer buttons stay square; the modal container clips them.
+  .cds--modal-footer .cds--btn {
+    border-radius: 0;
+  }
+
+  .cds--text-input,
+  .cds--text-area,
+  .cds--number input[type='number'],
+  .cds--date-picker__input,
+  .cds--search-input,
+  .cds--select-input,
+  .cds--list-box {
+    border-radius: var(--ngcc-radius-input);
+  }
+
+  // The inner field owns the focus ring, so it must follow the trigger's radius.
+  .cds--list-box__field {
+    border-radius: inherit;
+  }
+
+  // An open dropdown joins its menu: square the bottom of the trigger.
+  .cds--list-box--expanded {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  // Segmented control behaves like a button group.
+  .cds--content-switcher {
+    border-radius: var(--ngcc-radius-button);
+    overflow: hidden;
+  }
+
+  // ── Containers ─────────────────────────────────────────────────────────────
+  .cds--modal-container,
+  .cds--tile,
+  .cds--toast-notification,
+  .cds--popover-content,
+  .cds--overflow-menu-options {
+    border-radius: var(--ngcc-radius-container);
+  }
+
+  .cds--modal-container {
+    overflow: hidden;
+  }
+
+  // Docked to the right edge: only the free (inline-start) corners are rounded.
+  .cds--header-panel {
+    border-start-start-radius: var(--ngcc-radius-container);
+    border-end-start-radius: var(--ngcc-radius-container);
+  }
+
+  // Dropdown list hangs from its trigger: top corners stay square.
+  .cds--list-box__menu {
+    border-end-start-radius: var(--ngcc-radius-container);
+    border-end-end-radius: var(--ngcc-radius-container);
+  }
+
+  // Header menu panel hangs from the header: bottom corners only.
+  .cds--header__submenu .cds--header__menu {
+    border-end-start-radius: var(--ngcc-radius-container);
+    border-end-end-radius: var(--ngcc-radius-container);
+    overflow: hidden;
+  }
+
+  // `clip` (not `hidden`) so sticky headers keep working.
+  .cds--data-table-container {
+    border-radius: var(--ngcc-radius-container);
+    overflow: clip;
+  }
+}

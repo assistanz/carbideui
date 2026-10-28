@@ -14,8 +14,11 @@ import {
   runInInjectionContext,
   inject,
   Injector,
+  Directive,
+  TemplateRef,
+  contentChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { NgccTableColumn, NgccTableConfig } from './ngcc-table.types';
 import { NgccTableService } from './ngcc-table.service';
 import { NgccCheckbox } from '../ngcc-checkbox/ngcc-checkbox';
@@ -24,11 +27,29 @@ import { NgccTableSearchService } from './ngcc-table-search.service';
 import { NgccPagination } from '../ngcc-pagination/ngcc-pagination';
 import { NgccSkeleton } from '../ngcc-skeleton/ngcc-skeleton';
 import { NgccIconNameType } from '../ngcc-icons/icons';
+import { NGCC_STATUS_TAG, NgccTag, NgccTagType } from '../ngcc-tag/ngcc-tag';
+
+/**
+ * Marks the template shown under an expanded row:
+ * `<ng-template ngccTableExpandedRow let-row let-index="index">...</ng-template>`
+ */
+@Directive({ selector: 'ng-template[ngccTableExpandedRow]', standalone: true })
+export class NgccTableExpandedRowDirective {
+  readonly template = inject<TemplateRef<unknown>>(TemplateRef);
+}
 
 @Component({
   selector: 'ngcc-table',
   standalone: true,
-  imports: [CommonModule, NgccCheckbox, NgccIcon, NgccPagination, NgccSkeleton],
+  imports: [
+    CommonModule,
+    NgTemplateOutlet,
+    NgccCheckbox,
+    NgccIcon,
+    NgccPagination,
+    NgccSkeleton,
+    NgccTag,
+  ],
   templateUrl: './ngcc-table.html',
   styleUrls: ['./ngcc-table.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,6 +76,12 @@ export class NgccTable<T = unknown> implements OnInit, OnChanges {
   // @Output events
   @Output() rowSelect = new EventEmitter<T[]>();
   @Output() searchChange = new EventEmitter<string>();
+  /** Emits when a row is expanded or collapsed. */
+  @Output() rowExpand = new EventEmitter<{ row: T; expanded: boolean }>();
+
+  /** Template for the content under an expanded row. Its presence turns on the expand column. */
+  protected readonly expandedTemplate = contentChild(NgccTableExpandedRowDirective);
+  protected readonly expanded = signal<Set<number>>(new Set());
 
   // Internal state
   private readonly _sortState = signal<{ key: string; dir: 'asc' | 'desc' } | null>(null);
@@ -69,7 +96,14 @@ export class NgccTable<T = unknown> implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['columns']) this._columns.set(changes['columns'].currentValue ?? []);
-    if (changes['rows']) this._rows.set(changes['rows'].currentValue ?? []);
+    if (changes['rows']) {
+      this._rows.set(changes['rows'].currentValue ?? []);
+      // selection and expansion are keyed by row position, which a new array invalidates
+      if (!changes['rows'].firstChange) {
+        this.selected.set(new Set());
+        this.expanded.set(new Set());
+      }
+    }
     if (changes['loading']) this._loading.set(changes['loading'].currentValue ?? false);
     if (changes['config'])
       this._config.set(
@@ -176,50 +210,101 @@ export class NgccTable<T = unknown> implements OnInit, OnChanges {
     });
   }
 
-  protected isSelected(indexOnPage: number): boolean {
-    // convert page index to absolute row index in the filtered+sorted set
-    // For the starter, we track selection by absolute index from original rows
-    return this.selected().has(indexOnPage);
+  /** Position of a row in the original `rows` input (selection and expansion key on this). */
+  private readonly rowIndexMap = computed(() => {
+    const map = new Map<T, number>();
+    (this.getRows() || []).forEach((r, i) => map.set(r, i));
+    return map;
+  });
+
+  protected absIndex(row: T): number {
+    return this.rowIndexMap().get(row) ?? -1;
   }
 
-  protected toggleRowSelect(absIndex: number, _row: T): void {
-    this.selected.update((s) => {
-      const next = new Set(s);
-      if (next.has(absIndex)) next.delete(absIndex);
-      else next.add(absIndex);
-      // emit selected data
-      const selectedRows = Array.from(next).map((i) => (this.getRows() || [])[i]);
-      this.rowSelect.emit(selectedRows);
-      return next;
-    });
+  protected isSelected(row: T): boolean {
+    return this.selected().has(this.absIndex(row));
+  }
+
+  protected isExpandable(): boolean {
+    return !!this.expandedTemplate() && this.getConfig().expandable !== false;
+  }
+
+  protected isExpanded(row: T): boolean {
+    return this.expanded().has(this.absIndex(row));
+  }
+
+  protected toggleExpand(row: T): void {
+    const idx = this.absIndex(row);
+    const next = new Set(this.expanded());
+    const open = !next.has(idx);
+    if (open) next.add(idx);
+    else next.delete(idx);
+    this.expanded.set(next);
+    this.rowExpand.emit({ row, expanded: open });
+  }
+
+  /** Columns the body spans: data + selection + expand. */
+  protected columnCount(): number {
+    return (
+      this.getColumns().length + (this.allowSelection() ? 1 : 0) + (this.isExpandable() ? 1 : 0)
+    );
+  }
+
+  protected statusType(col: NgccTableColumn<T>, value: unknown): NgccTagType {
+    const key = String(value ?? '');
+    const mapped = col.statusMap?.[key];
+    if (mapped) return mapped;
+    const builtin = (NGCC_STATUS_TAG as Record<string, NgccTagType>)[key.toLowerCase()];
+    return builtin ?? 'gray';
+  }
+
+  /** A click on the row selects it, unless it landed on a control inside the row. */
+  protected onRowClick(event: Event, row: T): void {
+    if (!this.allowSelection()) return;
+    const target = event.target as HTMLElement | null;
+    if (target?.closest('input, button, a, label, ngcc-checkbox')) return;
+    this.toggleRowSelect(row);
+  }
+
+  protected toggleRowSelect(row: T): void {
+    const idx = this.absIndex(row);
+    if (idx < 0) return;
+    const single = this.getConfig().rowSelection === 'single';
+    const next = single ? new Set<number>() : new Set(this.selected());
+    if (this.selected().has(idx)) next.delete(idx);
+    else next.add(idx);
+    this.selected.set(next);
+    const all = this.getRows() || [];
+    this.rowSelect.emit(
+      Array.from(next)
+        .sort((a, b) => a - b)
+        .map((i) => all[i]),
+    );
   }
 
   protected isAllSelected(): boolean {
-    const current = this.selected();
-    const total = this.processedRows().length;
-    return total > 0 && current.size === total;
+    const visible = this.processedRows();
+    return visible.length > 0 && visible.every((r) => this.isSelected(r));
   }
 
   protected toggleAllRowsSelected(): void {
-    const totalRows = this.processedRows();
-    this.selected.update((_selectedSet) => {
-      const next = new Set<number>();
-      if (!this.isAllSelected()) {
-        // Select all visible rows
-        for (let i = 0; i < totalRows.length; i++) {
-          next.add(i);
-        }
-      }
-      // Emit selected rows
-      const selectedRows = Array.from(next).map((i) => totalRows[i]);
-      this.rowSelect.emit(selectedRows);
-      return next;
-    });
+    const visible = this.processedRows();
+    const next = new Set(this.selected());
+    if (this.isAllSelected()) visible.forEach((r) => next.delete(this.absIndex(r)));
+    else visible.forEach((r) => next.add(this.absIndex(r)));
+    this.selected.set(next);
+    const all = this.getRows() || [];
+    this.rowSelect.emit(
+      Array.from(next)
+        .sort((a, b) => a - b)
+        .map((i) => all[i]),
+    );
   }
+
   protected readonly isIndeterminate = computed(() => {
-    const sel = this.selected().size;
-    const total = this.processedRows().length;
-    return sel > 0 && sel < total;
+    const visible = this.processedRows();
+    const count = visible.filter((r) => this.selected().has(this.absIndex(r))).length;
+    return count > 0 && count < visible.length;
   });
 
   protected goToPage(idx: number): void {
@@ -281,7 +366,7 @@ export class NgccTable<T = unknown> implements OnInit, OnChanges {
   }
 
   get columnPlaceholders(): unknown[] {
-    return Array(this.getColumns()?.length + 1 || 0);
+    return Array(this.columnCount() || 0);
   }
 
   getColumnWidth(col: { width?: number | string }): string | null {

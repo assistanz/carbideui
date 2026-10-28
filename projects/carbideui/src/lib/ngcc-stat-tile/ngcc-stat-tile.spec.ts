@@ -41,4 +41,55 @@ describe('NgccStatTile', () => {
       el().querySelector<HTMLElement>('.ngcc-stat')!.style.getPropertyValue('--ngcc-stat-accent'),
     ).toContain('warning');
   });
+
+  describe('sparkline', () => {
+    const spark = () => el().querySelector('ngcc-sparkline');
+
+    it('shows no sparkline by default', async () => {
+      await fixture.whenStable();
+      expect(spark()).toBeNull();
+    });
+
+    it('draws a sparkline under the value when a series is given', async () => {
+      fixture.componentRef.setInput('sparkline', [1, 2, 3, 5, 8]);
+      await fixture.whenStable();
+      expect(spark()).not.toBeNull();
+      expect(spark()!.querySelector('.ngcc-sparkline__area')).not.toBeNull(); // area by default
+    });
+
+    it('supports line and bar styles', async () => {
+      fixture.componentRef.setInput('sparkline', [1, 2, 3]);
+      fixture.componentRef.setInput('sparklineType', 'bar');
+      await fixture.whenStable();
+      expect(spark()!.querySelectorAll('.ngcc-sparkline__bar').length).toBe(3);
+    });
+
+    it('colors the trend by the tile sentiment, like the delta', async () => {
+      fixture.componentRef.setInput('sparkline', [10, 4, 2]);
+      fixture.componentRef.setInput('trendSentiment', 'positive-down'); // falling cost is good
+      await fixture.whenStable();
+      expect(spark()!.querySelector('svg')!.style.color).toContain('--cds-support-success');
+    });
+
+    it('follows the tile status when set', async () => {
+      fixture.componentRef.setInput('sparkline', [1, 2, 3]);
+      fixture.componentRef.setInput('status', 'error');
+      await fixture.whenStable();
+      expect(spark()!.querySelector('svg')!.style.color).toContain('--cds-support-error');
+    });
+
+    it('gives the trend a text alternative, overridable', async () => {
+      fixture.componentRef.setInput('sparkline', [1, 2, 3]);
+      await fixture.whenStable();
+      expect(spark()!.querySelector('svg')!.getAttribute('aria-label')).toContain(
+        'Trend over 3 points',
+      );
+
+      fixture.componentRef.setInput('sparklineLabel', 'Active users, last 3 weeks');
+      await fixture.whenStable();
+      expect(spark()!.querySelector('svg')!.getAttribute('aria-label')).toBe(
+        'Active users, last 3 weeks',
+      );
+    });
+  });
 });

@@ -1,3 +1,7 @@
 @use '@carbon/styles';
 
+// Order matters: these set the token defaults, then custom-themes (which still
+// supports the legacy data-carbon-theme="rounded|curved|centered" values) comes last.
+@use 'theme-corners';
+@use 'theme-button-align';
 @use 'custom-themes' as *;

@@ -1,0 +1,22 @@
+// Button label alignment — controlled by `data-button-align="left|centered"` on <html>.
+//
+// Left is Carbon's default (label at the start, icon at the end) and emits no rules.
+// Centered groups label + icon in the middle with an 8px gap and balanced padding.
+// Icon-only buttons are untouched. Independent of Corner style.
+
+:root[data-button-align='centered'] {
+  .cds--btn:not(.cds--btn--icon-only) {
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    // Carbon reserves extra end padding for an absolutely positioned icon; balance it.
+    padding-inline: calc(var(--cds-layout-density-padding-inline-local) - 0.0625rem);
+
+    .cds--btn__icon {
+      position: static;
+      inset: auto;
+      margin: 0;
+    }
+  }
+}

@@ -1,13 +1,13 @@
 import { Component, ChangeDetectionStrategy, effect } from '@angular/core';
 import { GaugeChart, GaugeChartOptions } from '@carbon/charts';
-import { NgccSkeleton } from '../../ngcc-skeleton/ngcc-skeleton';
+import { NgccChartState } from '../ngcc-chart-state';
 import { NgccBaseChart } from '../../shared/ngcc-base-chart';
 
 @Component({
   selector: 'ngcc-gauge-chart',
   standalone: true,
   templateUrl: './ngcc-gauge-chart.html',
-  imports: [NgccSkeleton],
+  imports: [NgccChartState],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgccGaugeChart extends NgccBaseChart<GaugeChartOptions> {
@@ -24,6 +24,9 @@ export class NgccGaugeChart extends NgccBaseChart<GaugeChartOptions> {
 
     // Reactively update on data/options change
     effect(() => {
+      // See NgccCharts: hasData() alone doesn't notice one non-empty dataset replacing another.
+      this._data();
+      this._options();
       if (this.chart && this.hasData()) {
         this.chart.model.setData(this.data);
         this.chart.model.setOptions(this.getMergedOptions());

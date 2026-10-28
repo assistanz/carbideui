@@ -1,153 +1,563 @@
-.ngcc--color-theme-switcher {
+// Color theme switcher: quiet surface, one section at a time.
+// Layout: header · two segmented controls · tabs · panel (colors = list + detail).
+
+:host {
+  display: block;
+}
+
+.ngcc-cts {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
   padding: 1.5rem;
   border: 1px solid var(--cds-border-subtle-01);
-  border-radius: 8px;
+  border-radius: var(--ngcc-radius-container, 8px);
   background-color: var(--cds-layer-01, var(--cds-ui-01));
   color: var(--cds-text-primary);
-  transition:
-    background-color 0.3s,
-    color 0.3s;
 
   &__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 
-    h4 {
-      margin: 0;
-      font-weight: 600;
-      color: var(--cds-text-primary);
-    }
+  &__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__sub {
+    margin: 0.125rem 0 0;
+    font-size: 0.75rem;
+    color: var(--cds-text-secondary);
   }
 
   &__controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1rem 2rem;
   }
 
-  &__color-picker {
+  &__field {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-
-    .ngcc--color-picker-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    input[type='color'] {
-      width: 48px;
-      height: 32px;
-      border: 1px solid var(--cds-border-strong-01);
-      border-radius: 4px;
-      cursor: pointer;
-      background: transparent;
-      padding: 2px;
-
-      &::-webkit-color-swatch-wrapper {
-        padding: 0;
-      }
-
-      &::-webkit-color-swatch {
-        border: none;
-        border-radius: 2px;
-      }
-    }
-
-    .ngcc--color-value {
-      font-size: 0.75rem;
-      font-family: 'IBM Plex Mono', monospace;
-      color: var(--cds-text-secondary);
-      text-transform: uppercase;
-    }
+    gap: 0.375rem;
   }
 
-  &__theme-select {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    .ngcc--theme-options {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-  }
-
-  &__palette {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--cds-border-subtle-01);
-  }
-
-  &__tokens {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--cds-border-subtle-01);
+  &__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.32px;
+    color: var(--cds-text-secondary);
   }
 }
 
-.cds--label {
-  font-weight: 600;
-  color: var(--cds-text-secondary);
+// ── Segmented control ──────────────────────────────────────────────────────
+.ngcc-seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--cds-border-strong-01);
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2rem;
+    padding: 0 1rem;
+    border: 0;
+    border-inline-start: 1px solid var(--cds-border-subtle-01);
+    background: transparent;
+    color: var(--cds-text-primary);
+    font: inherit;
+    font-size: 0.875rem;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    &:first-child {
+      border-inline-start: 0;
+    }
+
+    &:hover {
+      background: var(--cds-layer-hover-01);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--cds-focus);
+      outline-offset: -2px;
+    }
+
+    &--on,
+    &--on:hover {
+      background: var(--cds-background-inverse);
+      color: var(--cds-text-inverse);
+    }
+  }
+
+  &__dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--cds-border-strong-01);
+  }
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────────────
+.ngcc-tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--cds-border-subtle-01);
+  overflow-x: auto;
+
+  &__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    background: transparent;
+    color: var(--cds-text-secondary);
+    font: inherit;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--cds-text-primary);
+    }
+
+    &[aria-selected='true'] {
+      border-bottom-color: var(--cds-border-interactive);
+      color: var(--cds-text-primary);
+      font-weight: 600;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--cds-focus);
+      outline-offset: -2px;
+    }
+  }
+}
+
+.ngcc-count {
+  min-width: 1.25rem;
+  padding: 0 0.375rem;
+  border-radius: 1rem;
+  background: var(--cds-layer-accent-01);
+  color: var(--cds-text-primary);
   font-size: 0.75rem;
-  letter-spacing: 0.32px;
+  line-height: 1.25rem;
+  text-align: center;
+
+  &--fail {
+    background: var(--cds-support-error);
+    color: var(--cds-text-on-color);
+  }
+}
+
+// ── Colors: list + detail ──────────────────────────────────────────────────
+.ngcc-split {
+  display: grid;
+  grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 42rem) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ngcc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  padding-inline-end: 0.25rem;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.32px;
+    text-transform: uppercase;
+    color: var(--cds-text-secondary);
+  }
+
+  &__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.ngcc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  border: 0;
+  border-inline-start: 3px solid transparent;
+  background: transparent;
+  color: var(--cds-text-primary);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--cds-layer-hover-01);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--cds-focus);
+    outline-offset: -2px;
+  }
+
+  &--on,
+  &--on:hover {
+    background: var(--cds-layer-selected-01);
+    border-inline-start-color: var(--cds-border-interactive);
+  }
+
+  &__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__hex {
+    line-height: 1.4;
+    font-family: var(--cds-code-02-font-family, monospace);
+    font-size: 0.75rem;
+    color: var(--cds-text-secondary);
+  }
+
+  &__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--cds-interactive);
+    flex: none;
+  }
+}
+
+.ngcc-swatch {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgb(128 128 128 / 45%);
+}
+
+.ngcc-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1.25rem;
+  background: var(--cds-layer-02, var(--cds-layer-01));
+  border: 1px solid var(--cds-border-subtle-02, var(--cds-border-subtle-01));
+
+  &__title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__desc {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--cds-text-secondary);
+  }
+
+  &__subhead {
+    margin: 0.5rem 0 0;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.32px;
+    text-transform: uppercase;
+    color: var(--cds-text-secondary);
+  }
+}
+
+.ngcc-tag {
+  padding: 0 0.5rem;
+  border-radius: 1rem;
+  background: var(--cds-layer-accent-01);
+  color: var(--cds-text-primary);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+
+  &--info {
+    background: var(--cds-notification-background-info, var(--cds-layer-accent-01));
+  }
+}
+
+.ngcc-editor {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  &__picker {
+    width: 3.5rem;
+    height: 2.5rem;
+    padding: 2px;
+    border: 1px solid var(--cds-border-strong-01);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    &::-webkit-color-swatch {
+      border: 0;
+      border-radius: 2px;
+    }
+  }
+}
+
+.ngcc--hex-input {
+  width: 7.5rem;
+  font-family: var(--cds-code-02-font-family, monospace);
+}
+
+.ngcc-link {
+  padding: 0.25rem 0;
+  border: 0;
+  background: none;
+  color: var(--cds-link-primary);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    color: var(--cds-link-primary-hover);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--cds-focus);
+  }
+
+  &:disabled {
+    color: var(--cds-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// ── Token names: a tidy, copyable list ─────────────────────────────────────
+.ngcc-tokens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--cds-border-subtle-01);
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--cds-layer-01);
+
+    & + & {
+      border-top: 1px solid var(--cds-border-subtle-01);
+    }
+  }
+}
+
+.ngcc--token-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--cds-code-02-font-family, monospace);
+  font-size: 0.8125rem;
+}
+
+.ngcc-snippet {
+  border: 1px solid var(--cds-border-subtle-01);
+  background: var(--cds-layer-01);
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.75rem;
+    border-bottom: 1px solid var(--cds-border-subtle-01);
+  }
+
+  &__title {
+    font-size: 0.75rem;
+    letter-spacing: 0.32px;
+    text-transform: uppercase;
+    color: var(--cds-text-secondary);
+  }
+
+  &__code {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    font-family: var(--cds-code-02-font-family, monospace);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+
+    &:focus-visible {
+      outline: 2px solid var(--cds-focus);
+      outline-offset: -2px;
+    }
+  }
+}
+
+// ── Other panes ────────────────────────────────────────────────────────────
+.ngcc-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 40rem;
+
+  &__intro {
+    margin: 0;
+    color: var(--cds-text-secondary);
+    font-size: 0.875rem;
+  }
+}
+
+.ngcc-field-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.ngcc--preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ngcc--preset {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgb(128 128 128 / 45%);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--cds-focus);
+    outline-offset: 2px;
+  }
+
+  &--active {
+    outline: 2px solid var(--cds-text-primary);
+    outline-offset: 2px;
+  }
+}
+
+.ngcc--category__title {
+  font: inherit;
+}
+
+.ngcc--category__badge {
+  font-size: 0.75rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--cds-text-secondary);
+}
+
+.ngcc--category__note {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-inline-start: 3px solid var(--cds-support-info);
+  background: var(--cds-layer-01);
+  font-size: 0.8125rem;
+  color: var(--cds-text-secondary);
+}
+
+.ngcc--theme-colors__header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ngcc--field-error {
+  color: var(--cds-text-error);
+  font-size: 0.75rem;
+}
+
+.ngcc--empty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--cds-text-secondary);
+}
+
+.ngcc--report-status {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-inline-start: 3px solid var(--cds-support-success);
+  background: var(--cds-layer-02, var(--cds-layer-01));
+  font-size: 0.875rem;
+
+  &--warn {
+    border-inline-start-color: var(--cds-support-warning);
+  }
+
+  &--fail {
+    border-inline-start-color: var(--cds-support-error);
+  }
+}
+
+.ngcc--report-issues {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  font-size: 0.8125rem;
+  color: var(--cds-text-secondary);
 }
 
 .ngcc--palette-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
   gap: 0.75rem;
 }
 
 .ngcc--palette-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 0.25rem;
+  align-items: flex-start;
 }
 
 .ngcc--palette-swatch {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 2.5rem;
   border-radius: 4px;
-  border: 1px solid var(--cds-border-subtle-01);
-  transition: background-color 0.2s;
+  box-shadow: inset 0 0 0 1px rgb(128 128 128 / 45%);
 }
 
 .ngcc--palette-label {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   color: var(--cds-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
-.ngcc--token-grid {
+.ngcc--transfer-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.ngcc--token-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 0 0 100px;
-  padding: 0.75rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.625rem;
-  font-weight: 600;
-  text-align: center;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+.ngcc--transfer-text {
+  width: 100%;
+  font-family: var(--cds-code-02-font-family, monospace);
+  font-size: 0.75rem;
 }
