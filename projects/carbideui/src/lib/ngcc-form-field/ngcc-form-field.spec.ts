@@ -77,20 +77,20 @@ describe('NgccFormField', () => {
     const { el, host } = await setup();
     host.optional.set(true);
     TestBed.tick();
-    expect(el.querySelector('.ngcc-field__optional')!.textContent).toContain('optional');
+    expect(el.querySelector('.ngcc-field-label__optional')!.textContent).toContain('optional');
     host.required.set(true);
     TestBed.tick();
     expect(el.querySelector('.cds--input-required')).not.toBeNull();
-    expect(el.querySelector('.ngcc-field__optional')).toBeNull();
+    expect(el.querySelector('.ngcc-field-label__optional')).toBeNull();
     expect(input(el).getAttribute('aria-required')).toBe('true');
   });
 
   it('adds a tooltip button only when a tooltip is given', async () => {
     const { el, host } = await setup();
-    expect(el.querySelector('.ngcc-field__tip')).toBeNull();
+    expect(el.querySelector('.ngcc-field-label__tip')).toBeNull();
     host.tip.set('Used in the URL');
     TestBed.tick();
-    expect(el.querySelector('.ngcc-field__tip')!.getAttribute('aria-label')).toBe(
+    expect(el.querySelector('.ngcc-field-label__tip')!.getAttribute('aria-label')).toBe(
       'Used in the URL',
     );
   });

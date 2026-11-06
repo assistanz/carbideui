@@ -1,3 +1,4 @@
+import { NgccFieldLabel } from '../shared/ngcc-field-label';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -25,7 +26,7 @@ import { DropdownSize, NgccDropdownItem } from './ngcc-dropdown.types';
   standalone: true,
   templateUrl: './ngcc-dropdown.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgccIcon],
+  imports: [NgccFieldLabel, CommonModule, FormsModule, ReactiveFormsModule, NgccIcon],
   host: {
     class: 'cds--list-box__wrapper cds--dropdown__wrapper',
   },
@@ -45,6 +46,11 @@ export class NgccDropdown<T = unknown> implements ControlValueAccessor, OnChange
   @Input() label: string | undefined = undefined;
   @Input() readonly = false;
   @Input() required = false;
+  /** Show "(optional)" next to the label (ignored when `required`). */
+  @Input() optional = false;
+  @Input() optionalLabel = 'optional';
+  /** Short explanation shown from an info button next to the label. */
+  @Input() tooltip = '';
   @Input() helperText: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
   @Input() items: NgccDropdownItem<T>[] = [];

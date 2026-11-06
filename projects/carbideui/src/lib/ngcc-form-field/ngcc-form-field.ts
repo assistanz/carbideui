@@ -2,13 +2,21 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  isDevMode,
   afterNextRender,
   effect,
   inject,
   input,
 } from '@angular/core';
 
+import { NgccFieldLabel } from '../shared/ngcc-field-label';
+
 let nextId = 0;
+let warnedNesting = false;
+
+/** Components that draw their own label, helper and error: wrapping them doubles the label. */
+const SELF_LABELLED =
+  'ngcc-input, ngcc-input-number, ngcc-text-area, ngcc-dropdown, ngcc-multi-select, ngcc-radio-tile-group, ngcc-date-picker';
 
 const CONTROL_SELECTOR =
   'input:not([type=hidden]), select, textarea, button[role=combobox], [role=combobox]';
@@ -26,43 +34,28 @@ const CONTROL_SELECTOR =
  * The first control inside (input, select, textarea or combobox) is linked automatically: the label's
  * `for`, `aria-describedby` (helper or error, merged with ids you already set), `aria-invalid` and
  * `aria-required`. Use it with native controls, or with controls that do not draw their own label.
+ * Do not wrap `ngcc-input`, `ngcc-dropdown` and the other ngcc form components: they have their own
+ * `label`, `helperText`, `optional` and `tooltip` inputs (a dev-mode warning flags the double label).
  * Required fields get an asterisk; optional ones get "(optional)" (`optionalLabel` translates it), which
  * is the recommended convention: mark the exception, not the rule.
  */
 @Component({
   selector: 'ngcc-form-field',
   standalone: true,
+  imports: [NgccFieldLabel],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { style: 'display: block' },
   styleUrl: './ngcc-form-field.scss',
   template: `
-    <div class="ngcc-field__label-row">
-      <label class="cds--label ngcc-field__label" [id]="labelId" [attr.for]="controlId">
-        {{ label() }}
-        @if (required()) {
-          <span class="cds--input-required" aria-hidden="true">*</span>
-        } @else if (optional()) {
-          <span class="ngcc-field__optional">({{ optionalLabel() }})</span>
-        }
-      </label>
-      @if (tooltip()) {
-        <button
-          type="button"
-          class="ngcc-field__tip"
-          [attr.aria-label]="tooltip()"
-          [attr.title]="tooltip()"
-        >
-          <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-            <path
-              d="M17 22v-8h-4v2h2v6h-3v2h8v-2h-3zM16 8a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 16 8z"
-            ></path>
-            <path
-              d="M16 30a14 14 0 1 1 14-14 14 14 0 0 1-14 14zm0-26a12 12 0 1 0 12 12A12 12 0 0 0 16 4z"
-            ></path>
-          </svg>
-        </button>
-      }
-    </div>
+    <ngcc-field-label
+      [labelId]="labelId"
+      [forId]="controlId"
+      [required]="required()"
+      [optional]="optional()"
+      [optionalLabel]="optionalLabel()"
+      [tooltip]="tooltip()"
+      >{{ label() }}</ngcc-field-label
+    >
     <div class="ngcc-field__control"><ng-content /></div>
     @if (error()) {
       <div class="cds--form-requirement ngcc-field__message" [id]="messageId" role="alert">
@@ -111,6 +104,14 @@ export class NgccFormField {
   }
 
   private link(): void {
+    if (isDevMode() && !warnedNesting && this.host.nativeElement.querySelector(SELF_LABELLED)) {
+      warnedNesting = true;
+      console.warn(
+        '[ngcc-form-field] It wraps a component that already has its own label, helper text and error ' +
+          '(ngcc-input, ngcc-dropdown, ...), so the field would get two labels. Use its own `label`, ' +
+          '`optional` and `tooltip` inputs instead; ngcc-form-field is for native and third-party controls.',
+      );
+    }
     const control = this.control();
     if (!control) return;
     if (!control.id) control.id = `ngcc-field-${this.uid}-control`;

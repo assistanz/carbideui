@@ -517,3 +517,114 @@ describe('NgccInputNumber – WCAG / Accessibility', () => {
     });
   });
 });
+
+describe('NgccInputNumber – units and stepping', () => {
+  let fixture: ComponentFixture<NgccInputNumber>;
+  const input = (): HTMLInputElement => fixture.debugElement.query(By.css('input')).nativeElement;
+  const press = (key: string): KeyboardEvent => {
+    const ev = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+    input().dispatchEvent(ev);
+    fixture.detectChanges();
+    return ev;
+  };
+  const set = (name: string, value: unknown): void => {
+    fixture.componentRef.setInput(name, value);
+    fixture.detectChanges();
+  };
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NgccInputNumber],
+      providers: [provideZonelessChangeDetection()],
+    }).compileComponents();
+    fixture = TestBed.createComponent(NgccInputNumber);
+    fixture.componentRef.setInput('label', 'Disk');
+    fixture.detectChanges();
+  });
+
+  it('shows a suffix unit and reserves room for it', () => {
+    set('suffix', 'GB');
+    const unit = fixture.nativeElement.querySelector('.ngcc--input-number__unit--suffix');
+    expect(unit.textContent.trim()).toBe('GB');
+    expect(input().style.paddingInlineEnd).toContain('2ch');
+  });
+
+  it('shows a prefix unit', () => {
+    set('prefix', 'EUR');
+    expect(fixture.nativeElement.querySelector('.ngcc--input-number__unit--prefix')).not.toBeNull();
+    expect(input().style.paddingInlineStart).toContain('3ch');
+  });
+
+  it('adds the unit to the accessible name and hides the visual text from readers', () => {
+    set('suffix', 'MB/s');
+    expect(input().getAttribute('aria-label')).toBe('Disk (MB/s)');
+    expect(
+      fixture.nativeElement.querySelector('.ngcc--input-number__unit').getAttribute('aria-hidden'),
+    ).toBe('true');
+  });
+
+  it('has no unit markup without prefix or suffix', () => {
+    expect(fixture.nativeElement.querySelector('.ngcc--input-number__unit')).toBeNull();
+    expect(input().getAttribute('aria-label')).toBe('Disk');
+  });
+
+  it('steps with the arrow keys by `step`', () => {
+    set('step', 5);
+    input().value = '10';
+    input().dispatchEvent(new Event('input'));
+    expect(press('ArrowUp').defaultPrevented).toBe(true);
+    expect(input().value).toBe('15');
+    press('ArrowDown');
+    press('ArrowDown');
+    expect(input().value).toBe('5');
+  });
+
+  it('defaults to a step of 1 and starts an empty field from min', () => {
+    set('min', 3);
+    press('ArrowUp');
+    expect(input().value).toBe('3');
+    press('ArrowUp');
+    expect(input().value).toBe('4');
+  });
+
+  it('stays inside min and max', () => {
+    set('min', 0);
+    set('max', 2);
+    input().value = '2';
+    input().dispatchEvent(new Event('input'));
+    press('ArrowUp');
+    expect(input().value).toBe('2');
+    press('ArrowDown');
+    press('ArrowDown');
+    press('ArrowDown');
+    expect(input().value).toBe('0');
+  });
+
+  it('keeps the precision of a decimal step', () => {
+    set('decimalOnly', true);
+    set('step', 0.1);
+    input().value = '0.2';
+    input().dispatchEvent(new Event('input'));
+    press('ArrowUp');
+    expect(input().value).toBe('0.3');
+  });
+
+  it('emits the new value and ignores the arrows when read-only or disabled', () => {
+    const seen: string[] = [];
+    fixture.componentInstance.valueChange.subscribe((v) => seen.push(v));
+    press('ArrowUp');
+    expect(seen).toEqual(['0']);
+    set('readonly', true);
+    press('ArrowUp');
+    expect(seen).toEqual(['0']);
+  });
+
+  it('leaves other keys alone', () => {
+    expect(press('a').defaultPrevented).toBe(false);
+  });
+
+  it('has no axe violations with a unit', async () => {
+    set('suffix', 'GB');
+    expect((await runAxe(fixture.nativeElement)).violations).toEqual([]);
+  });
+});

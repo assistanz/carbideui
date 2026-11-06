@@ -1,3 +1,4 @@
+import { NgccFieldLabel } from '../../shared/ngcc-field-label';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,7 +20,7 @@ import { NgccInputNumberSize } from './ngcc-input-number.types';
 @Component({
   selector: 'ngcc-input-number',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgccIcon],
+  imports: [NgccFieldLabel, CommonModule, FormsModule, NgccIcon],
   templateUrl: './ngcc-input-number.html',
   styleUrls: ['./ngcc-input-number.scss', './../ngcc-input.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +35,11 @@ export class NgccInputNumber implements ControlValueAccessor, OnChanges {
   @Input() disabled = false;
   @Input() readonly = false;
   @Input() required = false;
+  /** Show "(optional)" next to the label (ignored when `required`). */
+  @Input() optional = false;
+  @Input() optionalLabel = 'optional';
+  /** Short explanation shown from an info button next to the label. */
+  @Input() tooltip = '';
   @Input() size: NgccInputNumberSize = 'md';
   @Input() helperText: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;
@@ -58,6 +64,11 @@ export class NgccInputNumber implements ControlValueAccessor, OnChanges {
   @Input() min: number | null = null;
   @Input() max: number | null = null;
   @Input() step: number | undefined = undefined;
+
+  /** Text shown inside the field before the value (for example a currency sign). */
+  @Input() prefix: string | undefined = undefined;
+  /** Text shown inside the field after the value, such as a unit (GB, MB/s, %). Read by screen readers. */
+  @Input() suffix: string | undefined = undefined;
 
   // Two-way binding for value
   @Input() set value(val: string) {
@@ -95,6 +106,8 @@ export class NgccInputNumber implements ControlValueAccessor, OnChanges {
   private readonly _min = signal<number | null>(null);
   private readonly _max = signal<number | null>(null);
   private readonly _step = signal<number | undefined>(undefined);
+  private readonly _prefix = signal<string | undefined>(undefined);
+  private readonly _suffix = signal<string | undefined>(undefined);
 
   private localTouched = signal(false);
 
@@ -129,6 +142,8 @@ export class NgccInputNumber implements ControlValueAccessor, OnChanges {
     if (changes['min']) this._min.set(changes['min'].currentValue ?? null);
     if (changes['max']) this._max.set(changes['max'].currentValue ?? null);
     if (changes['step']) this._step.set(changes['step'].currentValue);
+    if (changes['prefix']) this._prefix.set(changes['prefix'].currentValue);
+    if (changes['suffix']) this._suffix.set(changes['suffix'].currentValue);
   }
 
   // Template accessor methods
@@ -197,6 +212,22 @@ export class NgccInputNumber implements ControlValueAccessor, OnChanges {
   }
   getStep(): number | undefined {
     return this._step();
+  }
+  getPrefix(): string | undefined {
+    return this._prefix() || undefined;
+  }
+  getSuffix(): string | undefined {
+    return this._suffix() || undefined;
+  }
+  /** Room the field reserves for the unit text (one `ch` per character plus padding). */
+  prefixPadding(): string | null {
+    const p = this.getPrefix();
+    return p ? `calc(1rem + ${p.length}ch + 0.5rem)` : null;
+  }
+  suffixPadding(): string | null {
+    const sfx = this.getSuffix();
+    if (!sfx) return null;
+    return `calc(1rem + ${sfx.length}ch + 0.5rem + ${this.invalid_value() ? '1.5rem' : '0rem'})`;
   }
 
   private static idCounter = 0;
@@ -284,6 +315,12 @@ export class NgccInputNumber implements ControlValueAccessor, OnChanges {
     return ids.join(' ') || null;
   });
 
+  /** Accessible name; a unit is appended so "10" is read as "10 GB". */
+  protected readonly unitLabel = computed(() => {
+    const unit = [this.getPrefix(), this.getSuffix()].filter(Boolean).join(' ');
+    return unit ? `${this.computedAriaLabel()} (${unit})` : this.computedAriaLabel();
+  });
+
   protected readonly computedAriaLabel = computed(() => {
     return this.getAriaLabel() ?? this.getLabel() ?? 'number-input-label';
   });
@@ -347,6 +384,42 @@ export class NgccInputNumber implements ControlValueAccessor, OnChanges {
     this.onChangeFn(numVal);
     this.onTouchedFn();
 
+    const control = this.ngcontrol?.control;
+    control?.markAsDirty();
+    this.controlDirty.set(true);
+    control?.updateValueAndValidity();
+  }
+
+  /** ArrowUp / ArrowDown change the value by `step` (default 1), staying inside `min` and `max`. */
+  onKeydown(event: KeyboardEvent): void {
+    if (this.getReadonly() || this.getDisabled()) return;
+    if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+    event.preventDefault();
+    this.stepBy(event.key === 'ArrowUp' ? 1 : -1);
+  }
+
+  /** Moves the value by `direction` steps; an empty field starts from `min` (or 0). */
+  stepBy(direction: 1 | -1): void {
+    if (this.getReadonly() || this.getDisabled()) return;
+    const configured = this.getStep();
+    const step = configured && configured > 0 ? configured : 1;
+    const parsed = this.value === '' ? NaN : Number(this.sanitize(this.value));
+    const min = this.getMin();
+    const max = this.getMax();
+    let next = isNaN(parsed)
+      ? direction > 0
+        ? (min ?? 0)
+        : (max ?? 0)
+      : parsed + direction * step;
+    if (min !== null) next = Math.max(min, next);
+    if (max !== null) next = Math.min(max, next);
+    const decimals = (String(step).split('.')[1] ?? '').length;
+    const text = decimals ? next.toFixed(decimals) : String(Math.round(next));
+
+    this.value = text;
+    this.valueChange.emit(text);
+    this.updateDisplay(text);
+    this.onChangeFn(Number(text));
     const control = this.ngcontrol?.control;
     control?.markAsDirty();
     this.controlDirty.set(true);
