@@ -2,7 +2,7 @@
   <a
     class="cds--header__action"
     [href]="href"
-    [attr.aria-label]="ariaLabel || null"
+    [attr.aria-label]="accessibleLabel || null"
     [attr.aria-expanded]="active ? 'true' : 'false'"
     (click)="onClick($event)"
   >
@@ -14,9 +14,17 @@
     variant="ghost"
     [iconOnly]="true"
     [iconName]="iconName"
-    [ariaLabel]="ariaLabel"
+    [ariaLabel]="accessibleLabel"
     [ariaExpanded]="active"
     [className]="'cds--header__action' + (active ? ' cds--header__action--active' : '')"
     (click)="onClick($event)"
   />
 </ng-template>
+@if (hasBadge) {
+  <span
+    class="ngcc-header-action__badge"
+    [class.ngcc-header-action__badge--dot]="badge === 'dot'"
+    aria-hidden="true"
+    >{{ badgeText }}</span
+  >
+}

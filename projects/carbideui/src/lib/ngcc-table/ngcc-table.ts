@@ -17,9 +17,11 @@ import {
   Directive,
   TemplateRef,
   contentChild,
+  contentChildren,
+  input,
 } from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
-import { NgccTableColumn, NgccTableConfig } from './ngcc-table.types';
+import { NgccTableCellEdit, NgccTableColumn, NgccTableConfig } from './ngcc-table.types';
 import { NgccTableService } from './ngcc-table.service';
 import { NgccCheckbox } from '../ngcc-checkbox/ngcc-checkbox';
 import { NgccIcon } from '../ngcc-icons/ngcc-icon';
@@ -37,6 +39,20 @@ import { NGCC_STATUS_TAG, NgccTag, NgccTagType } from '../ngcc-tag/ngcc-tag';
 export class NgccTableExpandedRowDirective {
   readonly template = inject<TemplateRef<unknown>>(TemplateRef);
 }
+
+/**
+ * Custom content for one column's cells:
+ * `<ng-template ngccTableCell="owner" let-row let-value="value" let-index="index">...</ng-template>`
+ * Use it for inputs, selects, tags or anything the built-in cell types do not cover.
+ */
+@Directive({ selector: 'ng-template[ngccTableCell]', standalone: true })
+export class NgccTableCellDirective {
+  /** Column `key` this template renders. */
+  readonly key = input.required<string>({ alias: 'ngccTableCell' });
+  readonly template = inject<TemplateRef<unknown>>(TemplateRef);
+}
+
+let nextTableId = 0;
 
 @Component({
   selector: 'ngcc-table',
@@ -78,6 +94,25 @@ export class NgccTable<T = unknown> implements OnInit, OnChanges {
   @Output() searchChange = new EventEmitter<string>();
   /** Emits when a row is expanded or collapsed. */
   @Output() rowExpand = new EventEmitter<{ row: T; expanded: boolean }>();
+
+  /** Row-level check, run after every cell edit and by `validate()`. Return a message or `null`. */
+  @Input() rowValidator: ((row: T) => string | null) | undefined = undefined;
+  /** A built-in editor changed a cell. */
+  @Output() cellEdit = new EventEmitter<NgccTableCellEdit<T>>();
+  /** All rows became valid, or at least one became invalid (after an edit or `validate()`). */
+  @Output() validityChange = new EventEmitter<boolean>();
+
+  /** Custom cell templates, by column key. */
+  protected readonly cellTemplates = contentChildren(NgccTableCellDirective);
+  private readonly cellTemplateMap = computed(
+    () => new Map(this.cellTemplates().map((d) => [d.key(), d.template])),
+  );
+  protected readonly tableId = `ngcc-table-${nextTableId++}`;
+
+  // Validation messages by row object, so they survive sorting and paging.
+  private readonly cellErrors = new WeakMap<object, Record<string, string>>();
+  private readonly invalidRows = new Set<object>();
+  private readonly errorsVersion = signal(0);
 
   /** Template for the content under an expanded row. Its presence turns on the expand column. */
   protected readonly expandedTemplate = contentChild(NgccTableExpandedRowDirective);
@@ -258,11 +293,87 @@ export class NgccTable<T = unknown> implements OnInit, OnChanges {
     return builtin ?? 'gray';
   }
 
+  protected cellTemplate(key: string): TemplateRef<unknown> | null {
+    return this.cellTemplateMap().get(key) ?? null;
+  }
+
+  protected cellError(row: T, key: string): string {
+    this.errorsVersion();
+    return this.cellErrors.get(row as object)?.[key] ?? '';
+  }
+
+  /** Message for the row as a whole (key `''`). */
+  protected rowError(row: T): string {
+    return this.cellError(row, '');
+  }
+
+  protected errorId(row: T, key: string): string {
+    return `${this.tableId}-error-${this.absIndex(row)}-${key || 'row'}`;
+  }
+
+  protected selectValue(col: NgccTableColumn<T>, row: T): string {
+    return this.stringify((row as Record<string, unknown>)[col.key]);
+  }
+
+  /** Writes an edit into the row, validates it and reports it. */
+  protected commit(row: T, col: NgccTableColumn<T>, raw: string): void {
+    const record = row as Record<string, unknown>;
+    let value: unknown = raw;
+    if (col.editor === 'number') value = raw.trim() === '' ? null : Number(raw);
+    if (col.editor === 'select') {
+      value = col.options?.find((o) => String(o.value) === raw)?.value ?? raw;
+    }
+    const previous = record[col.key];
+    record[col.key] = value;
+    const wasValid = this.invalidRows.size === 0;
+    this.validateRow(row);
+    this.errorsVersion.update((v) => v + 1);
+    this.cellEdit.emit({
+      row,
+      rowIndex: this.absIndex(row),
+      key: col.key,
+      value,
+      previous,
+      error: this.cellErrors.get(row as object)?.[col.key] ?? null,
+    });
+    if (wasValid !== (this.invalidRows.size === 0)) this.validityChange.emit(!wasValid);
+  }
+
+  /**
+   * Validates every row (all pages, not only the visible one) and shows the messages.
+   * Returns `true` when everything is valid. Call it before saving.
+   */
+  validate(): boolean {
+    const wasValid = this.invalidRows.size === 0;
+    for (const row of this.getRows() || []) this.validateRow(row);
+    this.errorsVersion.update((v) => v + 1);
+    const valid = this.invalidRows.size === 0;
+    if (wasValid !== valid) this.validityChange.emit(valid);
+    return valid;
+  }
+
+  private validateRow(row: T): void {
+    const errors: Record<string, string> = {};
+    for (const col of this.getColumns()) {
+      const msg = col.validate?.((row as Record<string, unknown>)[col.key], row);
+      if (msg) errors[col.key] = msg;
+    }
+    const rowMsg = this.rowValidator?.(row);
+    if (rowMsg) errors[''] = rowMsg;
+    if (Object.keys(errors).length) {
+      this.cellErrors.set(row as object, errors);
+      this.invalidRows.add(row as object);
+    } else {
+      this.cellErrors.delete(row as object);
+      this.invalidRows.delete(row as object);
+    }
+  }
+
   /** A click on the row selects it, unless it landed on a control inside the row. */
   protected onRowClick(event: Event, row: T): void {
     if (!this.allowSelection()) return;
     const target = event.target as HTMLElement | null;
-    if (target?.closest('input, button, a, label, ngcc-checkbox')) return;
+    if (target?.closest('input, select, textarea, button, a, label, ngcc-checkbox')) return;
     this.toggleRowSelect(row);
   }
 

@@ -51,6 +51,33 @@ export class NgccHeaderAction implements OnChanges {
   @Input() ariaLabel = '';
   private readonly _ariaLabel = signal('');
 
+  /**
+   * Badge on the icon: `'dot'` for a plain dot, or a count (0 or less hides it). Counts above `badgeMax`
+   * show as `99+`. The count is announced through the button's accessible name.
+   */
+  @Input() badge: number | 'dot' | null = null;
+  @Input() badgeMax = 99;
+  /** Accessible text for the count; `{count}` is replaced. Translate here. */
+  @Input() badgeLabel = '{count} unread';
+
+  protected get badgeText(): string {
+    return typeof this.badge === 'number'
+      ? this.badge > this.badgeMax
+        ? `${this.badgeMax}+`
+        : String(this.badge)
+      : '';
+  }
+
+  protected get hasBadge(): boolean {
+    return this.badge === 'dot' || (typeof this.badge === 'number' && this.badge > 0);
+  }
+
+  protected get accessibleLabel(): string {
+    if (typeof this.badge !== 'number' || this.badge <= 0) return this.ariaLabel;
+    const count = this.badgeLabel.replace('{count}', String(this.badge));
+    return this.ariaLabel ? `${this.ariaLabel}, ${count}` : count;
+  }
+
   /** Two-way bindable active/panel-open state — use [(active)]="myVar" in parent */
   @Input() active = false;
   @Output() activeChange = new EventEmitter<boolean>();

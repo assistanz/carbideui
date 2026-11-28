@@ -253,10 +253,34 @@ describe('NgccDropdown (unit)', () => {
       fixture.detectChanges();
 
       const combobox = getCombobox();
-      expect(combobox.getAttribute('aria-labelledby')).toBe('Select items');
+      const labelId = combobox.getAttribute('aria-labelledby')!;
+      expect(fixture.nativeElement.querySelector(`#${labelId}`).textContent).toContain(
+        'Select items',
+      );
 
       const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
+    });
+
+    it('gives every dropdown its own label, error and listbox ids', () => {
+      const other = TestBed.createComponent(NgccDropdown);
+      other.componentRef.setInput('label', 'Other');
+      other.componentRef.setInput('invalid', true);
+      other.componentRef.setInput('errorMessage', 'Bad');
+      fixture.componentRef.setInput('label', 'Select items');
+      fixture.componentRef.setInput('invalid', true);
+      fixture.componentRef.setInput('errorMessage', 'Bad');
+      fixture.detectChanges();
+      other.detectChanges();
+      try {
+        const ids = [fixture, other].flatMap((f) =>
+          Array.from((f.nativeElement as HTMLElement).querySelectorAll('[id]')).map((n) => n.id),
+        );
+        expect(new Set(ids).size).toBe(ids.length);
+        expect(ids.filter((id) => id === 'dropdown-label')).toEqual([]);
+      } finally {
+        other.destroy();
+      }
     });
 
     it('should fallback to aria-label when label is missing', async () => {
@@ -282,7 +306,10 @@ describe('NgccDropdown (unit)', () => {
       ).nativeElement;
 
       expect(trigger.getAttribute('aria-invalid')).toBe('true');
-      expect(trigger.getAttribute('aria-describedby')).toBe('dropdown-error');
+      const errorId = trigger.getAttribute('aria-describedby')!;
+      expect(fixture.nativeElement.querySelector(`#${errorId}`).textContent).toContain(
+        'This field is required',
+      );
 
       const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();

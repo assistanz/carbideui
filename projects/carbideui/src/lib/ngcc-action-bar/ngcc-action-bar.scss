@@ -1,0 +1,40 @@
+:host {
+  --ngcc-action-bar-background: var(--cds-layer);
+}
+
+.ngcc--action-bar {
+  position: sticky;
+  inset-block-end: 0;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
+  border-block-start: 1px solid var(--cds-border-subtle);
+  background-color: var(--ngcc-action-bar-background);
+}
+
+.ngcc--action-bar--elevated {
+  box-shadow: 0 -2px 6px rgb(0 0 0 / 12%);
+}
+
+:host(.ngcc--action-bar--fixed) .ngcc--action-bar {
+  position: fixed;
+  inset-inline: var(--ngcc-action-bar-inset-start, 0) 0;
+}
+
+.ngcc--action-bar__status {
+  flex: 1 1 12rem;
+  min-inline-size: 0;
+  color: var(--cds-text-secondary);
+  font-size: 0.875rem;
+}
+
+.ngcc--action-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-inline-start: auto;
+}

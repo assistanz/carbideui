@@ -1,8 +1,12 @@
 <div
   [class]="panelClasses"
-  role="complementary"
+  role="dialog"
+  aria-modal="false"
   [attr.aria-label]="ariaLabel"
   [attr.aria-hidden]="!expanded"
+  [attr.inert]="expanded ? null : ''"
+  [style.--ngcc-header-panel-width]="width() || null"
 >
-  <ng-content />
+  <div class="ngcc-header-panel__body"><ng-content /></div>
+  <div class="ngcc-header-panel__footer"><ng-content select="[ngccPanelFooter]" /></div>
 </div>

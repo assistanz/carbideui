@@ -307,3 +307,44 @@ export const ExpandableRow: Story = {
       </ngcc-table>`,
   }),
 };
+
+/** Inline editors per row, with cell validation, a row-level rule and a custom cell template. */
+export const Editable: Story = {
+  render: () => ({
+    props: {
+      columns: [
+        {
+          key: 'name',
+          header: 'Volume',
+          editor: 'text',
+          validate: (v: unknown) => (String(v).trim() ? null : 'Name is required'),
+        },
+        {
+          key: 'size',
+          header: 'Size (GB)',
+          editor: 'number',
+          min: 1,
+          validate: (v: unknown) => (typeof v === 'number' && v >= 1 ? null : 'At least 1 GB'),
+        },
+        {
+          key: 'tier',
+          header: 'Tier',
+          editor: 'select',
+          options: [
+            { value: 'hot', label: 'Hot' },
+            { value: 'cold', label: 'Cold' },
+          ],
+        },
+      ],
+      rows: [
+        { name: 'data-a', size: 10, tier: 'hot' },
+        { name: 'data-b', size: 80, tier: 'cold' },
+      ],
+      config: { pagination: false, rowSelection: 'none' },
+      rowValidator: (r: { tier: string; size: number }) =>
+        r.tier === 'cold' && r.size > 50 ? 'Cold storage is limited to 50 GB' : null,
+    },
+    template: `<ngcc-table #t [columns]="columns" [rows]="rows" [config]="config" [rowValidator]="rowValidator" />
+      <button type="button" class="cds--btn cds--btn--secondary" (click)="t.validate()">Validate all</button>`,
+  }),
+};

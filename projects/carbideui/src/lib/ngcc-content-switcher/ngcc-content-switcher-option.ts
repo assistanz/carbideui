@@ -5,8 +5,6 @@ import { NGCC_CONTENT_SWITCHER } from './ngcc-content-switcher.token';
   selector: 'ngcc-content-switcher-option',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // Equal-width segments, as when Carbon's buttons are direct children of the switcher.
-  host: { style: 'display: flex; flex: 1 1 0; min-inline-size: 0' },
   template: `<button
     class="cds--content-switcher-btn"
     [class.cds--content-switcher--selected]="active()"

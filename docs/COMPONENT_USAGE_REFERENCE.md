@@ -943,6 +943,22 @@ export class AppComponent {}`;
 </ngcc-header-panel>
 ```
 
+**Panel options (1.5.0)**: the panel is a non-modal `dialog`. `width` (or `--ngcc-header-panel-width`) sets
+its width (default 16rem, capped to the viewport). Escape and an outside click emit `(closed)`; set `expanded`
+to false in response (`[closeOnOutsideClick]="false"` turns the click off). Focus returns to the opener, and a
+collapsed panel is `inert`.
+
+**Notification list (1.5.0)**: `<ngcc-notification-list [items]="items" [labels]="{ markAllRead: '…' }" />`.
+`labels` translates every fixed string (`markAllRead`, `clearAll`, `unread`, `unreadCount` with `{count}`,
+`dismiss` with `{title}`, `severityInfo|Success|Warning|Error`). The header actions collapse to icons in a
+narrow list, and each item shows a severity icon and text, not only a colored edge. Also: `loading`,
+`error` + `(retry)`, `emptyTitle` / `emptyDescription`, `groupBy="day"` with item `time`, `messageLines`,
+item `href` / `routerLink`, `(markRead)`, `hasMore` + `(loadMore)`, `announceNew`, `countVariant`, and the
+`[ngccNotificationFooter]` slot. Full list: `docs/release_notes/RELEASE_NOTES_1.5.0.md`.
+
+**Header action badge (1.5.0)**: `<ngcc-header-action iconName="notification" ariaLabel="Notifications" [badge]="unread" />`
+(`badge` is a count or `'dot'`; the count is announced in the button's name).
+
 ---
 
 ### 18. NgccSideNav
@@ -1309,6 +1325,142 @@ Non-modal detail popover (no backdrop). Mark the trigger with `ngccPopoverTrigge
 `trigger="hover"` opens on hover and on keyboard focus and stays open while the pointer or focus is inside.
 `placement` takes 12 values (`top`, `bottom-start`, `right-end`, …); `caret` shows the pointer. The trigger gets
 `aria-expanded`, `aria-controls` and `aria-haspopup="dialog"`.
+
+### 23j. NgccFormField (1.5.0)
+
+> **When to use it.** `ngcc-input`, `ngcc-input-number`, `ngcc-text-area`, `ngcc-dropdown`,
+> `ngcc-multi-select` and `ngcc-radio-tile-group` already have their own label, helper text and error, so do
+> **not** wrap them (the field would get two labels; a dev-mode warning flags it). Use `ngcc-form-field` for
+> native controls (`<input>`, `<select>`, `<textarea>`) and third-party or custom controls.
+>
+> **Same markers everywhere.** Those components (and `ngcc-form-field`) take the same `optional`,
+> `optionalLabel` and `tooltip` inputs: required shows an asterisk, optional shows "(optional)", and the
+> tooltip is an info button next to the label with the text as its accessible name. `ngcc-radio-tile-group`
+> supports `optional` (no tooltip). They share one internal label component, so markup and accessibility match.
+
+
+```html
+<ngcc-form-field label="Hostname" [optional]="true" helperText="Letters and digits" [error]="hostError()"
+  tooltip="Used in the instance URL">
+  <input class="cds--text-input" formControlName="host" />
+</ngcc-form-field>
+```
+
+One label, helper, error and tooltip layout for any control. The first input, select, textarea or combobox
+inside is linked for you (`for`, `aria-describedby`, `aria-invalid`, `aria-required`); ids you set on
+`aria-describedby` are kept. `required` draws an asterisk, `optional` writes "(optional)" (translate with
+`optionalLabel`). Use it with native controls or controls that do not draw their own label. Also new:
+`<ngcc-accordion-item [(expanded)]="open">` to open a section from code.
+
+### 23k. NgccMultiSelect (1.5.0)
+
+Searchable multi-select with chips. Works with `[(value)]` (a `string[]`) and with Angular forms.
+
+```html
+<ngcc-multi-select label="Regions" [options]="regions" [(value)]="selected" selectAll />
+<ngcc-multi-select label="Tags" [options]="[]" formControlName="tags" creatable />
+```
+
+| Input | Notes |
+| --- | --- |
+| `options` | `{ value, label, group?, disabled?, description? }[]`. Options with the same `group` sit under one heading; ungrouped ones come first. |
+| `selectAll` | Adds a "Select all" row; it acts on the options matching the search and skips disabled ones. |
+| `creatable` | Offers `Create "text"` for text that matches nothing. With no `options` it is a tag input. Emits `created`. |
+| `loading`, `error` | A loading row, or an error text with a Retry button (`retry` output). Use `searchChange` to load options from a server. |
+| `required`, `invalid`, `errorMessage`, `helperText`, `disabled` | `required` shows an error after the user leaves the field empty; with forms the control's own state is used. |
+| `labels` | Override any text (`placeholder`, `selectAll`, `clearAll`, `noResults`, `loading`, `retry`, `create`, `remove`, `results`, `required`). |
+
+Keyboard (focus stays in the search box): ArrowDown/ArrowUp move and open, Enter picks, Escape closes,
+Backspace in an empty box removes the last chip. The number of results is announced politely.
+
+### 23l. NgccRadioTileGroup (1.5.0)
+
+One-of-many choice as tiles, with a selected state and a description line. Native radio inputs inside
+Carbon's selectable tile, so arrow keys and screen reader announcements come from the browser.
+
+```html
+<ngcc-radio-tile-group legend="Plan" [options]="plans" [(value)]="plan" [columns]="3" />
+```
+
+`options` are `{ value, label, description?, disabled? }`. Works with `formControlName`/`[formControl]`.
+`columns` fixes the column count; by default tiles fill the width (at least 12rem each).
+
+### 23m. NgccSectionNav (1.5.0)
+
+Sticky "on this page" list that follows scrolling and jumps to a section.
+
+```html
+<ngcc-section-nav [sections]="sections" [(active)]="current" [offset]="64" />
+<section id="basics"><h2>Basics</h2></section>
+```
+
+`sections` are `{ id, label, status?: 'error' | 'warning' | 'complete' }`. `offset` is the height of fixed
+content at the top. The status is also written out for screen readers ("Network, has errors"). A jump moves
+focus to the section. Call `refresh()` if sections are added to the page after the list rendered.
+
+### 23n. NgccActionBar (1.5.0)
+
+Bottom bar for form actions with a status area (a polite live region).
+
+```html
+<ngcc-action-bar>
+  <span ngccActionBarStatus>3 fields need attention</span>
+  <button class="cds--btn cds--btn--secondary">Cancel</button>
+  <button class="cds--btn cds--btn--primary">Save</button>
+</ngcc-action-bar>
+```
+
+Sticks to the bottom of its scroll container by default. `fixed` pins it to the viewport and keeps a spacer of
+the bar's height after it, so the last content can still be scrolled into view; set
+`--ngcc-action-bar-inset-start` to the side navigation width if the bar should not run under it.
+
+### 23o. NgccSummaryTile (1.5.0)
+
+Description-list tile for a live summary. Missing values show an em dash that is read as "Not set"
+(`emptyLabel`). A status tag goes in the header slot.
+
+```html
+<ngcc-summary-tile heading="Plan" [items]="[{ label: 'Region', value: region }]" [columns]="2">
+  <ngcc-tag ngccSummaryStatus type="green">Valid</ngcc-tag>
+</ngcc-summary-tile>
+```
+
+### 23p. Number input units and stepping (1.5.0)
+
+`ngcc-input-number` has `prefix` and `suffix` for a unit shown inside the field (`suffix="GB"`). The unit is
+added to the accessible name, so "10" is read as "10 GB". ArrowUp/ArrowDown step the value by `step`
+(default 1) and stay inside `min` and `max`; an empty field starts from `min` (or 0). Typing outside the range
+still shows the existing "Minimum/Maximum value" message.
+
+### 23q. Editable table (1.5.0)
+
+`ngcc-table` columns can show an editor in every row, or render your own cell.
+
+```ts
+columns: NgccTableColumn<Row>[] = [
+  { key: 'name', header: 'Volume', editor: 'text', validate: (v) => (v ? null : 'Name is required') },
+  { key: 'size', header: 'Size (GB)', editor: 'number', min: 1 },
+  { key: 'tier', header: 'Tier', editor: 'select', options: [{ value: 'hot', label: 'Hot' }] },
+];
+```
+
+```html
+<ngcc-table #t [columns]="columns" [rows]="rows" [rowValidator]="rowRule" (cellEdit)="onEdit($event)">
+  <ng-template ngccTableCell="owner" let-row let-value="value" let-index="index">
+    <my-owner-picker [value]="value" />
+  </ng-template>
+</ngcc-table>
+<button (click)="t.validate() && save()">Save</button>
+```
+
+- Edits are written into the row object and reported by `cellEdit` (`row`, `rowIndex`, `key`, `value`,
+  `previous`, `error`). The `rows` array is not replaced, so selection, sorting and paging are kept. Number
+  editors give a `number` (or `null` when empty); select editors keep the option's own value type.
+- `validate` (per column) and `rowValidator` (per row) run on every edit. Cell messages sit under the control
+  (`aria-invalid` and `aria-describedby` are set); a row message appears as an alert under the row.
+- `validate()` checks every row on every page and returns `true` when all are valid; `validityChange` emits
+  when the table flips between valid and invalid.
+- A `ngccTableCell` template wins over the built-in editor for that column.
 
 ### 23i. Layout helpers
 

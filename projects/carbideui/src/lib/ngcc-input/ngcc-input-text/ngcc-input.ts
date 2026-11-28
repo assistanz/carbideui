@@ -1,3 +1,4 @@
+import { NgccFieldLabel } from '../../shared/ngcc-field-label';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,7 +21,7 @@ import { NgccInputType, NgccInputSize } from './ngcc-input.types';
 @Component({
   selector: 'ngcc-input',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgccIcon],
+  imports: [NgccFieldLabel, CommonModule, FormsModule, NgccIcon],
   templateUrl: './ngcc-input.html',
   styleUrls: ['./../ngcc-input.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,6 +37,11 @@ export class NgccInput implements ControlValueAccessor, OnChanges {
   @Input() disabled = false;
   @Input() readonly = false;
   @Input() required = false;
+  /** Show "(optional)" next to the label (ignored when `required`). */
+  @Input() optional = false;
+  @Input() optionalLabel = 'optional';
+  /** Short explanation shown from an info button next to the label. */
+  @Input() tooltip = '';
   @Input() size: NgccInputSize = 'md';
   @Input() helperText: string | undefined = undefined;
   @Input() ariaLabel: string | undefined = undefined;

@@ -3,12 +3,14 @@
   <div class="cds--text-input cds--skeleton"></div>
 } @else {
   @if (label) {
-    <label class="cds--label" [attr.for]="inputId">
-      {{ label }}
-      @if (required) {
-        <span class="cds--input-required" aria-hidden="true">*</span>
-      }
-    </label>
+    <ngcc-field-label
+      [forId]="inputId"
+      [required]="required"
+      [optional]="optional"
+      [optionalLabel]="optionalLabel"
+      [tooltip]="tooltip"
+      >{{ label }}</ngcc-field-label
+    >
   }
 
   <div class="cds--text-input__field-outer-wrapper">

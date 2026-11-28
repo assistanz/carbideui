@@ -39,3 +39,36 @@
 :host ::ng-deep .cds--parent-row.cds--expandable-row .cds--table-expand__svg {
   transform: rotate(90deg);
 }
+
+// Editable cells: let the control and its message use the full cell, and keep the focus ring visible.
+.cds--data-table__cell.ngcc--table-cell--edit {
+  max-width: none;
+  overflow: visible;
+  white-space: normal;
+
+  &:hover {
+    cursor: default;
+  }
+}
+
+.ngcc--table-editor {
+  inline-size: 100%;
+  min-inline-size: 6rem;
+}
+
+.ngcc--table-cell-error,
+.ngcc--table-row-error td {
+  color: var(--cds-text-error);
+  font-size: 0.75rem;
+}
+
+.ngcc--table-cell-error {
+  margin-block-start: 0.25rem;
+}
+
+// A row with a problem stays readable without colour: the message sits directly under the row.
+.ngcc--table-row-error td {
+  padding: 0.5rem 1rem;
+  border-inline-start: 3px solid var(--cds-support-error);
+  background: var(--cds-layer-accent-01, var(--cds-layer-01));
+}

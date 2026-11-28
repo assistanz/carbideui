@@ -176,6 +176,7 @@ export * from './lib/ngcc-progress-bar/public-api';
 
 // Empty State
 export * from './lib/ngcc-empty-state/public-api';
+export * from './lib/ngcc-form-field/public-api';
 
 // Activity Feed / Timeline
 export * from './lib/ngcc-activity-feed/public-api';
@@ -194,3 +195,12 @@ export * from './lib/ngcc-filter-bar/public-api';
 
 // Overflow Menu
 export * from './lib/ngcc-overflow-menu/public-api';
+
+export * from './lib/ngcc-multi-select/public-api';
+
+// Form building blocks
+
+export * from './lib/ngcc-radio-tile/public-api';
+export * from './lib/ngcc-section-nav/public-api';
+export * from './lib/ngcc-action-bar/public-api';
+export * from './lib/ngcc-summary-tile/public-api';

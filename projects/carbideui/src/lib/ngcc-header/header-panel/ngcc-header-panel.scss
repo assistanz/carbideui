@@ -10,10 +10,13 @@
   inset-inline-end: 0;
   z-index: var(--cds-layer-overlay, 8000);
   block-size: calc(100vh - var(--cds-spacing-09, 3rem));
-  overflow-y: auto;
-  background-color: var(--cds-layer-01, #f4f4f4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--ngcc-header-panel-background, var(--cds-layer-01, #f4f4f4));
   color: var(--cds-text-primary, #161616);
-  width: 16rem; // 256px — standard Carbon panel width
+  // 256px by default; set width or --ngcc-header-panel-width. Capped to the viewport.
+  inline-size: min(var(--ngcc-header-panel-width, 16rem), 100vw);
   border-inline-start: 1px solid var(--cds-border-subtle-01, #e0e0e0);
   transform: translateX(100%);
   transition: transform var(--cds-motion-moderate-01, 150ms)
@@ -22,4 +25,26 @@
   &.cds--header-panel--expanded {
     transform: translateX(0);
   }
+
+  // Fit to content, but never taller than the space under the header.
+  &.ngcc-header-panel--content {
+    block-size: auto;
+    max-block-size: calc(100vh - var(--cds-spacing-09, 3rem));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.ngcc-header-panel__body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+}
+
+.ngcc-header-panel__footer:not(:empty) {
+  flex: none;
+  padding: 0.75rem 1rem;
+  border-block-start: 1px solid var(--cds-border-subtle-01, #e0e0e0);
 }

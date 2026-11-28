@@ -3,12 +3,15 @@
   <div class="cds--text-input cds--skeleton"></div>
 } @else {
   @if (getLabel()) {
-    <label id="dropdown-label" class="cds--label" [attr.for]="inputId">
-      {{ getLabel() }}
-      @if (getRequired()) {
-        <span class="cds--input-required" aria-hidden="true">*</span>
-      }
-    </label>
+    <ngcc-field-label
+      [labelId]="labelId"
+      [forId]="inputId"
+      [required]="getRequired()"
+      [optional]="optional"
+      [optionalLabel]="optionalLabel"
+      [tooltip]="tooltip"
+      >{{ getLabel() }}</ngcc-field-label
+    >
   }
   <div
     [class]="triggerClass()"
@@ -18,6 +21,7 @@
     <button
       type="button"
       class="cds--list-box__field"
+      [id]="inputId"
       [attr.tabindex]="isDisabled() ? -1 : 0"
       (click)="toggle()"
       (keydown)="onTriggerKeydown($event)"
@@ -26,10 +30,10 @@
       [attr.required]="getRequired() ? 'true' : null"
       [attr.aria-disabled]="isDisabled() || null"
       [attr.aria-label]="computedAriaLabel()"
-      [attr.aria-labelledby]="getAriaLabel() ? getAriaLabel() : 'dropdown-label'"
+      [attr.aria-labelledby]="getLabel() && !getAriaLabel() ? labelId : null"
       data-testid="ngcc-dropdown-trigger"
       [attr.aria-invalid]="getInvalid() ? getInvalid() : null"
-      [attr.aria-describedby]="getInvalid() ? 'dropdown-error' : null"
+      [attr.aria-describedby]="getInvalid() ? errorId : null"
     >
       <span class="cds--list-box__label">
         {{ getLabelForSelection() }}
@@ -53,17 +57,17 @@
       role="combobox"
       aria-haspopup="listbox"
       [attr.aria-expanded]="isOpen()"
-      [attr.aria-controls]="isOpen() ? 'dropdown-listbox' : null"
+      [attr.aria-controls]="isOpen() ? listboxId : null"
       [attr.aria-activedescendant]="activeIndex() !== null ? itemId(activeIndex()!) : null"
       [class.cds--dropdown--open]="isOpen()"
       [class.cds--dropdown--focus]="isFocused()"
       [class.cds--dropdown--disabled]="isDisabled()"
       [attr.aria-label]="computedAriaLabel()"
-      [attr.aria-labelledby]="getLabel() ? getLabel() : 'dropdown-label'"
+      [attr.aria-labelledby]="getLabel() && !getAriaLabel() ? labelId : null"
     >
       @if (isOpen()) {
         <ul
-          id="dropdown-listbox"
+          [id]="listboxId"
           role="listbox"
           aria-label="Listbox"
           class="cds--list-box__menu"
@@ -164,7 +168,7 @@
   </div>
   <!-- Error message -->
   @if (getInvalid()) {
-    <div id="dropdown-error" role="alert" class="cds--form-requirement" aria-live="assertive">
+    <div [id]="errorId" role="alert" class="cds--form-requirement" aria-live="assertive">
       {{ displayErrorMessage() }}
     </div>
   } @else if (getHelperText()) {

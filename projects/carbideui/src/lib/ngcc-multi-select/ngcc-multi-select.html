@@ -1,0 +1,181 @@
+<div class="cds--form-item">
+  @if (label()) {
+    <ngcc-field-label
+      [labelId]="labelId"
+      [forId]="inputId"
+      [required]="required()"
+      [optional]="optional()"
+      [optionalLabel]="optionalLabel()"
+      [tooltip]="tooltip()"
+      >{{ label() }}</ngcc-field-label
+    >
+  }
+
+  <div
+    class="ngcc--multi-select"
+    [class.ngcc--multi-select--open]="open()"
+    [class.ngcc--multi-select--invalid]="isInvalid()"
+    [class.ngcc--multi-select--disabled]="isDisabled()"
+  >
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+    <div class="ngcc--multi-select__field" (click)="onFieldClick($event)">
+      @for (item of chips(); track item.value) {
+        <ngcc-tag
+          class="ngcc--multi-select__chip"
+          size="sm"
+          [dismissible]="!isDisabled()"
+          [disabled]="isDisabled()"
+          [dismissLabel]="text().remove.replace('{label}', item.label)"
+          (dismissed)="remove(item.value)"
+          >{{ item.label }}</ngcc-tag
+        >
+      }
+      <input
+        #search
+        class="ngcc--multi-select__input"
+        type="text"
+        role="combobox"
+        autocomplete="off"
+        aria-autocomplete="list"
+        aria-haspopup="listbox"
+        [id]="inputId"
+        [value]="query()"
+        [placeholder]="chips().length ? '' : text().placeholder"
+        [disabled]="isDisabled()"
+        [attr.aria-expanded]="open()"
+        [attr.aria-controls]="listboxId"
+        [attr.aria-activedescendant]="open() ? activeId() : null"
+        [attr.aria-describedby]="describedBy()"
+        [attr.aria-invalid]="isInvalid() ? 'true' : null"
+        [attr.aria-required]="required() ? 'true' : null"
+        [attr.aria-label]="label() ? null : (ariaLabel() ?? text().placeholder)"
+        (input)="onInput($event)"
+        (keydown)="onKeydown($event)"
+      />
+      @if (loading()) {
+        <span class="ngcc--multi-select__spinner" aria-hidden="true"></span>
+      }
+      @if (chips().length && !isDisabled()) {
+        <button
+          type="button"
+          class="ngcc--multi-select__clear"
+          [attr.aria-label]="text().clearAll"
+          [title]="text().clearAll"
+          (mousedown)="$event.preventDefault()"
+          (click)="clearAll()"
+        >
+          ×
+        </button>
+      }
+      <button
+        type="button"
+        class="ngcc--multi-select__toggle"
+        tabindex="-1"
+        aria-hidden="true"
+        [disabled]="isDisabled()"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleOpen()"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 11 3 6l.7-.7L8 9.6l4.3-4.3.7.7z" />
+        </svg>
+      </button>
+    </div>
+
+    <ul
+      class="ngcc--multi-select__menu"
+      role="listbox"
+      aria-multiselectable="true"
+      [id]="listboxId"
+      [attr.aria-labelledby]="label() ? labelId : null"
+      [attr.aria-label]="label() ? null : (ariaLabel() ?? text().placeholder)"
+      [hidden]="!open()"
+      (mousedown)="$event.preventDefault()"
+    >
+      @if (loading()) {
+        <li class="ngcc--multi-select__status" role="presentation">{{ text().loading }}</li>
+      }
+      @if (error()) {
+        <li
+          class="ngcc--multi-select__status ngcc--multi-select__status--error"
+          role="presentation"
+        >
+          {{ error() }}
+          <button type="button" class="ngcc--multi-select__retry" (click)="retry.emit()">
+            {{ text().retry }}
+          </button>
+        </li>
+      }
+      @for (row of rows(); track row.key) {
+        @switch (row.kind) {
+          @case ('group') {
+            <li class="ngcc--multi-select__group" role="presentation">{{ row.label }}</li>
+          }
+          @case ('all') {
+            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+            <li
+              class="ngcc--multi-select__option ngcc--multi-select__option--all"
+              role="option"
+              [id]="optionId(row.key)"
+              [attr.aria-selected]="row.allSelected"
+              [class.ngcc--multi-select__option--active]="activeKey() === row.key"
+              (click)="activate(row)"
+            >
+              <span class="ngcc--multi-select__check" aria-hidden="true">{{
+                row.allSelected ? '✓' : ''
+              }}</span>
+              {{ row.allSelected ? text().clearAll : text().selectAll }}
+            </li>
+          }
+          @case ('option') {
+            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+            <li
+              class="ngcc--multi-select__option"
+              role="option"
+              [id]="optionId(row.key)"
+              [attr.aria-selected]="row.selected"
+              [attr.aria-disabled]="row.option.disabled ? 'true' : null"
+              [class.ngcc--multi-select__option--active]="activeKey() === row.key"
+              [class.ngcc--multi-select__option--disabled]="row.option.disabled"
+              (click)="activate(row)"
+            >
+              <span class="ngcc--multi-select__check" aria-hidden="true">{{
+                row.selected ? '✓' : ''
+              }}</span>
+              <span class="ngcc--multi-select__text">
+                {{ row.option.label }}
+                @if (row.option.description) {
+                  <span class="ngcc--multi-select__description">{{ row.option.description }}</span>
+                }
+              </span>
+            </li>
+          }
+          @case ('create') {
+            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+            <li
+              class="ngcc--multi-select__option ngcc--multi-select__option--create"
+              role="option"
+              [id]="optionId(row.key)"
+              aria-selected="false"
+              [class.ngcc--multi-select__option--active]="activeKey() === row.key"
+              (click)="activate(row)"
+            >
+              {{ text().create.replace('{value}', row.text) }}
+            </li>
+          }
+        }
+      }
+      @if (!loading() && !error() && !hasOptionRows()) {
+        <li class="ngcc--multi-select__status" role="presentation">{{ text().noResults }}</li>
+      }
+    </ul>
+  </div>
+
+  <div class="cds--visually-hidden" aria-live="polite" role="status">{{ announcement() }}</div>
+
+  @if (isInvalid() && errorText()) {
+    <div class="ngcc--form-requirement" [id]="errorId">{{ errorText() }}</div>
+  } @else if (helperText()) {
+    <div class="cds--form__helper-text" [id]="helperId">{{ helperText() }}</div>
+  }
+</div>

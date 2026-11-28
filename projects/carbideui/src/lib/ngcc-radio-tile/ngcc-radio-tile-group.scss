@@ -1,0 +1,64 @@
+.ngcc--radio-tile-group {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ngcc--radio-tile-group__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(var(--ngcc-tile-columns, auto-fit), minmax(12rem, 1fr));
+}
+
+// With a fixed count the columns share the row equally.
+.ngcc--radio-tile-group__grid[style*='--ngcc-tile-columns'] {
+  grid-template-columns: repeat(var(--ngcc-tile-columns), minmax(0, 1fr));
+}
+
+.ngcc--radio-tile {
+  position: relative;
+  display: flex;
+
+  .cds--tile {
+    inline-size: 100%;
+    border-radius: var(--ngcc-radius-container, 0);
+  }
+}
+
+.ngcc--radio-tile__label {
+  display: block;
+  font-weight: 600;
+}
+
+.ngcc--radio-tile__description {
+  display: block;
+  margin-block-start: 0.25rem;
+  color: var(--cds-text-secondary);
+  font-size: 0.875rem;
+}
+
+// Carbon draws the checkmark only for the selected tile; the focus ring follows the tile radius.
+.cds--tile-input:focus-visible + .cds--tile--selectable {
+  border-radius: var(--ngcc-radius-container, 0);
+}
+
+.cds--tile-input:checked + .cds--tile--selectable {
+  outline: 2px solid var(--cds-border-inverse);
+  outline-offset: -2px;
+}
+
+.cds--tile-input:disabled + .cds--tile--selectable {
+  cursor: not-allowed;
+  color: var(--cds-text-disabled);
+
+  .ngcc--radio-tile__description {
+    color: var(--cds-text-disabled);
+  }
+}
+
+.ngcc--radio-tile__optional {
+  margin-inline-start: 0.25rem;
+  font-weight: 400;
+  color: var(--cds-text-helper);
+}

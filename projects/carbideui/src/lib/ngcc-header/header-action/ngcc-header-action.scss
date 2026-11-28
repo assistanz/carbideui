@@ -1,4 +1,35 @@
 // Carbon handles cds--header__action & cds--header__action--active
 :host {
-  display: contents;
+  position: relative;
+  display: flex;
+}
+
+.ngcc-header-action__badge {
+  position: absolute;
+  inset-block-start: 0.5rem;
+  inset-inline-end: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1rem;
+  block-size: 1rem;
+  padding-inline: 0.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--cds-text-on-color);
+  background: var(--cds-support-error);
+  // A ring in the header color separates the badge from the icon on any theme.
+  box-shadow: 0 0 0 2px var(--ngcc-header-action-ring, var(--cds-background-inverse, #161616));
+  pointer-events: none;
+}
+
+.ngcc-header-action__badge--dot {
+  inset-block-start: 0.75rem;
+  inset-inline-end: 0.75rem;
+  min-inline-size: 0.5rem;
+  block-size: 0.5rem;
+  padding: 0;
+  border-radius: 50%;
 }

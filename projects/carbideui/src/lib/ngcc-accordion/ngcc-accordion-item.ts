@@ -7,6 +7,9 @@ import {
   EventEmitter,
   signal,
   inject,
+  effect,
+  model,
+  untracked,
   computed,
   ElementRef,
   OnChanges,
@@ -40,6 +43,12 @@ export class NgccAccordionItem implements AfterViewInit, OnChanges {
   /** Default open state */
   @Input() defaultOpen = false;
 
+  /**
+   * Open state, two-way bindable (`[(expanded)]`). Lets a form open a section that holds an error, or
+   * start one open. Leave unset to keep the `defaultOpen` behavior.
+   */
+  readonly expanded = model<boolean | undefined>(undefined);
+
   /** Disabled state */
   @Input() disabled = false;
 
@@ -63,7 +72,17 @@ export class NgccAccordionItem implements AfterViewInit, OnChanges {
     this.isOpen() ? 'cds--accordion__item cds--accordion__item--active' : 'cds--accordion__item',
   );
 
-  constructor(private el: ElementRef<HTMLElement>) {}
+  constructor(private el: ElementRef<HTMLElement>) {
+    effect(() => {
+      const open = this.expanded();
+      if (open === undefined) return;
+      untracked(() => {
+        if (this.isOpen() === open) return;
+        this.isOpen.set(open);
+        this.parent?.toggleItem(this.id, open);
+      });
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['title']) {
@@ -79,7 +98,7 @@ export class NgccAccordionItem implements AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     if (this.parent) {
-      this.parent.toggleItem(this.id, this._defaultOpen());
+      this.parent.toggleItem(this.id, this.expanded() ?? this._defaultOpen());
       this.syncWithContainer(this.parent.getOpenItems());
     }
   }
@@ -88,6 +107,7 @@ export class NgccAccordionItem implements AfterViewInit, OnChanges {
     if (this._disabled()) return;
     const next = !this.isOpen();
     this.isOpen.set(next);
+    if (this.expanded() !== undefined) this.expanded.set(next);
     this.toggled.emit(next);
     if (this.parent) {
       this.parent.toggleItem(this.id, next);
@@ -95,7 +115,9 @@ export class NgccAccordionItem implements AfterViewInit, OnChanges {
   }
 
   syncWithContainer(openIds: Set<string>): void {
-    this.isOpen.set(openIds.has(this.id));
+    const open = openIds.has(this.id);
+    this.isOpen.set(open);
+    if (this.expanded() !== undefined && this.expanded() !== open) this.expanded.set(open);
   }
 
   /** Keyboard navigation */

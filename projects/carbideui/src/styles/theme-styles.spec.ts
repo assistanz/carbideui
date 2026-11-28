@@ -123,6 +123,32 @@ describe('content-switcher', () => {
     );
   });
 
+  it('sizes options as equal columns that never go below their label', () => {
+    expect(css).toMatch(/:has\(> ngcc-content-switcher-option\) \{\s*display: grid;/);
+    expect(css).toContain('grid-auto-columns: 1fr;');
+    expect(css).not.toMatch(/ngcc-content-switcher-option \{[^}]*min-inline-size: 0/);
+  });
+
+  it('out-ranks Carbon first/last-child rules (0,4,0) by doubling the container class', () => {
+    expect(css).toContain('.cds--content-switcher.cds--content-switcher:not(');
+  });
+
+  it('draws no per-segment borders, the container outline is the only one', () => {
+    expect(css).toMatch(/> \.cds--content-switcher-btn \{\s*border-block: 0;\s*border-radius: 0;/);
+  });
+
+  it('follows the corner style token, square included', () => {
+    expect(css).toMatch(/border-end-start-radius: var\(--ngcc-radius-button\)/);
+    expect(css).toMatch(/border-start-end-radius: var\(--ngcc-radius-button\)/);
+    expect(css).toMatch(/\{\s*border-radius: var\(--ngcc-radius-button\);\s*overflow: hidden;/);
+    expect(css).not.toContain('0.25rem');
+  });
+
+  it('shows the focus ring for keyboard focus only', () => {
+    expect(css).toContain(':focus:not(:focus-visible)');
+    expect(css).toContain(':focus-visible:hover::after');
+  });
+
   it('does not use !important', () => {
     expect(css).not.toContain('!important');
   });

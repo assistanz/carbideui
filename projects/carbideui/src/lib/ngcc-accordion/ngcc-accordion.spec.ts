@@ -1,4 +1,4 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgccAccordion } from './ngcc-accordion';
@@ -280,6 +280,56 @@ describe('NgccAccordion & NgccAccordionItem', () => {
       item.onKeydown(event);
       // Should not throw and return early
       expect(item.id).toBeTruthy();
+    });
+  });
+
+  describe('expanded model', () => {
+    @Component({
+      standalone: true,
+      imports: [NgccAccordion, NgccAccordionItem],
+      template: `
+        <ngcc-accordion [multi]="multi()">
+          <ngcc-accordion-item title="One" [(expanded)]="one">A</ngcc-accordion-item>
+          <ngcc-accordion-item title="Two" [(expanded)]="two">B</ngcc-accordion-item>
+        </ngcc-accordion>
+      `,
+    })
+    class ExpandedHost {
+      one = signal<boolean | undefined>(true);
+      two = signal<boolean | undefined>(undefined);
+      multi = signal(true);
+    }
+
+    const open = (f: ComponentFixture<ExpandedHost>): boolean[] =>
+      Array.from(f.nativeElement.querySelectorAll('button')).map(
+        (b) => (b as HTMLElement).getAttribute('aria-expanded') === 'true',
+      );
+
+    async function make(): Promise<ComponentFixture<ExpandedHost>> {
+      const f = TestBed.createComponent(ExpandedHost);
+      f.detectChanges();
+      await f.whenStable();
+      return f;
+    }
+
+    it('starts a section open from the model', async () => {
+      const f = await make();
+      expect(open(f)).toEqual([true, false]);
+    });
+
+    it('lets the consumer open a collapsed section', async () => {
+      const f = await make();
+      f.componentInstance.two.set(true);
+      await f.whenStable();
+      expect(open(f)).toEqual([true, true]);
+    });
+
+    it('writes user toggles back to the model', async () => {
+      const f = await make();
+      (f.nativeElement.querySelectorAll('button')[0] as HTMLElement).click();
+      await f.whenStable();
+      expect(f.componentInstance.one()).toBe(false);
+      expect(open(f)).toEqual([false, false]);
     });
   });
 });

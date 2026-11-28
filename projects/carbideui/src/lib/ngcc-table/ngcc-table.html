@@ -122,19 +122,83 @@
               @for (col of getColumns(); track col.key) {
                 <td
                   class="cds--data-table__cell"
-                  [attr.title]="stringify($any(row)[col.key])"
+                  [class.ngcc--table-cell--edit]="col.editor || cellTemplate(col.key)"
+                  [attr.title]="
+                    col.editor || cellTemplate(col.key) ? null : stringify($any(row)[col.key])
+                  "
                   [style.width]="getColumnWidth(col)"
                 >
-                  @if (col.cell === 'status') {
+                  @if (cellTemplate(col.key); as tpl) {
+                    <ng-container
+                      *ngTemplateOutlet="
+                        tpl;
+                        context: {
+                          $implicit: row,
+                          value: $any(row)[col.key],
+                          index: absIndex(row),
+                          column: col,
+                        }
+                      "
+                    />
+                  } @else if (col.editor === 'select') {
+                    <div class="cds--select cds--select--sm ngcc--table-editor">
+                      <div class="cds--select-input__wrapper">
+                        <select
+                          class="cds--select-input"
+                          [attr.aria-label]="col.header + ', row ' + (i + 1)"
+                          [attr.aria-invalid]="cellError(row, col.key) ? 'true' : null"
+                          [attr.aria-describedby]="
+                            cellError(row, col.key) ? errorId(row, col.key) : null
+                          "
+                          (change)="commit(row, col, $any($event.target).value)"
+                        >
+                          @for (opt of col.options; track opt.value) {
+                            <option
+                              [value]="opt.value"
+                              [selected]="selectValue(col, row) === '' + opt.value"
+                            >
+                              {{ opt.label }}
+                            </option>
+                          }
+                        </select>
+                        <ngcc-icon name="chevron_down" svgClass="cds--select__arrow" size="sm" />
+                      </div>
+                    </div>
+                  } @else if (col.editor) {
+                    <input
+                      class="cds--text-input cds--text-input--sm ngcc--table-editor"
+                      [attr.type]="col.editor === 'number' ? 'number' : 'text'"
+                      [attr.min]="col.min ?? null"
+                      [attr.max]="col.max ?? null"
+                      [attr.step]="col.step ?? null"
+                      [value]="stringify($any(row)[col.key])"
+                      [attr.aria-label]="col.header + ', row ' + (i + 1)"
+                      [attr.aria-invalid]="cellError(row, col.key) ? 'true' : null"
+                      [attr.aria-describedby]="
+                        cellError(row, col.key) ? errorId(row, col.key) : null
+                      "
+                      (change)="commit(row, col, $any($event.target).value)"
+                    />
+                  } @else if (col.cell === 'status') {
                     <ngcc-tag [type]="statusType(col, $any(row)[col.key])" [dot]="true" size="sm">{{
                       $any(row)[col.key]
                     }}</ngcc-tag>
                   } @else {
                     {{ $any(row)[col.key] }}
                   }
+                  @if (cellError(row, col.key); as msg) {
+                    <div class="ngcc--table-cell-error" [id]="errorId(row, col.key)">{{ msg }}</div>
+                  }
                 </td>
               }
             </tr>
+            @if (rowError(row); as msg) {
+              <tr class="ngcc--table-row-error">
+                <td [attr.colspan]="columnCount()">
+                  <div role="alert" [id]="errorId(row, '')">{{ msg }}</div>
+                </td>
+              </tr>
+            }
             @if (isExpandable() && isExpanded(row)) {
               <tr
                 class="cds--expandable-row ngcc--table-details"

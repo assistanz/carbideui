@@ -1,0 +1,198 @@
+// Carbon has no chip-combobox, so this draws the Carbon field look with tokens only.
+.ngcc--multi-select {
+  position: relative;
+  inline-size: 100%;
+}
+
+.ngcc--multi-select__field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  min-block-size: 2.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--ngcc-radius-input, 0);
+  border-block-end: 1px solid var(--cds-border-strong);
+  background-color: var(--cds-field);
+  color: var(--cds-text-primary);
+  cursor: text;
+}
+
+.ngcc--multi-select:focus-within .ngcc--multi-select__field {
+  outline: 2px solid var(--cds-focus);
+  outline-offset: -2px;
+}
+
+.ngcc--multi-select--invalid .ngcc--multi-select__field {
+  outline: 2px solid var(--cds-support-error);
+  outline-offset: -2px;
+}
+
+.ngcc--multi-select--disabled .ngcc--multi-select__field {
+  cursor: not-allowed;
+  color: var(--cds-text-disabled);
+  border-block-end-color: transparent;
+}
+
+.ngcc--multi-select__chip {
+  max-inline-size: 100%;
+}
+
+.ngcc--multi-select__input {
+  flex: 1 1 6rem;
+  min-inline-size: 4rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: var(--cds-body-compact-01-letter-spacing, 0.16px);
+}
+
+.ngcc--multi-select__input::placeholder {
+  color: var(--cds-text-placeholder);
+}
+
+.ngcc--multi-select__clear,
+.ngcc--multi-select__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ngcc-radius-button, 0);
+  background: transparent;
+  color: var(--cds-icon-primary);
+  cursor: pointer;
+}
+
+.ngcc--multi-select__clear:focus-visible {
+  outline: 2px solid var(--cds-focus);
+}
+
+.ngcc--multi-select--open .ngcc--multi-select__toggle svg {
+  transform: rotate(180deg);
+}
+
+.ngcc--multi-select__spinner {
+  inline-size: 1rem;
+  block-size: 1rem;
+  border: 2px solid var(--cds-border-subtle);
+  border-block-start-color: var(--cds-interactive);
+  border-radius: 50%;
+  animation: ngcc-multi-select-spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ngcc--multi-select__spinner {
+    animation-duration: 3s;
+  }
+}
+
+@keyframes ngcc-multi-select-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ngcc--multi-select__menu {
+  position: absolute;
+  z-index: 6000;
+  inset-inline: 0;
+  max-block-size: 15rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+  background-color: var(--cds-layer);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
+  border-end-start-radius: var(--ngcc-radius-container, 0);
+  border-end-end-radius: var(--ngcc-radius-container, 0);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.ngcc--multi-select__option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-block-size: 2.5rem;
+  padding: 0.625rem 1rem;
+  color: var(--cds-text-secondary);
+  cursor: pointer;
+}
+
+.ngcc--multi-select__option:hover,
+.ngcc--multi-select__option--active {
+  background-color: var(--cds-layer-hover);
+  color: var(--cds-text-primary);
+}
+
+.ngcc--multi-select__option--active {
+  outline: 2px solid var(--cds-focus);
+  outline-offset: -2px;
+}
+
+.ngcc--multi-select__option--disabled {
+  color: var(--cds-text-disabled);
+  cursor: not-allowed;
+}
+
+.ngcc--multi-select__option--all {
+  border-block-end: 1px solid var(--cds-border-subtle);
+  font-weight: 600;
+}
+
+.ngcc--multi-select__option--create {
+  color: var(--cds-link-primary);
+}
+
+.ngcc--multi-select__check {
+  flex: none;
+  inline-size: 1rem;
+  color: var(--cds-icon-primary);
+}
+
+.ngcc--multi-select__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.ngcc--multi-select__description {
+  color: var(--cds-text-helper);
+  font-size: 0.75rem;
+}
+
+.ngcc--multi-select__group {
+  padding: 0.5rem 1rem 0.25rem;
+  color: var(--cds-text-helper);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.32px;
+}
+
+.ngcc--multi-select__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--cds-text-secondary);
+}
+
+.ngcc--multi-select__status--error {
+  color: var(--cds-text-error);
+}
+
+.ngcc--multi-select__retry {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cds-link-primary);
+  cursor: pointer;
+  text-decoration: underline;
+}

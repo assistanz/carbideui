@@ -4,12 +4,14 @@
 } @else {
   @if (getLabel()) {
     <div class="cds--text-area__label-wrapper">
-      <label class="cds--label" [attr.for]="inputId">
-        {{ getLabel() }}
-        @if (getRequired()) {
-          <span class="cds--input-required" aria-hidden="true">*</span>
-        }
-      </label>
+      <ngcc-field-label
+        [forId]="inputId"
+        [required]="getRequired()"
+        [optional]="optional"
+        [optionalLabel]="optionalLabel"
+        [tooltip]="tooltip"
+        >{{ getLabel() }}</ngcc-field-label
+      >
     </div>
   }
 

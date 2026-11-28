@@ -12,6 +12,7 @@ import { runAxe } from '../../../test-utils/a11y';
       [(active)]="active"
       [iconName]="iconName"
       [toggleable]="toggleable"
+      [badge]="badge"
       (actionClick)="onActionClick($event)"
     />
   `,
@@ -23,6 +24,7 @@ class TestHeaderActionHost {
   active = false;
   iconName: any = 'search';
   toggleable = true;
+  badge: number | 'dot' | null = null;
   onActionClick = (_e: MouseEvent) => {};
 }
 
@@ -157,6 +159,31 @@ describe('NgccHeaderAction', () => {
       detectChanges();
       const results = await runAxe(fixture.nativeElement);
       expect(results).toHaveNoViolations();
+    });
+  });
+
+  describe('badge', () => {
+    const btn = () => fixture.debugElement.query(By.css('button')).nativeElement as HTMLElement;
+    const badge = () => fixture.nativeElement.querySelector('.ngcc-header-action__badge');
+
+    it('shows nothing without a badge or with a zero count', () => {
+      fixture.detectChanges();
+      expect(badge()).toBeNull();
+    });
+
+    it('shows a count, caps it, and announces it in the accessible name', () => {
+      host.badge = 120;
+      fixture.detectChanges();
+      expect(badge().textContent.trim()).toBe('99+');
+      expect(badge().getAttribute('aria-hidden')).toBe('true');
+      expect(btn().getAttribute('aria-label')).toBe('Search, 120 unread');
+    });
+
+    it('shows a dot without changing the accessible name', () => {
+      host.badge = 'dot';
+      fixture.detectChanges();
+      expect(badge().classList).toContain('ngcc-header-action__badge--dot');
+      expect(btn().getAttribute('aria-label')).toBe('Search');
     });
   });
 });

@@ -2806,6 +2806,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-empty-state [title]=\"title\" [description]=\"description\" [icon]=\"icon\" [size]=\"size\">\n        <ngcc-button ngccEmptyAction label=\"Create instance\" />\n      </ngcc-empty-state>`,\n  }),\n  args: {\n    title: 'No instances yet',\n    description: 'Create your first instance to get started.',\n    icon: 'search',\n    size: 'md',\n  },\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-filter-bar/ngcc-filter-bar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2816,11 +2826,11 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-empty-state [title]=\"title\" [description]=\"description\" [icon]=\"icon\" [size]=\"size\">\n        <ngcc-button ngccEmptyAction label=\"Create instance\" />\n      </ngcc-empty-state>`,\n  }),\n  args: {\n    title: 'No instances yet',\n    description: 'Create your first instance to get started.',\n    icon: 'search',\n    size: 'md',\n  },\n}"
+                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-form-field [label]=\"label\" [optional]=\"optional\" [required]=\"required\"\n        [helperText]=\"helperText\" [error]=\"error\" [tooltip]=\"tooltip\">\n        <input class=\"cds--text-input\" placeholder=\"my-host\" />\n      </ngcc-form-field>`,\n  }),\n  args: {\n    label: 'Hostname',\n    optional: true,\n    required: false,\n    helperText: 'Letters, digits and dashes',\n    error: '',\n    tooltip: 'Used in the instance URL',\n  },\n}"
             },
             {
                 "name": "Default",
@@ -2898,21 +2908,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  render: (args) => ({ props: { ...args }, template: FULL_TEMPLATE }),\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({ props: { ...args }, template: FULL_TEMPLATE }),\n}"
             },
             {
                 "name": "Default",
@@ -3862,21 +3872,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccActivityFeed>",
-                "defaultValue": "{\n  title: 'Components/Activity Feed',\n  component: NgccActivityFeed,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccActivityFeed] })],\n  argTypes: { variant: { control: 'select', options: ['feed', 'timeline'] } },\n  args: { items, variant: 'feed' },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-avatar/ngcc-avatar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccAvatar>",
                 "defaultValue": "{\n  title: 'Components/Avatar',\n  component: NgccAvatar,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccAvatar] })],\n  parameters: {\n    docs: {\n      description: {\n        component: `\nA photo when \\`src\\` loads, otherwise initials on a color that is stable for that name, otherwise a person icon. White initials meet AA contrast on every color in the palette.\n\nThe accessible name is \\`name\\`. Add \\`decorative\\` when the name is already printed beside it.\n\n\\`\\`\\`html\n<ngcc-avatar name=\"Ada Lovelace\" size=\"lg\" />\n<ngcc-avatar name=\"Ada Lovelace\" src=\"/ada.jpg\" [decorative]=\"true\" /> Ada Lovelace\n\\`\\`\\`\n        `,\n      },\n    },\n  },\n  args: { name: 'Ada Lovelace', src: '', size: 'md', shape: 'circle', decorative: false },\n  argTypes: {\n    size: { control: 'radio', options: ['xs', 'sm', 'md', 'lg', 'xl'] },\n    shape: { control: 'radio', options: ['circle', 'square'] },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccActivityFeed>",
+                "defaultValue": "{\n  title: 'Components/Activity Feed',\n  component: NgccActivityFeed,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccActivityFeed] })],\n  argTypes: { variant: { control: 'select', options: ['feed', 'timeline'] } },\n  args: { items, variant: 'feed' },\n}"
             },
             {
                 "name": "meta",
@@ -4012,6 +4022,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccEmptyState>",
+                "defaultValue": "{\n  title: 'Components/Empty State',\n  component: NgccEmptyState,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccEmptyState, NgccButton] })],\n  argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] } },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-filter-bar/ngcc-filter-bar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -4022,11 +4042,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<NgccEmptyState>",
-                "defaultValue": "{\n  title: 'Components/Empty State',\n  component: NgccEmptyState,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccEmptyState, NgccButton] })],\n  argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] } },\n}"
+                "type": "Meta<NgccFormField>",
+                "defaultValue": "{\n  title: 'Components/Form Field',\n  component: NgccFormField,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccFormField] })],\n}"
             },
             {
                 "name": "meta",
@@ -4166,21 +4186,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccRadioGroup>",
-                "defaultValue": "{\n  title: 'Components/Radio',\n  component: NgccRadioGroup,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccRadio, NgccRadioGroup, ReactiveFormsModule],\n    }),\n  ],\n  tags: ['autodocs'],\n  argTypes: {\n    // ── Content ──────────────────────────────────────────────────────────────\n    legend: { control: 'text', description: 'Legend text rendered inside the fieldset' },\n    helperText: { control: 'text', description: 'Helper text shown below the group' },\n\n    // ── Layout ───────────────────────────────────────────────────────────────\n    orientation: {\n      control: 'radio',\n      options: ['horizontal', 'vertical'],\n      description: 'Direction in which radio buttons are laid out',\n    },\n    labelPlacement: {\n      control: 'radio',\n      options: ['right', 'left'],\n      description: 'Position of the label relative to the radio button',\n    },\n\n    // ── State ────────────────────────────────────────────────────────────────\n    disabled: { control: 'boolean', description: 'Disables the entire group' },\n    readOnly: { control: 'boolean', description: 'Prevents selection changes without disabling' },\n    skeleton: { control: 'boolean', description: 'Shows skeleton loading placeholder' },\n\n    // ── Validation ───────────────────────────────────────────────────────────\n    invalid: { control: 'boolean', description: 'Marks the group as invalid' },\n    invalidText: { control: 'text', description: 'Error message shown when invalid=true' },\n    warn: { control: 'boolean', description: 'Marks the group with a warning' },\n    warnText: { control: 'text', description: 'Warning message shown when warn=true' },\n\n    // ── Accessibility ─────────────────────────────────────────────────────────\n    ariaLabel: {\n      control: 'text',\n      description: 'aria-label placed on the fieldset element',\n    },\n    ariaLabelledby: {\n      control: 'text',\n      description: 'aria-labelledby placed on the fieldset — references an external label id',\n    },\n\n    // ── Output ───────────────────────────────────────────────────────────────\n    change: { action: 'change', description: 'Fires when a radio button is selected' },\n  },\n  args: {\n    legend: 'Select an option',\n    orientation: 'horizontal',\n    labelPlacement: 'right',\n    disabled: false,\n    readOnly: false,\n    skeleton: false,\n    invalid: false,\n    invalidText: '',\n    warn: false,\n    warnText: '',\n    helperText: '',\n    ariaLabel: '',\n    ariaLabelledby: '',\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccProgressBar>",
                 "defaultValue": "{\n  title: 'Components/Progress Bar',\n  component: NgccProgressBar,\n  tags: ['autodocs'],\n  argTypes: {\n    value: { control: { type: 'range', min: 0, max: 100 } },\n    size: { control: 'select', options: ['big', 'small'] },\n  },\n  args: {\n    value: 40,\n    label: 'CPU usage',\n    helperText: '4 of 10 vCPU in use',\n    warningThreshold: 75,\n    criticalThreshold: 90,\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccRadioGroup>",
+                "defaultValue": "{\n  title: 'Components/Radio',\n  component: NgccRadioGroup,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccRadio, NgccRadioGroup, ReactiveFormsModule],\n    }),\n  ],\n  tags: ['autodocs'],\n  argTypes: {\n    // ── Content ──────────────────────────────────────────────────────────────\n    legend: { control: 'text', description: 'Legend text rendered inside the fieldset' },\n    helperText: { control: 'text', description: 'Helper text shown below the group' },\n\n    // ── Layout ───────────────────────────────────────────────────────────────\n    orientation: {\n      control: 'radio',\n      options: ['horizontal', 'vertical'],\n      description: 'Direction in which radio buttons are laid out',\n    },\n    labelPlacement: {\n      control: 'radio',\n      options: ['right', 'left'],\n      description: 'Position of the label relative to the radio button',\n    },\n\n    // ── State ────────────────────────────────────────────────────────────────\n    disabled: { control: 'boolean', description: 'Disables the entire group' },\n    readOnly: { control: 'boolean', description: 'Prevents selection changes without disabling' },\n    skeleton: { control: 'boolean', description: 'Shows skeleton loading placeholder' },\n\n    // ── Validation ───────────────────────────────────────────────────────────\n    invalid: { control: 'boolean', description: 'Marks the group as invalid' },\n    invalidText: { control: 'text', description: 'Error message shown when invalid=true' },\n    warn: { control: 'boolean', description: 'Marks the group with a warning' },\n    warnText: { control: 'text', description: 'Warning message shown when warn=true' },\n\n    // ── Accessibility ─────────────────────────────────────────────────────────\n    ariaLabel: {\n      control: 'text',\n      description: 'aria-label placed on the fieldset element',\n    },\n    ariaLabelledby: {\n      control: 'text',\n      description: 'aria-labelledby placed on the fieldset — references an external label id',\n    },\n\n    // ── Output ───────────────────────────────────────────────────────────────\n    change: { action: 'change', description: 'Fires when a radio button is selected' },\n  },\n  args: {\n    legend: 'Select an option',\n    orientation: 'horizontal',\n    labelPlacement: 'right',\n    disabled: false,\n    readOnly: false,\n    skeleton: false,\n    invalid: false,\n    invalidText: '',\n    warn: false,\n    warnText: '',\n    helperText: '',\n    ariaLabel: '',\n    ariaLabelledby: '',\n  },\n}"
             },
             {
                 "name": "meta",
@@ -5592,6 +5612,16 @@
                 "name": "WithError",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  ...Default,\n  args: { ...Default.args, optional: false, required: true, error: 'Hostname is required' },\n}"
+            },
+            {
+                "name": "WithError",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -5935,8 +5965,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccActivityFeed>",
-                "file": "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts",
+                "rawtype": "StoryObj<NgccAvatar>",
+                "file": "projects/carbideui/src/lib/ngcc-avatar/ngcc-avatar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -5946,8 +5976,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccAvatar>",
-                "file": "projects/carbideui/src/lib/ngcc-avatar/ngcc-avatar.stories.ts",
+                "rawtype": "StoryObj<NgccActivityFeed>",
+                "file": "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6100,6 +6130,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<NgccEmptyState>",
+                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<NgccFilterBar>",
                 "file": "projects/carbideui/src/lib/ngcc-filter-bar/ngcc-filter-bar.stories.ts",
                 "deprecated": false,
@@ -6111,8 +6152,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccEmptyState>",
-                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                "rawtype": "StoryObj<NgccFormField>",
+                "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6254,8 +6295,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccRadioGroup>",
-                "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
+                "rawtype": "StoryObj<NgccProgressBar>",
+                "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6265,8 +6306,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccProgressBar>",
-                "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
+                "rawtype": "StoryObj<NgccRadioGroup>",
+                "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -8912,6 +8953,38 @@
                     "defaultValue": "{\n  args: {\n    helperText: 'Select a fruit from the list',\n  },\n}"
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-empty-state [title]=\"title\" [description]=\"description\" [icon]=\"icon\" [size]=\"size\">\n        <ngcc-button ngccEmptyAction label=\"Create instance\" />\n      </ngcc-empty-state>`,\n  }),\n  args: {\n    title: 'No instances yet',\n    description: 'Create your first instance to get started.',\n    icon: 'search',\n    size: 'md',\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccEmptyState>",
+                    "defaultValue": "{\n  title: 'Components/Empty State',\n  component: NgccEmptyState,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccEmptyState, NgccButton] })],\n  argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] } },\n}"
+                },
+                {
+                    "name": "NoAction",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { title: 'No results', description: 'Try adjusting your filters.', size: 'sm' },\n}"
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-filter-bar/ngcc-filter-bar.stories.ts": [
                 {
                     "name": "Default",
@@ -8954,36 +9027,36 @@
                     "defaultValue": "{\n  render: (args) => ({\n    props: {\n      ...args,\n      state: { query: 'web', filters: { status: ['running'], region: ['us-east'] } },\n    },\n    template: `<div style=\"max-width: 40rem\"><ngcc-filter-bar [fields]=\"fields\" [(value)]=\"state\" /></div>`,\n  }),\n}"
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts": [
+            "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-empty-state [title]=\"title\" [description]=\"description\" [icon]=\"icon\" [size]=\"size\">\n        <ngcc-button ngccEmptyAction label=\"Create instance\" />\n      </ngcc-empty-state>`,\n  }),\n  args: {\n    title: 'No instances yet',\n    description: 'Create your first instance to get started.',\n    icon: 'search',\n    size: 'md',\n  },\n}"
+                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-form-field [label]=\"label\" [optional]=\"optional\" [required]=\"required\"\n        [helperText]=\"helperText\" [error]=\"error\" [tooltip]=\"tooltip\">\n        <input class=\"cds--text-input\" placeholder=\"my-host\" />\n      </ngcc-form-field>`,\n  }),\n  args: {\n    label: 'Hostname',\n    optional: true,\n    required: false,\n    helperText: 'Letters, digits and dashes',\n    error: '',\n    tooltip: 'Used in the instance URL',\n  },\n}"
                 },
                 {
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<NgccEmptyState>",
-                    "defaultValue": "{\n  title: 'Components/Empty State',\n  component: NgccEmptyState,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccEmptyState, NgccButton] })],\n  argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] } },\n}"
+                    "type": "Meta<NgccFormField>",
+                    "defaultValue": "{\n  title: 'Components/Form Field',\n  component: NgccFormField,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccFormField] })],\n}"
                 },
                 {
-                    "name": "NoAction",
+                    "name": "WithError",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { title: 'No results', description: 'Try adjusting your filters.', size: 'sm' },\n}"
+                    "defaultValue": "{\n  ...Default,\n  args: { ...Default.args, optional: false, required: true, error: 'Hostname is required' },\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts": [
@@ -9216,6 +9289,58 @@
                     "defaultValue": "{\n  title: 'Components/Pagination',\n  component: NgccPagination,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccPagination, NgccIcon],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component: `\nThe **NgccPagination** component provides Carbon-styled pagination with keyboard navigation support.\n\n### Usage\n\n\\`\\`\\`html\n<ngcc-pagination\n  [page]=\"1\"\n  [totalItems]=\"87\"\n  [pageSize]=\"10\"\n  [pageSizes]=\"[10, 20, 50, 100]\"\n  (pageChange)=\"onPageChange($event)\"\n  (pageSizeChange)=\"onPageSizeChange($event)\">\n</ngcc-pagination>\n\\`\\`\\`\n        `,\n      },\n    },\n  },\n  args: {\n    page: 1,\n    totalItems: 87,\n    pageSize: 10,\n    pageSizes: [10, 20, 50, 100],\n    loopNavigation: false,\n  },\n  argTypes: {\n    page: { control: { type: 'number', min: 1 }, description: 'Current page (1-based)' },\n    totalItems: { control: { type: 'number', min: 0 }, description: 'Total number of items' },\n    pageSize: { control: 'number', description: 'Current page size' },\n    pageSizes: { control: 'object', description: 'Available page size options' },\n    loopNavigation: { control: 'boolean', description: 'Enable loop keyboard navigation' },\n    pageChange: { action: 'pageChange', description: 'Emitted when page changes' },\n    pageSizeChange: { action: 'pageSizeChange', description: 'Emitted when page size changes' },\n  },\n}"
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccProgressBar>",
+                    "defaultValue": "{\n  title: 'Components/Progress Bar',\n  component: NgccProgressBar,\n  tags: ['autodocs'],\n  argTypes: {\n    value: { control: { type: 'range', min: 0, max: 100 } },\n    size: { control: 'select', options: ['big', 'small'] },\n  },\n  args: {\n    value: 40,\n    label: 'CPU usage',\n    helperText: '4 of 10 vCPU in use',\n    warningThreshold: 75,\n    criticalThreshold: 90,\n  },\n}"
+                },
+                {
+                    "name": "Small",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{ args: { size: 'small', value: 60 } }"
+                },
+                {
+                    "name": "TaskProgress",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: grid; gap: 1.5rem; max-width: 30rem;\">\n        <ngcc-progress-bar [value]=\"95\" label=\"Uploading\" [finishAtMax]=\"true\" />\n        <ngcc-progress-bar [value]=\"100\" label=\"Upload complete\" [finishAtMax]=\"true\" />\n      </div>`,\n  }),\n}"
+                },
+                {
+                    "name": "Thresholds",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: grid; gap: 1.5rem; max-width: 30rem;\">\n        <ngcc-progress-bar [value]=\"40\" label=\"Normal\" />\n        <ngcc-progress-bar [value]=\"80\" label=\"Warning (>= 75%)\" />\n        <ngcc-progress-bar [value]=\"95\" label=\"Critical (>= 90%)\" />\n      </div>`,\n  }),\n}"
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts": [
                 {
                     "name": "Default",
@@ -9346,58 +9471,6 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: {\n    helperText: 'Select the option that best describes your preference.',\n    legend: 'With helper text',\n  },\n  render: (args) => ({ props: { ...args }, template: FULL_TEMPLATE }),\n}"
-                }
-            ],
-            "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<NgccProgressBar>",
-                    "defaultValue": "{\n  title: 'Components/Progress Bar',\n  component: NgccProgressBar,\n  tags: ['autodocs'],\n  argTypes: {\n    value: { control: { type: 'range', min: 0, max: 100 } },\n    size: { control: 'select', options: ['big', 'small'] },\n  },\n  args: {\n    value: 40,\n    label: 'CPU usage',\n    helperText: '4 of 10 vCPU in use',\n    warningThreshold: 75,\n    criticalThreshold: 90,\n  },\n}"
-                },
-                {
-                    "name": "Small",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{ args: { size: 'small', value: 60 } }"
-                },
-                {
-                    "name": "TaskProgress",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: grid; gap: 1.5rem; max-width: 30rem;\">\n        <ngcc-progress-bar [value]=\"95\" label=\"Uploading\" [finishAtMax]=\"true\" />\n        <ngcc-progress-bar [value]=\"100\" label=\"Upload complete\" [finishAtMax]=\"true\" />\n      </div>`,\n  }),\n}"
-                },
-                {
-                    "name": "Thresholds",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: grid; gap: 1.5rem; max-width: 30rem;\">\n        <ngcc-progress-bar [value]=\"40\" label=\"Normal\" />\n        <ngcc-progress-bar [value]=\"80\" label=\"Warning (>= 75%)\" />\n        <ngcc-progress-bar [value]=\"95\" label=\"Critical (>= 90%)\" />\n      </div>`,\n  }),\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-skeleton/ngcc-skeleton.stories.ts": [
@@ -10351,19 +10424,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccActivityFeed>",
-                    "file": "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-avatar/ngcc-avatar.stories.ts": [
                 {
                     "name": "Story",
@@ -10371,6 +10431,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccAvatar>",
                     "file": "projects/carbideui/src/lib/ngcc-avatar/ngcc-avatar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccActivityFeed>",
+                    "file": "projects/carbideui/src/lib/ngcc-activity-feed/ngcc-activity-feed.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -10533,6 +10606,19 @@
                     "kind": 184
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccEmptyState>",
+                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-filter-bar/ngcc-filter-bar.stories.ts": [
                 {
                     "name": "Story",
@@ -10546,13 +10632,13 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts": [
+            "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccEmptyState>",
-                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "rawtype": "StoryObj<NgccFormField>",
+                    "file": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -10702,19 +10788,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccRadioGroup>",
-                    "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts": [
                 {
                     "name": "Story",
@@ -10722,6 +10795,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccProgressBar>",
                     "file": "projects/carbideui/src/lib/ngcc-progress-bar/ngcc-progress-bar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccRadioGroup>",
+                    "file": "projects/carbideui/src/lib/ngcc-radio/ngcc-radio.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -12552,6 +12638,46 @@
             },
             {
                 "filePath": "projects/carbideui/src/lib/ngcc-filter-bar/ngcc-filter-bar.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithError",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/carbideui/src/lib/ngcc-form-field/ngcc-form-field.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

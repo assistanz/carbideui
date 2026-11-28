@@ -7,8 +7,15 @@ import { runAxe } from '../../../test-utils/a11y';
 
 @Component({
   template: `
-    <ngcc-header-panel [expanded]="expanded" [ariaLabel]="ariaLabel">
+    <ngcc-header-panel
+      [expanded]="expanded"
+      [ariaLabel]="ariaLabel"
+      [width]="width"
+      [size]="size"
+      (closed)="onClosed()"
+    >
       <p class="panel-content">Panel content</p>
+      <button ngccPanelFooter type="button" class="panel-footer-btn">View all</button>
     </ngcc-header-panel>
   `,
   standalone: true,
@@ -17,6 +24,12 @@ import { runAxe } from '../../../test-utils/a11y';
 class TestHeaderPanelHost {
   expanded = false;
   ariaLabel = 'Notifications';
+  width = '';
+  size: 'full' | 'content' = 'full';
+  closedCount = 0;
+  onClosed(): void {
+    this.closedCount++;
+  }
 }
 
 describe('NgccHeaderPanel', () => {
@@ -38,12 +51,17 @@ describe('NgccHeaderPanel', () => {
     fixture.whenStable?.();
   }
 
+  function redetect() {
+    fixture.changeDetectorRef.markForCheck();
+    detectChanges();
+  }
+
   function getPanel() {
-    return fixture.debugElement.query(By.css('[role="complementary"]'));
+    return fixture.debugElement.query(By.css('[role="dialog"]'));
   }
 
   describe('Core Functionality', () => {
-    it('renders a div with role="complementary"', () => {
+    it('renders a non-modal dialog', () => {
       detectChanges();
       expect(getPanel()).toBeTruthy();
     });
@@ -90,6 +108,81 @@ describe('NgccHeaderPanel', () => {
       host.expanded = true;
       detectChanges();
       expect(getPanel().nativeElement.getAttribute('aria-hidden')).toBe('false');
+    });
+  });
+
+  describe('Dismissal and focus', () => {
+    it('emits closed on Escape only while expanded', () => {
+      detectChanges();
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      expect(host.closedCount).toBe(0);
+      host.expanded = true;
+      redetect();
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      expect(host.closedCount).toBe(1);
+    });
+
+    it('emits closed on an outside click but not on a click inside', () => {
+      host.expanded = true;
+      detectChanges();
+      getPanel().nativeElement.querySelector('.panel-content').click();
+      expect(host.closedCount).toBe(0);
+      document.body.click();
+      expect(host.closedCount).toBe(1);
+    });
+
+    it('is inert while collapsed', () => {
+      detectChanges();
+      expect(getPanel().nativeElement.hasAttribute('inert')).toBe(true);
+      host.expanded = true;
+      redetect();
+      expect(getPanel().nativeElement.hasAttribute('inert')).toBe(false);
+    });
+
+    it('returns focus to the opener when it closes', () => {
+      const opener = document.createElement('button');
+      document.body.appendChild(opener);
+      opener.focus();
+      host.expanded = true;
+      detectChanges();
+      const inner = document.createElement('button');
+      getPanel().nativeElement.appendChild(inner);
+      inner.focus();
+      host.expanded = false;
+      redetect();
+      expect(document.activeElement).toBe(opener);
+      opener.remove();
+    });
+  });
+
+  describe('Width', () => {
+    it('sets --ngcc-header-panel-width only when a width is given', () => {
+      detectChanges();
+      expect(getPanel().nativeElement.style.getPropertyValue('--ngcc-header-panel-width')).toBe('');
+      host.width = '24rem';
+      redetect();
+      expect(getPanel().nativeElement.style.getPropertyValue('--ngcc-header-panel-width')).toBe(
+        '24rem',
+      );
+    });
+  });
+
+  describe('Size and footer', () => {
+    it('fits content only when asked', () => {
+      detectChanges();
+      expect(getPanel().nativeElement.classList).not.toContain('ngcc-header-panel--content');
+      host.size = 'content';
+      redetect();
+      expect(getPanel().nativeElement.classList).toContain('ngcc-header-panel--content');
+    });
+
+    it('projects the footer outside the scrolling body', () => {
+      detectChanges();
+      const footer = getPanel().nativeElement.querySelector('.ngcc-header-panel__footer');
+      expect(footer.querySelector('.panel-footer-btn')).not.toBeNull();
+      expect(
+        getPanel().nativeElement.querySelector('.ngcc-header-panel__body .panel-footer-btn'),
+      ).toBeNull();
     });
   });
 

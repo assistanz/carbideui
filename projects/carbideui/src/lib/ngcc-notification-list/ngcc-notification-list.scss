@@ -1,5 +1,10 @@
+:host {
+  // Lets the header actions react to the list's own width, not the viewport.
+  container-type: inline-size;
+}
 .ngcc-notif__header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
@@ -19,13 +24,23 @@
   font-size: 0.75rem;
   font-weight: 400;
   color: var(--cds-text-on-color);
-  background: var(--cds-support-error);
+  background: var(--ngcc-notif-count-bg, var(--cds-support-error));
+}
+.ngcc-notif__count--neutral {
+  --ngcc-notif-count-bg: var(--cds-background-inverse);
+  color: var(--cds-text-inverse);
 }
 .ngcc-notif__actions {
   display: flex;
   gap: 0.25rem;
 }
 .ngcc-notif__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-block-size: 2rem;
+  min-inline-size: 2rem;
+  justify-content: center;
   padding: 0.25rem 0.5rem;
   border: 0;
   background: none;
@@ -33,6 +48,17 @@
   font-size: 0.75rem;
   color: var(--cds-link-primary);
   cursor: pointer;
+}
+// Narrow container: icon only. The text stays for screen readers and as the tooltip.
+@container (max-width: 22rem) {
+  .ngcc-notif__link-text {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 .ngcc-notif__link:hover:not(:disabled) {
   text-decoration: underline;
@@ -42,8 +68,7 @@
   cursor: not-allowed;
 }
 .ngcc-notif__link:focus-visible,
-.ngcc-notif__main:focus-visible,
-.ngcc-notif__dismiss:focus-visible {
+.ngcc-notif__main:focus-visible {
   outline: 2px solid var(--cds-focus);
   outline-offset: -2px;
 }
@@ -53,6 +78,7 @@
   padding: 0;
 }
 .ngcc-notif__item {
+  position: relative;
   display: flex;
   align-items: flex-start;
   border-block-end: 1px solid var(--cds-border-subtle-01);
@@ -74,7 +100,9 @@
   --ngcc-notif-color: transparent;
 }
 .ngcc-notif__main {
+  display: block;
   flex: 1;
+  text-decoration: none;
   min-inline-size: 0;
   padding: 0.75rem 0.5rem 0.75rem 1rem;
   border: 0;
@@ -87,6 +115,40 @@
 .ngcc-notif__main:hover {
   background: var(--cds-layer-hover-01);
 }
+.ngcc-notif__title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.ngcc-notif__dot {
+  flex: none;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  margin-block-start: 0.375rem;
+  border-radius: 50%;
+  background: var(--cds-interactive, var(--cds-link-primary));
+}
+.ngcc-notif__severity {
+  flex: none;
+  margin-block-start: 0.125rem;
+  color: var(--ngcc-notif-icon-color, var(--cds-icon-secondary));
+}
+.ngcc-notif__leading {
+  flex: none;
+  padding: 0.75rem 0 0 1rem;
+}
+.ngcc-notif__item--info .ngcc-notif__severity {
+  --ngcc-notif-icon-color: var(--cds-support-info);
+}
+.ngcc-notif__item--success .ngcc-notif__severity {
+  --ngcc-notif-icon-color: var(--cds-support-success);
+}
+.ngcc-notif__item--warning .ngcc-notif__severity {
+  --ngcc-notif-icon-color: var(--cds-support-warning);
+}
+.ngcc-notif__item--error .ngcc-notif__severity {
+  --ngcc-notif-icon-color: var(--cds-support-error);
+}
 .ngcc-notif__title {
   display: block;
   font-size: 0.875rem;
@@ -94,9 +156,21 @@
 }
 .ngcc-notif__item--read .ngcc-notif__title {
   font-weight: 400;
+  color: var(--cds-text-secondary);
+}
+.ngcc-notif__item--read .ngcc-notif__message {
+  color: var(--cds-text-helper);
 }
 .ngcc-notif__message {
   display: block;
+  overflow-wrap: anywhere;
+  &.ngcc-notif__message--clamped {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--ngcc-notif-lines);
+    line-clamp: var(--ngcc-notif-lines);
+    overflow: hidden;
+  }
   margin-block-start: 0.25rem;
   font-size: 0.875rem;
   color: var(--cds-text-secondary);
@@ -107,15 +181,101 @@
   font-size: 0.75rem;
   color: var(--cds-text-helper);
 }
-.ngcc-notif__dismiss {
+.ngcc-notif__item-actions {
+  display: flex;
   flex: none;
-  margin: 0.5rem 0.5rem 0 0;
-  padding: 0.25rem;
+  margin: 0.25rem 0.25rem 0 0;
+  // Revealed on hover and keyboard focus; always visible on touch devices.
+  opacity: 0;
+}
+.ngcc-notif__item:hover .ngcc-notif__item-actions,
+.ngcc-notif__item:focus-within .ngcc-notif__item-actions {
+  opacity: 1;
+}
+@media (hover: none) {
+  .ngcc-notif__item-actions {
+    opacity: 1;
+  }
+}
+.ngcc-notif__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: 0;
   border: 0;
   background: none;
   color: var(--cds-icon-secondary);
   cursor: pointer;
-  line-height: 0;
+}
+.ngcc-notif__icon-btn:hover {
+  background: var(--cds-layer-hover-01);
+  color: var(--cds-icon-primary);
+}
+.ngcc-notif__icon-btn:focus-visible {
+  outline: 2px solid var(--cds-focus);
+  outline-offset: -2px;
+}
+.ngcc-notif__group {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cds-text-secondary);
+  background: var(--cds-layer-accent-01, transparent);
+  border-block-end: 1px solid var(--cds-border-subtle-01);
+}
+.ngcc-notif__stale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  color: var(--cds-text-primary);
+  background: var(--cds-notification-background-warning, var(--cds-layer-accent-01));
+  border-block-end: 1px solid var(--cds-border-subtle-01);
+}
+.ngcc-notif__more {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+}
+.ngcc-notif__footer:not(:empty) {
+  padding: 0.75rem 1rem;
+  border-block-start: 1px solid var(--cds-border-subtle-01);
+}
+.ngcc-notif__skeleton {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-block-end: 1px solid var(--cds-border-subtle-01);
+}
+.ngcc-notif__bar {
+  display: block;
+  block-size: 0.75rem;
+  background: var(--cds-skeleton-background, var(--cds-layer-accent-01));
+  animation: ngcc-notif-pulse 1.6s ease-in-out infinite;
+}
+.ngcc-notif__bar--title {
+  inline-size: 60%;
+}
+.ngcc-notif__bar--short {
+  inline-size: 30%;
+}
+@keyframes ngcc-notif-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ngcc-notif__bar {
+    animation: none;
+  }
+  .ngcc-notif__item-actions {
+    transition: none;
+  }
 }
 .ngcc-notif__empty {
   margin: 0;
