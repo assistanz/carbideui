@@ -139,6 +139,38 @@ written into the row object and reported by `cellEdit`, so the rows array is not
 sorting and paging are kept. `validate()` checks every row on every page; `validityChange` reports when the
 table flips between valid and invalid.
 
+## Icons: 175 cloud infrastructure icons
+
+The `ICONS` registry (`ngcc-icon`) gains 177 names (175 distinct glyphs, 2 aliases: `volume` and
+`persistent_volume` map to `block_storage`) in 10 categories: cloud infrastructure, compute, networking,
+storage, Kubernetes, security, monitoring, billing, operations and common UI. They are Carbon-style filled
+glyphs (32x32 viewBox, `currentColor`, snake_case names) with no new dependency. Existing icon names and the
+`ngcc-icon` component are unchanged, and `NgccIconNameType` now covers the new names, so typos fail to compile.
+
+Each category set (`computeIcons`, `storageIcons`, …) is also exported for direct import. The Storybook icon
+story is now a searchable gallery with a category filter. Bundle impact is about +87 KB raw / +28 KB gzip
+(see `docs/ICON_INVENTORY.md`).
+
+```html
+<ngcc-icon name="virtual_machine" size="lg" ariaLabel="Virtual machine" />
+```
+
+## Color theme: derived surface tokens
+
+Customizing surfaces (for example the Ocean preset) used to override only a few Carbon tokens, so tokens
+derived from them kept Carbon's neutral grays: table headers, selected rows and skeletons looked off-palette.
+The token mapping now also drives:
+
+- **Background:** `background-active`, `background-selected`, `background-selected-hover`,
+  `skeleton-background`, `skeleton-element`.
+- **Layer 01 / 02:** `layer-accent` (+ hover/active), `layer-active`, `layer-selected` (+ hover) and
+  `field-hover`, for the base and `-01`/`-02` variants.
+- **Text primary / secondary:** `text-disabled`, `icon-disabled`, `text-helper`, `text-placeholder`, as
+  translucent mixes that follow the surface they sit on.
+
+The change is in the token mapping only; no feature components were edited. Apps with no color customization
+are unaffected.
+
 ## Fixes
 
 - **`ngcc-dropdown` used fixed ids** (`dropdown-label`, `dropdown-error`, `dropdown-listbox`), so two or more

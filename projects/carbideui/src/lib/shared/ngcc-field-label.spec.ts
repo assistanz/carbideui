@@ -45,15 +45,23 @@ describe('shared field label (consistency across form components)', () => {
     const fixture = TestBed.createComponent(HostComponent);
     document.body.appendChild(fixture.nativeElement);
     el = fixture.nativeElement;
+    TestBed.tick();
     await fixture.whenStable();
+    TestBed.tick();
   });
 
   afterEach(() => el.remove());
 
-  const labelOf = (text: string): HTMLElement =>
-    Array.from(el.querySelectorAll<HTMLElement>('ngcc-field-label')).find((l) =>
-      l.querySelector('label')!.textContent!.includes(text),
-    )!;
+  const labelOf = (text: string): HTMLElement => {
+    const labels = Array.from(el.querySelectorAll<HTMLElement>('ngcc-field-label'));
+    const found = labels.find((l) => l.querySelector('label')?.textContent?.includes(text));
+    if (!found) {
+      throw new Error(
+        `No field label contains "${text}". Rendered: ${labels.map((l) => l.textContent?.trim()).join(' | ')}`,
+      );
+    }
+    return found;
+  };
 
   it.each(['Text', 'Number', 'Area', 'Drop', 'Multi', 'Native'])(
     '%s: shows "(optional)" in the label and a named tooltip button next to it',

@@ -2928,21 +2928,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { label: 'Accept terms', helperText: 'You must agree before continuing' },\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    type: 'single',\n    code: singleLineCode,\n  },\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { label: 'Accept terms', helperText: 'You must agree before continuing' },\n}"
             },
             {
                 "name": "Default",
@@ -2988,21 +2988,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {\n    items: sampleItems,\n    placeholder: 'Pick a fruit',\n    multi: false,\n  },\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-empty-state [title]=\"title\" [description]=\"description\" [icon]=\"icon\" [size]=\"size\">\n        <ngcc-button ngccEmptyAction label=\"Create instance\" />\n      </ngcc-empty-state>`,\n  }),\n  args: {\n    title: 'No instances yet',\n    description: 'Create your first instance to get started.',\n    icon: 'search',\n    size: 'md',\n  },\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    items: sampleItems,\n    placeholder: 'Pick a fruit',\n    multi: false,\n  },\n}"
             },
             {
                 "name": "Default",
@@ -3038,16 +3038,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {\n    href: '/docs',\n    size: 'md',\n    disabled: false,\n    visited: false,\n    inline: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link\n        [href]=\"href\"\n        [size]=\"size\"\n        [disabled]=\"disabled\"\n        [visited]=\"visited\"\n        [inline]=\"inline\"\n        [iconName]=\"iconName\"\n        [target]=\"target\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaCurrent]=\"ariaCurrent\"\n      >Carbon Link</ngcc-link>\n    `,\n  }),\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-modal/ngcc-modal.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -3065,6 +3055,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  render: (args) => ({\n    props: { ...args, value: ['euw'] },\n    template: `<div style=\"max-width:28rem\"><ngcc-multi-select [label]=\"label\" [helperText]=\"helperText\" [options]=\"options\" [(value)]=\"value\" /></div>`,\n  }),\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    href: '/docs',\n    size: 'md',\n    disabled: false,\n    visited: false,\n    inline: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link\n        [href]=\"href\"\n        [size]=\"size\"\n        [disabled]=\"disabled\"\n        [visited]=\"visited\"\n        [inline]=\"inline\"\n        [iconName]=\"iconName\"\n        [target]=\"target\"\n        [ariaLabel]=\"ariaLabel\"\n        [ariaCurrent]=\"ariaCurrent\"\n      >Carbon Link</ngcc-link>\n    `,\n  }),\n}"
             },
             {
                 "name": "Default",
@@ -3160,7 +3160,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -3170,7 +3170,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -3210,21 +3210,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `<ngcc-tag [type]=\"type\" [size]=\"size\" [dot]=\"dot\" [dismissible]=\"dismissible\" [disabled]=\"disabled\">Label</ngcc-tag>`,\n  }),\n  args: { type: 'blue', size: 'md', dot: false, dismissible: false, disabled: false },\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-theme-switcher/ngcc-theme-switcher.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  name: 'Default',\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `<ngcc-tag [type]=\"type\" [size]=\"size\" [dot]=\"dot\" [dismissible]=\"dismissible\" [disabled]=\"disabled\">Label</ngcc-tag>`,\n  }),\n  args: { type: 'blue', size: 'md', dot: false, dismissible: false, disabled: false },\n}"
             },
             {
                 "name": "Default",
@@ -3250,11 +3250,11 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Username',\n    placeholder: 'Enter your username',\n  },\n}"
+                "defaultValue": "{\n  args: {\n    label: 'Description',\n    placeholder: 'Enter text...',\n    helperText: 'Optional details',\n  },\n}"
             },
             {
                 "name": "Default",
@@ -3270,11 +3270,11 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Description',\n    placeholder: 'Enter text...',\n    helperText: 'Optional details',\n  },\n}"
+                "defaultValue": "{\n  args: {\n    label: 'Username',\n    placeholder: 'Enter your username',\n  },\n}"
             },
             {
                 "name": "Delete",
@@ -3314,16 +3314,6 @@
                 "name": "Disabled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { label: 'Disabled checkbox', disabled: true },\n}"
-            },
-            {
-                "name": "Disabled",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -3334,11 +3324,11 @@
                 "name": "Disabled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    href: '/restricted',\n    disabled: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [disabled]=\"disabled\">\n        Unavailable Link\n      </ngcc-link>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: { label: 'Disabled checkbox', disabled: true },\n}"
             },
             {
                 "name": "Disabled",
@@ -3349,6 +3339,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  render: (args) => ({\n    props: { ...args, value: ['use', 'ap'] },\n    template: `<div style=\"max-width:28rem\"><ngcc-multi-select [label]=\"label\" [options]=\"options\" [(value)]=\"value\" disabled /></div>`,\n  }),\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    href: '/restricted',\n    disabled: true,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-link [href]=\"href\" [disabled]=\"disabled\">\n        Unavailable Link\n      </ngcc-link>\n    `,\n  }),\n}"
             },
             {
                 "name": "Disabled",
@@ -3640,21 +3640,21 @@
                 "name": "Fluid",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Fluid Input',\n    fluid: true,\n    placeholder: 'Full width input',\n  },\n}"
-            },
-            {
-                "name": "Fluid",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    label: 'Fluid TextArea',\n    placeholder: 'Expands to full width',\n    fluid: true,\n  },\n}"
+            },
+            {
+                "name": "Fluid",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    label: 'Fluid Input',\n    fluid: true,\n    placeholder: 'Full width input',\n  },\n}"
             },
             {
                 "name": "FreeNavigation",
@@ -4216,21 +4216,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccCheckbox>",
-                "defaultValue": "{\n  title: 'Components/Checkbox',\n  tags: ['autodocs'],\n  component: NgccCheckbox,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccCheckbox, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    checked: { control: 'boolean' },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    invalid: { control: 'boolean' },\n    errorMessage: { control: 'text' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccCodeSnippetComponent>",
                 "defaultValue": "{\n  title: 'Components/CodeSnippet',\n  component: NgccCodeSnippetComponent,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccCodeSnippetComponent],\n    }),\n  ],\n  argTypes: {\n    type: {\n      control: { type: 'select' },\n      options: ['inline', 'single', 'multi'],\n    },\n    code: { control: 'text' },\n    disabled: { control: 'boolean' },\n    hideCopyButton: { control: 'boolean' },\n    wrapText: { control: 'boolean' },\n    light: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    feedback: { control: 'text' },\n    feedbackTimeout: { control: 'number' },\n    showMoreText: { control: 'text' },\n    showLessText: { control: 'text' },\n    copyButtonDescription: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    maxCollapsedNumberOfRows: { control: 'number' },\n    maxExpandedNumberOfRows: { control: 'number' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccCheckbox>",
+                "defaultValue": "{\n  title: 'Components/Checkbox',\n  tags: ['autodocs'],\n  component: NgccCheckbox,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccCheckbox, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    checked: { control: 'boolean' },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    invalid: { control: 'boolean' },\n    errorMessage: { control: 'text' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4296,21 +4296,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccDropdown>",
-                "defaultValue": "{\n  title: 'Components/Dropdown',\n  component: NgccDropdown,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccDropdown, NgccIcon, ReactiveFormsModule],\n    }),\n  ],\n  tags: ['autodocs'],\n  args: {\n    label: 'Select an option',\n    placeholder: 'Choose...',\n    size: 'md',\n    disabled: false,\n    multi: false,\n    required: false,\n    readonly: false,\n    skeleton: false,\n    helperText: '',\n    errorMessage: '',\n    invalid: undefined,\n    ariaLabel: '',\n    items: sampleItems,\n  },\n  argTypes: {\n    label: { control: 'text' },\n    placeholder: { control: 'text' },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n    disabled: { control: 'boolean' },\n    multi: { control: 'boolean' },\n    required: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    errorMessage: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    invalid: { control: 'boolean' },\n    valueChange: { action: 'valueChange' },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccEmptyState>",
                 "defaultValue": "{\n  title: 'Components/Empty State',\n  component: NgccEmptyState,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccEmptyState, NgccButton] })],\n  argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] } },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccDropdown>",
+                "defaultValue": "{\n  title: 'Components/Dropdown',\n  component: NgccDropdown,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccDropdown, NgccIcon, ReactiveFormsModule],\n    }),\n  ],\n  tags: ['autodocs'],\n  args: {\n    label: 'Select an option',\n    placeholder: 'Choose...',\n    size: 'md',\n    disabled: false,\n    multi: false,\n    required: false,\n    readonly: false,\n    skeleton: false,\n    helperText: '',\n    errorMessage: '',\n    invalid: undefined,\n    ariaLabel: '',\n    items: sampleItems,\n  },\n  argTypes: {\n    label: { control: 'text' },\n    placeholder: { control: 'text' },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n    disabled: { control: 'boolean' },\n    multi: { control: 'boolean' },\n    required: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    errorMessage: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    invalid: { control: 'boolean' },\n    valueChange: { action: 'valueChange' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4390,16 +4390,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccLink>",
-                "defaultValue": "{\n  title: 'Components/Link',\n  component: NgccLink,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccLink, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    size: {\n      control: { type: 'select' },\n      options: ['sm', 'md', 'lg'],\n    },\n    target: {\n      control: { type: 'select' },\n      options: ['_self', '_blank', '_parent', '_top'],\n    },\n    ariaCurrent: {\n      control: { type: 'select' },\n      options: ['page', 'step', 'location', 'date', 'time', 'true', 'false'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    ariaLabel: { control: 'text' },\n    disabled: { control: 'boolean' },\n    inline: { control: 'boolean' },\n    visited: { control: 'boolean' },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-modal/ngcc-modal.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -4415,6 +4405,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<NgccMultiSelect>",
                 "defaultValue": "{\n  title: 'Components/Multi Select',\n  component: NgccMultiSelect,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccMultiSelect] })],\n  args: { label: 'Regions', helperText: 'Choose where the cluster runs', options: REGIONS },\n  argTypes: { options: { control: 'object' } },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccLink>",
+                "defaultValue": "{\n  title: 'Components/Link',\n  component: NgccLink,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccLink, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    size: {\n      control: { type: 'select' },\n      options: ['sm', 'md', 'lg'],\n    },\n    target: {\n      control: { type: 'select' },\n      options: ['_self', '_blank', '_parent', '_top'],\n    },\n    ariaCurrent: {\n      control: { type: 'select' },\n      options: ['page', 'step', 'location', 'date', 'time', 'true', 'false'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    ariaLabel: { control: 'text' },\n    disabled: { control: 'boolean' },\n    inline: { control: 'boolean' },\n    visited: { control: 'boolean' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4550,21 +4550,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccStatTile>",
-                "defaultValue": "{\n  title: 'Components/Stat Tile',\n  component: NgccStatTile,\n  tags: ['autodocs'],\n  argTypes: {\n    status: { control: 'select', options: ['none', 'success', 'warning', 'error', 'info'] },\n    trend: { control: 'select', options: [undefined, 'up', 'down', 'flat'] },\n    trendSentiment: { control: 'select', options: ['positive-up', 'positive-down', 'neutral'] },\n  },\n  args: {\n    label: 'Monthly revenue',\n    value: '$48,200',\n    delta: '+12.4%',\n    deltaCaption: 'vs last month',\n    status: 'success',\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccStepper>",
                 "defaultValue": "{\n  title: 'Components/Stepper',\n  component: NgccStepper,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccStepper] })],\n  parameters: {\n    docs: {\n      description: {\n        component: `\nProgress indicator for multi-step create flows. \\`current\\` is the zero-based active step (two-way bindable); earlier steps are complete, later ones incomplete, and a step with \\`invalid: true\\` shows the error state.\n\nBy default (\\`linear\\`) users can go back to completed steps but not skip ahead.\n\n\\`\\`\\`html\n<ngcc-stepper [steps]=\"steps\" [(current)]=\"step\" (stepChange)=\"validate($event)\" />\n\\`\\`\\`\n        `,\n      },\n    },\n  },\n  args: { steps: STEPS, current: 1, vertical: false, linear: true, ariaLabel: 'Create client' },\n  argTypes: {\n    steps: { control: 'object' },\n    current: { control: { type: 'number', min: 0, max: 3 } },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccStatTile>",
+                "defaultValue": "{\n  title: 'Components/Stat Tile',\n  component: NgccStatTile,\n  tags: ['autodocs'],\n  argTypes: {\n    status: { control: 'select', options: ['none', 'success', 'warning', 'error', 'info'] },\n    trend: { control: 'select', options: [undefined, 'up', 'down', 'flat'] },\n    trendSentiment: { control: 'select', options: ['positive-up', 'positive-down', 'neutral'] },\n  },\n  args: {\n    label: 'Monthly revenue',\n    value: '$48,200',\n    delta: '+12.4%',\n    deltaCaption: 'vs last month',\n    status: 'success',\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4610,16 +4610,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccTag>",
-                "defaultValue": "{\n  title: 'Components/Tag',\n  component: NgccTag,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccTag] })],\n  argTypes: {\n    type: { control: 'select', options: types },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-theme-switcher/ngcc-theme-switcher.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -4630,11 +4620,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccTag>",
+                "defaultValue": "{\n  title: 'Components/Tag',\n  component: NgccTag,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccTag] })],\n  argTypes: {\n    type: { control: 'select', options: types },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-tile/ngcc-tile.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgccTile>",
                 "defaultValue": "{\n  title: 'Components/Tile',\n  component: NgccTile,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccTile, NgccTag] })],\n  args: { heading: 'Compute usage', clickable: false, light: false, disabled: false },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccTooltip>",
+                "defaultValue": "{\n  title: 'Components/Tooltip',\n  component: NgccTooltip,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccTooltip, NgccButton],\n    }),\n  ],\n  argTypes: {\n    description: { control: 'text' },\n    placement: {\n      control: 'select',\n      options: ['top', 'bottom', 'left', 'right'],\n    },\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end'],\n    },\n    autoAlign: { control: 'boolean' },\n    open: { control: 'boolean' },\n    enterDelayMs: { control: 'number' },\n    leaveDelayMs: { control: 'number' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4660,16 +4670,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccTooltip>",
-                "defaultValue": "{\n  title: 'Components/Tooltip',\n  component: NgccTooltip,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccTooltip, NgccButton],\n    }),\n  ],\n  argTypes: {\n    description: { control: 'text' },\n    placement: {\n      control: 'select',\n      options: ['top', 'bottom', 'left', 'right'],\n    },\n    align: {\n      control: 'select',\n      options: ['start', 'center', 'end'],\n    },\n    autoAlign: { control: 'boolean' },\n    open: { control: 'boolean' },\n    enterDelayMs: { control: 'number' },\n    leaveDelayMs: { control: 'number' },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-charts/ngcc-gauge-chart/ngcc-gauge-chart.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -4680,11 +4680,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<NgccInput>",
-                "defaultValue": "{\n  title: 'Components/Input/Text',\n  component: NgccInput,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccInput, FormsModule, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    placeholder: { control: 'text' },\n    type: { control: 'select', options: ['text', 'email', 'password', 'number'] },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    fluid: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    invalid: { control: 'boolean' },\n    value: { control: 'text' },\n    errorMessage: { control: 'text' },\n  },\n}"
+                "type": "Meta<NgccTextAreaComponent>",
+                "defaultValue": "{\n  title: 'Components/Input/TextArea',\n  component: NgccTextAreaComponent,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [FormsModule, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    value: { control: 'text' },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    fluid: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    invalid: { control: 'boolean' },\n    errorMessage: { control: 'text' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4700,11 +4700,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<NgccTextAreaComponent>",
-                "defaultValue": "{\n  title: 'Components/Input/TextArea',\n  component: NgccTextAreaComponent,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [FormsModule, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    value: { control: 'text' },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    fluid: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    invalid: { control: 'boolean' },\n    errorMessage: { control: 'text' },\n  },\n}"
+                "type": "Meta<NgccInput>",
+                "defaultValue": "{\n  title: 'Components/Input/Text',\n  component: NgccInput,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccInput, FormsModule, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    placeholder: { control: 'text' },\n    type: { control: 'select', options: ['text', 'email', 'password', 'number'] },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    fluid: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    invalid: { control: 'boolean' },\n    value: { control: 'text' },\n    errorMessage: { control: 'text' },\n  },\n}"
             },
             {
                 "name": "MinMaxExample",
@@ -5050,21 +5050,21 @@
                 "name": "ReactiveForm",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-number/ngcc-input-number.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  render: () => {\n    const fb = new FormBuilder();\n    const form = fb.group({\n      salary: [null, { validators: [Validators.required, Validators.min(1000)] }],\n      bonus: [null, { validators: [Validators.required] }],\n    });\n\n    return {\n      props: { form },\n      template: `\n        <form [formGroup]=\"form\">\n          <ngcc-input-number\n            #salaryInput\n            label=\"Salary\"\n            [decimalOnly]=\"true\"\n            [decimalPadding]=\"2\"\n            formControlName=\"salary\"\n            [required]=\"true\"\n            [min]=\"1000\"\n            helperText=\"Minimum 1000 required\"\n          ></ngcc-input-number>\n          <br/><br/>\n          <ngcc-input-number\n            #bonusInput\n            label=\"Bonus %\"\n            [integerOnly]=\"true\"\n            formControlName=\"bonus\"\n            [required]=\"true\"\n            helperText=\"Enter whole numbers only\"\n          ></ngcc-input-number>\n        </form>\n\n    <h4>Form state</h4>\n<p>Form value: {{ form.value | json }}</p>\n<p>Form valid: {{ form.valid }}</p>\n\n<h4>Control values (numeric)</h4>\n<p>Salary raw: {{ form.get('salary')?.value }}</p>\n<p>Bonus raw: {{ form.get('bonus')?.value }}</p>\n\n<h4>Display values (formatted)</h4>\n<p>Salary display: {{ salaryInput.displayValue() }}</p>\n<p>Bonus display: {{ bonusInput.displayValue() }}</p>\n\n      `,\n    };\n  },\n}"
-            },
-            {
-                "name": "ReactiveForm",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  render: (args) => {\n    const fb = new FormBuilder();\n    const form = fb.group({\n      comment: fb.control('', [Validators.required, Validators.minLength(5)]),\n    });\n\n    return {\n      props: {\n        form,\n        args,\n      },\n      template: `\n        <form [formGroup]=\"form\" style=\"max-width: 400px;\">\n          <ngcc-text-area\n            label=\"Comment\"\n            minLength='5'\n            formControlName=\"comment\"\n            placeholder=\"Write at least 5 characters\"\n            helperText='Write at least 5 characters'\n            required=\"true\"\n          ></ngcc-text-area>\n          <div style=\"margin-top: 1rem;\">\n            Form Status: {{ form.status }}\n          </div>\n        </form>\n      `,\n    };\n  },\n}"
+            },
+            {
+                "name": "ReactiveForm",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-number/ngcc-input-number.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => {\n    const fb = new FormBuilder();\n    const form = fb.group({\n      salary: [null, { validators: [Validators.required, Validators.min(1000)] }],\n      bonus: [null, { validators: [Validators.required] }],\n    });\n\n    return {\n      props: { form },\n      template: `\n        <form [formGroup]=\"form\">\n          <ngcc-input-number\n            #salaryInput\n            label=\"Salary\"\n            [decimalOnly]=\"true\"\n            [decimalPadding]=\"2\"\n            formControlName=\"salary\"\n            [required]=\"true\"\n            [min]=\"1000\"\n            helperText=\"Minimum 1000 required\"\n          ></ngcc-input-number>\n          <br/><br/>\n          <ngcc-input-number\n            #bonusInput\n            label=\"Bonus %\"\n            [integerOnly]=\"true\"\n            formControlName=\"bonus\"\n            [required]=\"true\"\n            helperText=\"Enter whole numbers only\"\n          ></ngcc-input-number>\n        </form>\n\n    <h4>Form state</h4>\n<p>Form value: {{ form.value | json }}</p>\n<p>Form valid: {{ form.valid }}</p>\n\n<h4>Control values (numeric)</h4>\n<p>Salary raw: {{ form.get('salary')?.value }}</p>\n<p>Bonus raw: {{ form.get('bonus')?.value }}</p>\n\n<h4>Display values (formatted)</h4>\n<p>Salary display: {{ salaryInput.displayValue() }}</p>\n<p>Bonus display: {{ bonusInput.displayValue() }}</p>\n\n      `,\n    };\n  },\n}"
             },
             {
                 "name": "ReactiveFormValidation",
@@ -6449,8 +6449,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccCheckbox>",
-                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                "rawtype": "StoryObj<NgccCodeSnippetComponent>",
+                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6460,8 +6460,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccCodeSnippetComponent>",
-                "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                "rawtype": "StoryObj<NgccCheckbox>",
+                "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6537,8 +6537,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccDropdown>",
-                "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
+                "rawtype": "StoryObj<NgccEmptyState>",
+                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6548,8 +6548,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccEmptyState>",
-                "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                "rawtype": "StoryObj<NgccDropdown>",
+                "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6625,17 +6625,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccLink>",
-                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 184
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<ModalStoryWrapper>",
                 "file": "projects/carbideui/src/lib/ngcc-modal/ngcc-modal.stories.ts",
                 "deprecated": false,
@@ -6649,6 +6638,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<NgccMultiSelect>",
                 "file": "projects/carbideui/src/lib/ngcc-multi-select/ngcc-multi-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NgccLink>",
+                "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6801,8 +6801,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccStatTile>",
-                "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
+                "rawtype": "StoryObj<NgccStepper>",
+                "file": "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6812,8 +6812,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccStepper>",
-                "file": "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts",
+                "rawtype": "StoryObj<NgccStatTile>",
+                "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6867,17 +6867,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccTag>",
-                "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 184
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<NgccThemeSwitcher>",
                 "file": "projects/carbideui/src/lib/ngcc-theme-switcher/ngcc-theme-switcher.stories.ts",
                 "deprecated": false,
@@ -6889,8 +6878,30 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<NgccTag>",
+                "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<NgccTile>",
                 "file": "projects/carbideui/src/lib/ngcc-tile/ngcc-tile.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<NgccTooltip>",
+                "file": "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6922,17 +6933,6 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccTooltip>",
-                "file": "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 184
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
                 "rawtype": "StoryObj<NgccGaugeChart>",
                 "file": "projects/carbideui/src/lib/ngcc-charts/ngcc-gauge-chart/ngcc-gauge-chart.stories.ts",
                 "deprecated": false,
@@ -6944,8 +6944,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccInput>",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                "rawtype": "StoryObj<NgccTextAreaComponent>",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -6966,8 +6966,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgccTextAreaComponent>",
-                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
+                "rawtype": "StoryObj<NgccInput>",
+                "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9237,58 +9237,6 @@
                     "defaultValue": "{\n  args: {\n    items: [\n      { label: 'Home', href: '/', target: '_blank' },\n      { label: 'Products', href: '/products', target: '_blank' },\n      { label: 'Details' },\n    ],\n  },\n}"
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { label: 'Accept terms', helperText: 'You must agree before continuing' },\n}"
-                },
-                {
-                    "name": "Disabled",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { label: 'Disabled checkbox', disabled: true },\n}"
-                },
-                {
-                    "name": "Indeterminate",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Select all',\n    indeterminate: true,\n    helperText: 'Mixed selection state',\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<NgccCheckbox>",
-                    "defaultValue": "{\n  title: 'Components/Checkbox',\n  tags: ['autodocs'],\n  component: NgccCheckbox,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccCheckbox, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    checked: { control: 'boolean' },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    invalid: { control: 'boolean' },\n    errorMessage: { control: 'text' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n  },\n}"
-                },
-                {
-                    "name": "Required",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { label: 'Accept terms', required: true, helperText: 'This is required' },\n}"
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts": [
                 {
                     "name": "Default",
@@ -9379,6 +9327,58 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  render: () => ({\n    props: {},\n    template: `\n      <div style=\"display: flex; flex-direction: column; gap: 2rem;\">\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Single</p>\n          <ngcc-code-snippet type=\"single\" [skeleton]=\"true\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Multi</p>\n          <ngcc-code-snippet type=\"multi\" [skeleton]=\"true\" />\n        </div>\n        <div>\n          <p style=\"margin-bottom: 0.5rem; font-size: 12px; color: #525252;\">Inline</p>\n          <p style=\"font-size: 14px; font-family: sans-serif;\">\n            Loading: <ngcc-code-snippet type=\"inline\" [skeleton]=\"true\" />\n          </p>\n        </div>\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { label: 'Accept terms', helperText: 'You must agree before continuing' },\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { label: 'Disabled checkbox', disabled: true },\n}"
+                },
+                {
+                    "name": "Indeterminate",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Select all',\n    indeterminate: true,\n    helperText: 'Mixed selection state',\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccCheckbox>",
+                    "defaultValue": "{\n  title: 'Components/Checkbox',\n  tags: ['autodocs'],\n  component: NgccCheckbox,\n  decorators: [\n    moduleMetadata({\n      imports: [NgccCheckbox, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    checked: { control: 'boolean' },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    invalid: { control: 'boolean' },\n    errorMessage: { control: 'text' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n  },\n}"
+                },
+                {
+                    "name": "Required",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { label: 'Accept terms', required: true, helperText: 'This is required' },\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-color-theme/ngcc-color-theme-switcher.stories.ts": [
@@ -9475,6 +9475,38 @@
                     "defaultValue": "{\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <ngcc-contained-list [label]=\"label\" [kind]=\"kind\" [size]=\"size\" [isInset]=\"isInset\">\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n        <ngcc-contained-list-item [clickable]=\"true\">List item</ngcc-contained-list-item>\n      </ngcc-contained-list>\n    `,\n  }),\n}"
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-empty-state [title]=\"title\" [description]=\"description\" [icon]=\"icon\" [size]=\"size\">\n        <ngcc-button ngccEmptyAction label=\"Create instance\" />\n      </ngcc-empty-state>`,\n  }),\n  args: {\n    title: 'No instances yet',\n    description: 'Create your first instance to get started.',\n    icon: 'search',\n    size: 'md',\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccEmptyState>",
+                    "defaultValue": "{\n  title: 'Components/Empty State',\n  component: NgccEmptyState,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccEmptyState, NgccButton] })],\n  argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] } },\n}"
+                },
+                {
+                    "name": "NoAction",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { title: 'No results', description: 'Try adjusting your filters.', size: 'sm' },\n}"
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts": [
                 {
                     "name": "Default",
@@ -9555,38 +9587,6 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: {\n    helperText: 'Select a fruit from the list',\n  },\n}"
-                }
-            ],
-            "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <ngcc-empty-state [title]=\"title\" [description]=\"description\" [icon]=\"icon\" [size]=\"size\">\n        <ngcc-button ngccEmptyAction label=\"Create instance\" />\n      </ngcc-empty-state>`,\n  }),\n  args: {\n    title: 'No instances yet',\n    description: 'Create your first instance to get started.',\n    icon: 'search',\n    size: 'md',\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<NgccEmptyState>",
-                    "defaultValue": "{\n  title: 'Components/Empty State',\n  component: NgccEmptyState,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [NgccEmptyState, NgccButton] })],\n  argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] } },\n}"
-                },
-                {
-                    "name": "NoAction",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { title: 'No results', description: 'Try adjusting your filters.', size: 'sm' },\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-filter-bar/ngcc-filter-bar.stories.ts": [
@@ -10537,98 +10537,6 @@
                     "defaultValue": "{\n  render: () => ({\n    template: `<ngcc-toggle [skeleton]=\"true\" labelText=\"Loading\"></ngcc-toggle>`,\n  }),\n}"
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Username',\n    placeholder: 'Enter your username',\n  },\n}"
-                },
-                {
-                    "name": "DisabledReadonly",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Readonly Field',\n    readonly: true,\n    value: 'Default value',\n    placeholder: 'Cannot edit this',\n  },\n}"
-                },
-                {
-                    "name": "Email",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Email',\n    type: 'email',\n    placeholder: 'you@example.com',\n    helperText: 'We will not share your email.',\n  },\n}"
-                },
-                {
-                    "name": "Fluid",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Fluid Input',\n    fluid: true,\n    placeholder: 'Full width input',\n  },\n}"
-                },
-                {
-                    "name": "InvalidField",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Invalid Field',\n    placeholder: 'Enter something',\n    invalid: true,\n    errorMessage: 'This is an error message.',\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<NgccInput>",
-                    "defaultValue": "{\n  title: 'Components/Input/Text',\n  component: NgccInput,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccInput, FormsModule, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    placeholder: { control: 'text' },\n    type: { control: 'select', options: ['text', 'email', 'password', 'number'] },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    fluid: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    invalid: { control: 'boolean' },\n    value: { control: 'text' },\n    errorMessage: { control: 'text' },\n  },\n}"
-                },
-                {
-                    "name": "Password",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Password',\n    type: 'password',\n    placeholder: 'Enter password',\n    required: true,\n    helperText: 'At least 8 characters required.',\n  },\n}"
-                },
-                {
-                    "name": "Sizes",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <ngcc-input label=\"Small\" size=\"sm\" placeholder=\"Small size\"></ngcc-input><br/><br/>\n      <ngcc-input label=\"Medium\" size=\"md\" placeholder=\"Medium size\"></ngcc-input><br/><br/>\n      <ngcc-input label=\"Large\" size=\"lg\" placeholder=\"Large size\"></ngcc-input>\n    `,\n  }),\n}"
-                },
-                {
-                    "name": "ValidationDemo",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  render: () => {\n    const fb = new FormBuilder();\n    const form = fb.group({\n      username: fb.control('', [\n        Validators.required,\n        Validators.minLength(4),\n        Validators.maxLength(8),\n        Validators.pattern(/^[a-zA-Z0-9]+$/),\n      ]),\n      email: fb.control('', [Validators.required, Validators.email]),\n      password: fb.control('', [\n        Validators.required,\n        Validators.minLength(8),\n        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*]).+$/),\n      ]),\n    });\n\n    return {\n      props: { form },\n      template: `\n        <form [formGroup]=\"form\" novalidate style=\"display:flex; flex-direction:column; gap:1.5rem;\">\n\n          <ngcc-input\n            label=\"Username\"\n            formControlName=\"username\"\n            placeholder=\"Enter username\"\n            helperText=\"4–8 characters, letters and numbers only\"\n            required=\"true\"\n          ></ngcc-input>\n\n          <ngcc-input\n            label=\"Email\"\n            type=\"email\"\n            formControlName=\"email\"\n            placeholder=\"example@mail.com\"\n            helperText=\"Enter a valid email address\"\n            required=\"true\"\n          ></ngcc-input>\n\n          <ngcc-input\n            label=\"Password\"\n            type=\"password\"\n            formControlName=\"password\"\n            placeholder=\"Enter strong password\"\n            helperText=\"At least 8 chars, include uppercase, lowercase, number, and special character\"\n            required=\"true\"\n          ></ngcc-input>\n\n          <div style=\"margin-top: 1rem; font-size: 0.875rem; color: #525252;\">\n            <p><strong>Form status:</strong> {{ form.status }}</p>\n            <p><strong>Username errors:</strong> {{ form.get('username')?.errors | json }}</p>\n            <p><strong>Email errors:</strong> {{ form.get('email')?.errors | json }}</p>\n            <p><strong>Password errors:</strong> {{ form.get('password')?.errors | json }}</p>\n          </div>\n        </form>\n      `,\n    };\n  },\n}"
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts": [
                 {
                     "name": "Default",
@@ -10719,6 +10627,98 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: {\n    label: 'Feedback',\n    placeholder: 'Type up to 200 characters...',\n    maxLength: 200,\n    helperText: 'You can enter up to 200 chars',\n  },\n}"
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Username',\n    placeholder: 'Enter your username',\n  },\n}"
+                },
+                {
+                    "name": "DisabledReadonly",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Readonly Field',\n    readonly: true,\n    value: 'Default value',\n    placeholder: 'Cannot edit this',\n  },\n}"
+                },
+                {
+                    "name": "Email",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Email',\n    type: 'email',\n    placeholder: 'you@example.com',\n    helperText: 'We will not share your email.',\n  },\n}"
+                },
+                {
+                    "name": "Fluid",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Fluid Input',\n    fluid: true,\n    placeholder: 'Full width input',\n  },\n}"
+                },
+                {
+                    "name": "InvalidField",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Invalid Field',\n    placeholder: 'Enter something',\n    invalid: true,\n    errorMessage: 'This is an error message.',\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgccInput>",
+                    "defaultValue": "{\n  title: 'Components/Input/Text',\n  component: NgccInput,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccInput, FormsModule, ReactiveFormsModule],\n    }),\n  ],\n  argTypes: {\n    label: { control: 'text' },\n    placeholder: { control: 'text' },\n    type: { control: 'select', options: ['text', 'email', 'password', 'number'] },\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n    required: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    fluid: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    helperText: { control: 'text' },\n    ariaLabel: { control: 'text' },\n    invalid: { control: 'boolean' },\n    value: { control: 'text' },\n    errorMessage: { control: 'text' },\n  },\n}"
+                },
+                {
+                    "name": "Password",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Password',\n    type: 'password',\n    placeholder: 'Enter password',\n    required: true,\n    helperText: 'At least 8 characters required.',\n  },\n}"
+                },
+                {
+                    "name": "Sizes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <ngcc-input label=\"Small\" size=\"sm\" placeholder=\"Small size\"></ngcc-input><br/><br/>\n      <ngcc-input label=\"Medium\" size=\"md\" placeholder=\"Medium size\"></ngcc-input><br/><br/>\n      <ngcc-input label=\"Large\" size=\"lg\" placeholder=\"Large size\"></ngcc-input>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "ValidationDemo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => {\n    const fb = new FormBuilder();\n    const form = fb.group({\n      username: fb.control('', [\n        Validators.required,\n        Validators.minLength(4),\n        Validators.maxLength(8),\n        Validators.pattern(/^[a-zA-Z0-9]+$/),\n      ]),\n      email: fb.control('', [Validators.required, Validators.email]),\n      password: fb.control('', [\n        Validators.required,\n        Validators.minLength(8),\n        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*]).+$/),\n      ]),\n    });\n\n    return {\n      props: { form },\n      template: `\n        <form [formGroup]=\"form\" novalidate style=\"display:flex; flex-direction:column; gap:1.5rem;\">\n\n          <ngcc-input\n            label=\"Username\"\n            formControlName=\"username\"\n            placeholder=\"Enter username\"\n            helperText=\"4–8 characters, letters and numbers only\"\n            required=\"true\"\n          ></ngcc-input>\n\n          <ngcc-input\n            label=\"Email\"\n            type=\"email\"\n            formControlName=\"email\"\n            placeholder=\"example@mail.com\"\n            helperText=\"Enter a valid email address\"\n            required=\"true\"\n          ></ngcc-input>\n\n          <ngcc-input\n            label=\"Password\"\n            type=\"password\"\n            formControlName=\"password\"\n            placeholder=\"Enter strong password\"\n            helperText=\"At least 8 chars, include uppercase, lowercase, number, and special character\"\n            required=\"true\"\n          ></ngcc-input>\n\n          <div style=\"margin-top: 1rem; font-size: 0.875rem; color: #525252;\">\n            <p><strong>Form status:</strong> {{ form.status }}</p>\n            <p><strong>Username errors:</strong> {{ form.get('username')?.errors | json }}</p>\n            <p><strong>Email errors:</strong> {{ form.get('email')?.errors | json }}</p>\n            <p><strong>Password errors:</strong> {{ form.get('password')?.errors | json }}</p>\n          </div>\n        </form>\n      `,\n    };\n  },\n}"
                 }
             ],
             "projects/carbideui/src/lib/ngcc-button/ngcc-button.stories.ts": [
@@ -11250,19 +11250,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccCheckbox>",
-                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts": [
                 {
                     "name": "Story",
@@ -11270,6 +11257,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccCodeSnippetComponent>",
                     "file": "projects/carbideui/src/lib/ngcc-code-snippet/ngcc-code-snippet.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccCheckbox>",
+                    "file": "projects/carbideui/src/lib/ngcc-checkbox/ngcc-checkbox.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -11341,19 +11341,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccDropdown>",
-                    "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts": [
                 {
                     "name": "Story",
@@ -11361,6 +11348,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccEmptyState>",
                     "file": "projects/carbideui/src/lib/ngcc-empty-state/ngcc-empty-state.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccDropdown>",
+                    "file": "projects/carbideui/src/lib/ngcc-dropdown/ngcc-dropdown.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -11432,19 +11432,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccLink>",
-                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-modal/ngcc-modal.stories.ts": [
                 {
                     "name": "Story",
@@ -11465,6 +11452,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccMultiSelect>",
                     "file": "projects/carbideui/src/lib/ngcc-multi-select/ngcc-multi-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccLink>",
+                    "file": "projects/carbideui/src/lib/ngcc-link/ngcc-link.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -11640,19 +11640,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccStatTile>",
-                    "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts": [
                 {
                     "name": "Story",
@@ -11660,6 +11647,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccStepper>",
                     "file": "projects/carbideui/src/lib/ngcc-stepper/ngcc-stepper.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccStatTile>",
+                    "file": "projects/carbideui/src/lib/ngcc-stat-tile/ngcc-stat-tile.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -11718,19 +11718,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccTag>",
-                    "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-theme-switcher/ngcc-theme-switcher.stories.ts": [
                 {
                     "name": "Story",
@@ -11744,6 +11731,19 @@
                     "kind": 184
                 }
             ],
+            "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccTag>",
+                    "file": "projects/carbideui/src/lib/ngcc-tag/ngcc-tag.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/carbideui/src/lib/ngcc-tile/ngcc-tile.stories.ts": [
                 {
                     "name": "Story",
@@ -11751,6 +11751,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgccTile>",
                     "file": "projects/carbideui/src/lib/ngcc-tile/ngcc-tile.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccTooltip>",
+                    "file": "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -11783,19 +11796,6 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccTooltip>",
-                    "file": "projects/carbideui/src/lib/ngcc-tooltip/ngcc-tooltip.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/carbideui/src/lib/ngcc-charts/ngcc-gauge-chart/ngcc-gauge-chart.stories.ts": [
                 {
                     "name": "Story",
@@ -11809,13 +11809,13 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts": [
+            "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccInput>",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
+                    "rawtype": "StoryObj<NgccTextAreaComponent>",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -11835,13 +11835,13 @@
                     "kind": 184
                 }
             ],
-            "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts": [
+            "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccTextAreaComponent>",
-                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-textarea/ngcc-text-area.stories.ts",
+                    "rawtype": "StoryObj<NgccInput>",
+                    "file": "projects/carbideui/src/lib/ngcc-input/ngcc-input-text/ngcc-input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
